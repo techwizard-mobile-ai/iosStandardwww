@@ -10,20 +10,29 @@
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <style type="text/css">
         /* Prevent copy paste for all elements except text fields */
-        		*  { -webkit-user-select:none; -webkit-tap-highlight-color:rgba(255, 255, 255, 0); }
-        		input, textarea  { -webkit-user-select:text; }
-        		body { background-color:white; color:black }
+        * {
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        }
+        input,
+        textarea {
+            -webkit-user-select: text;
+        }
+        body {
+            background-color: white;
+            color: black
+        }
     </style>
-    <script src='intelxdk.js'></script>
+    <script src="intelxdk.js"></script>
     <script type="text/javascript">
         /* This code is used to run as soon as Intel activates */
-        		var onDeviceReady=function(){
-        		//hide splash screen
-        		intel.xdk.device.hideSplashScreen();
-        		document.addEventListener("intel.xdk.device.ready",onDeviceReady,false);
-                };
+        var onDeviceReady = function() {
+            //hide splash screen
+            intel.xdk.device.hideSplashScreen();
+            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
+        };
     </script>
-    <script src='js/jquery.min.js'></script>
+    <script src="js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -31,7 +40,7 @@
     <div class="button" id="setup">Begin Setup</div>
     <div class="view hidden" id="main-menu"></div>
     <div class="view hidden" id="substation-view"></div>
-    <script src='js/init.js'></script>
+    <script src="js/init.js"></script>
 </body>
 
 </html>
