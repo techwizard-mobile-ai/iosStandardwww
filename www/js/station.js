@@ -1,8 +1,8 @@
-function Station(name, id) {
+function Station() {
     "use strict";
 
-    var stationName = name,
-        stationID = id;
+    var stationName = "",
+        stationID = "";
 
     Object.defineProperties(this, {
         "stationName": {

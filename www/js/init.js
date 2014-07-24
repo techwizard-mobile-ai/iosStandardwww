@@ -1,6 +1,8 @@
 /*global $:false, document:false */
 $(document).ready(function () {
 
+    var current_station = new Station();
+
     //Generate Station Buttons
     showMenu = function () {
         $("#main-menu").html("");
@@ -23,20 +25,25 @@ $(document).ready(function () {
 
         //Generate buttons
         stations.rows.forEach(function (station) {
-            station_name = "<div class='button float-left' id='station_" + station.station_id + "' onclick='openForm(" + station.station_id + ")'>" + station.station_name + "</div>";
+            var id = '#' + station.station_id;
+            station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
             $('#main-menu').append(station_name);
+            $(id).click({
+                id: station.station_id,
+                name: station.station_name
+            }, openForm);
         });
     };
 
     //main ajax call to build station forms
-    openForm = function (id) {
+    openForm = function (event) {
         $('#main-menu').html("");
         var station_json = $.ajax({
             url: "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
             type: "POST",
             data: {
                 "request": "build_forms",
-                "station_id": id
+                "station_id": event.data.id
             },
             dataType: "json",
             async: false
@@ -48,18 +55,18 @@ $(document).ready(function () {
         station_info = JSON.parse(station_json);
         regulator_list = station_info.rows[0];
         breaker_list = station_info.rows[1];
-        drawStationForm(id, regulator_list, breaker_list);
+        drawStationForm(event.data.id, event.data.name, regulator_list, breaker_list);
     };
 
     //draw the actual form
-    drawStationForm = function (station_id, regulator_list, breaker_list) {
+    drawStationForm = function (station_id, station_name, regulator_list, breaker_list) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
         $('#main-menu').append(form_string);
         $('#station-form').append('<div id="nav-wrapper"></div > ');
         $('#nav-wrapper').append('<div class="inner-banner" id="station-select"></div>');
         $('#station-form').append('<input type="hidden" name="station-id" value="' + station_id + '"></input>');
         $('#station-form').append('<div class="table-wrapper"></div>');
-        //$('#station-form').append('<input type="hidden" name="station_name" value="' + station_name + '"></input>');
+        $('#station-form').append('<input type="hidden" name="station_name" value="' + station_name + '"></input>');
         $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
         $('#station-form').append('<input type="hidden" name="year" value="' + getReadYear() + '"></input>');
         $('#station-form').append('<input type="hidden" name="month" value="' + getReadMonth() + '"></input>');
@@ -251,7 +258,7 @@ $(document).ready(function () {
     getReadDate = function () {
         var date_string = "";
         var d = new Date();
-        date_string = date_string + d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+        date_string = date_string + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         return date_string;
     };
 
@@ -262,7 +269,7 @@ $(document).ready(function () {
 
     getReadMonth = function () {
         var d = new Date();
-        return d.getMonth();
+        return d.getMonth() + 1;
     };
 
     getReadDay = function () {
