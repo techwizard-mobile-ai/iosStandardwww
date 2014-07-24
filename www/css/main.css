@@ -1,0 +1,181 @@
+/*
+ * main css style settings for the substation application
+ */
+
+.button {
+    background-color: lightgreen;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 7px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    height: 50px;
+    border: 2px solid black;
+}
+.view {
+    width: 100%;
+    background-color: green;
+}
+.hidden {
+    display: none;
+}
+.visible {
+    display: block;
+}
+.float-left {
+    float: left;
+    margin-left: 10px;
+}
+div#nav-wrapper {
+    background: white url("../img/logo.png") no-repeat right;
+    border-left: .2em solid black;
+    border-right: .2em solid black;
+    border-top: .2em solid black;
+    height: 5em;
+    padding-left: 1em;
+    padding-top: 1em;
+}
+div.column {
+    background-color: palegreen;
+    color: black;
+    float: left;
+    text-align: center;
+    width: 13%;
+}
+div.column-bold {
+    background-color: palegreen;
+    color: black;
+    float: left;
+    font-weight: bold;
+    text-align: center;
+    width: 13%;
+}
+div.column-header {
+    background-color: darkgreen;
+    color: white;
+    float: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-top: 2px;
+    text-align: center;
+    width: 13%;
+}
+div.column-header-small {
+    background-color: darkgreen;
+    color: white;
+    float: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-top: 2px;
+    text-align: center;
+    width: 7%;
+}
+div.column-header-wide {
+    background-color: darkgreen;
+    color: white;
+    float: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-top: 2px;
+    text-align: center;
+    width: 25%;
+}
+div.column-small {
+    background-color: palegreen;
+    color: black;
+    float: left;
+    font-weight: bold;
+    text-align: center;
+    height: 1px;
+    width: 7%;
+}
+div.inner-banner {
+    display: inline-table;
+    float: left;
+    font-weight: bold;
+    font-size: 2em;
+    height: auto;
+    margin-left: .5em;
+}
+div.row {
+    background-color: palegreen;
+    display: inline-block;
+    padding-top: 5px;
+    width: 100%;
+}
+div.row-bottom {
+    background-color: palegreen;
+    display: inline-block;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 100%;
+}
+div.row-header {
+    background-color: darkgreen;
+    border-bottom: 2px solid black;
+    display: inline-block;
+    width: 100%;
+}
+div.row-top-header {
+    background-color: darkgreen;
+    border-bottom: 2px solid black;
+    display: inline-block;
+    width: 100%;
+}
+div.select-wrapper {
+    display: inline-block;
+}
+div.table-wrapper {
+    background-color: palegreen;
+    border: .2em solid black;
+    position: relative;
+}
+div.wrapper {
+    border: none;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 100%;
+}
+input.button {
+    background-color: darkgreen;
+    border: .2em solid black;
+    color: white;
+    float: left;
+    font-weight: bold;
+    height: 2.5em;
+    margin-left: 0;
+    margin-right: 1.5em;
+    padding: .25em .5em .25em .5em;
+    width: 9em;
+}
+input.button-right {
+    background-color: darkgreen;
+    border: .2em solid black;
+    color: white;
+    float: right;
+    font-weight: bold;
+    height: 2.5em;
+    margin-left: 1.5em;
+    margin-right: 0;
+    padding: .25em .5em .25em .5em;
+    width: 9em;
+}
+input.text-box {
+    border: .2em solid black;
+    width: 95%;
+}
+label {
+    font-weight: bold;
+    vertical-align: middle;
+}
+select.select-custom {
+    background-color: darkgreen;
+    border: .2em solid black;
+    color: white;
+    font-weight: bold;
+    height: 2.5em;
+}
