@@ -22,6 +22,7 @@ $(document).ready(function () {
 
         //Convert JSON to JS class
         stations = JSON.parse(station_json);
+        console.log(stations);
 
         //Generate buttons
         stations.rows.forEach(function (station) {
@@ -53,6 +54,7 @@ $(document).ready(function () {
             breaker_list;
 
         station_info = JSON.parse(station_json);
+        console.log(station_info.cols);
         regulator_list = station_info.rows[0];
         breaker_list = station_info.rows[1];
         drawStationForm(event.data.id, event.data.name, regulator_list, breaker_list);
