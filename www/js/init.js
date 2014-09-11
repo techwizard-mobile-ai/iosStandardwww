@@ -203,21 +203,21 @@ $(document).ready(function () {
 
             drawBreakerFormHeader(breaker_info);
             drawBreakerCountForms(breaker.breaker_id);
-            if (breaker_info.rows[2].breaker_has_mult !== 0) {
+            if (breaker_info.rows.breaker_has_mult !== 0) {
                 //TODO Dont forget to check for if it has amps
                 drawBreakerMultForms(breaker.breaker_id);
             }
-            if (breaker_info.rows[3].breaker_has_amp !== 0) {
+            if (breaker_info.rows.breaker_has_amp !== 0) {
                 drawBreakerAmpForms(breaker.breaker_id);
             }
         });
     };
 
     drawBreakerFormHeader = function (breaker_info) {
-        var id = "header" + breaker_info.rows[0].breaker_name,
+        var id = "header" + breaker_info.rows.breaker_name,
             jquery_id = "#" + id;
         $('.table-wrapper').append("<div class='row-header' id='" + id + "'></div>");
-        $(jquery_id).append("<div class='column-header-small'>" + breaker_info.rows[0].breaker_name + "</div>");
+        $(jquery_id).append("<div class='column-header-small'>" + breaker_info.rows.breaker_name + "</div>");
         $(jquery_id).append("<div class='column-header'>Count</div>");
         $(jquery_id).append("<div class='column-header'>A</div>");
         $(jquery_id).append("<div class='column-header'>B</div>");
