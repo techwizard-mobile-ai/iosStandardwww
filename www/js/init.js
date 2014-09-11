@@ -5,10 +5,13 @@ $(document).ready(function () {
 
     //Generate Station Buttons
     showMenu = function () {
+        var station_json,
+            stations,
+            station_name;
+
         $("#main-menu").html("");
 
-        //Get Station List
-        var station_json = $.ajax({
+        station_json = $.ajax({
             url: "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
             type: "POST",
             data: {
@@ -16,9 +19,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             async: false
-        }).responseText,
-            stations,
-            station_name;
+        }).responseText;
 
         //Convert JSON to JS class
         stations = JSON.parse(station_json);
@@ -38,25 +39,49 @@ $(document).ready(function () {
 
     //main ajax call to build station forms
     openForm = function (event) {
+        var breaker_json,
+            regulator_json,
+            breaker_info,
+            regulator_info,
+            regulator_list,
+            breaker_list;
+
         $('#main-menu').html("");
-        var station_json = $.ajax({
+
+        breaker_json = $.ajax({
             url: "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
             type: "POST",
             data: {
-                "request": "build_forms",
+                "request": "get_breakers",
                 "station_id": event.data.id
             },
             dataType: "json",
             async: false
-        }).responseText,
-            station_info,
-            regulator_list,
-            breaker_list;
+        }).responseText;
 
-        station_info = JSON.parse(station_json);
-        console.log(station_info.cols);
-        regulator_list = station_info.rows[0];
-        breaker_list = station_info.rows[1];
+        regulator_json = $.ajax({
+            url: "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
+            type: "POST",
+            data: {
+                "request": "get_regulators",
+                "station_id": event.data.id
+            },
+            dataType: "json",
+            async: false
+        }).responseText;
+
+        console.log(breaker_json);
+        console.log(regulator_json);
+
+        breaker_info = JSON.parse(breaker_json);
+        regulator_info = JSON.parse(regulator_json);
+
+        console.log(breaker_info);
+        console.log(regulator_info);
+
+        breaker_list = breaker_info.rows;
+        regulator_list = regulator_info.rows;
+
         drawStationForm(event.data.id, event.data.name, regulator_list, breaker_list);
     };
 
@@ -82,7 +107,10 @@ $(document).ready(function () {
 
     drawRegulatorForms = function (regulator_list) {
         regulator_list.forEach(function (regulator) {
-            var station_json = $.ajax({
+            var station_json,
+                regulator_info;
+
+            station_json = $.ajax({
                 url: "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
                 type: "POST",
                 data: {
@@ -91,8 +119,7 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 async: false
-            }).responseText,
-                regulator_info;
+            }).responseText;
 
             regulator_info = JSON.parse(station_json);
 
@@ -158,7 +185,10 @@ $(document).ready(function () {
 
     drawBreakerForms = function (breaker_list) {
         breaker_list.forEach(function (breaker) {
-            var station_json = $.ajax({
+            var station_json,
+                breaker_info;
+
+            station_json = $.ajax({
                 url: "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
                 type: "POST",
                 data: {
@@ -167,8 +197,7 @@ $(document).ready(function () {
                 },
                 dataType: "json",
                 async: false
-            }).responseText,
-                breaker_info;
+            }).responseText;
 
             breaker_info = JSON.parse(station_json);
 
