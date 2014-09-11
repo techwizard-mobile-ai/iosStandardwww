@@ -131,10 +131,10 @@ $(document).ready(function () {
     };
 
     drawRegulatorFormHeader = function (regulator_info) {
-        var id = "regulator" + regulator_info.rows[0].regulator_name + "header",
+        var id = "regulator" + regulator_info.rows.regulator_name + "header",
             jquery_id = "#" + id;
         $('.table-wrapper').append("<div class='row-top-header' id='" + id + "'></div>");
-        $(jquery_id).append("<div class='column-header-small'>" + regulator_info.rows[0].regulator_name + "</div>");
+        $(jquery_id).append("<div class='column-header-small'>" + regulator_info.rows.regulator_name + "</div>");
         $(jquery_id).append("<div class='column-header'>Count</div>");
         $(jquery_id).append("<div class='column-header'>Raise</div>");
         $(jquery_id).append("<div class='column-header'>Lower</div>");
@@ -309,12 +309,15 @@ $(document).ready(function () {
     };
 
     //Hide Station Buttons
-    $('#setup').click(function () {
-        $('#main-menu').removeClass('hidden');
-        $('#main-menu').addClass('visible');
-        $('#setup').addClass('hidden');
-    });
-
+    enableSetup = function () {
+        $('#setup').click(function () {
+            $('#main-menu').removeClass('hidden');
+            $('#main-menu').addClass('visible');
+            $('#setup').addClass('hidden');
+        });
+    };
+    
+    enableSetup();
     showMenu();
 
     //console.log(getReadDate());
