@@ -8,7 +8,7 @@ var FormController = function(jsoncontroller) {
         });
     };
 
-	this.showMenu = function() {
+	this.showMenu = function(event) {
 		var stations = jsoncontroller.getStationList();
 
 		$("#main-menu").html("");
@@ -24,16 +24,34 @@ var FormController = function(jsoncontroller) {
         });
 	};
 
-	var openForm = function(event) {
-		var regulator_list = jsoncontroller.getRegulatorList(event),
-			breaker_list = jsoncontroller.getBreakerList(event),
-			regulator_ids = regulator_list.rows,
-			breaker_ids = breaker_list.rows;
+	var submitForm = function (event) {
+        var hidden = $('#station-form').find(':hidden');
+        hidden.show();
 
-		$("#main-menu").html("");
+        console.log($('#station-form').serialize());
+        $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
+            "username": "cemc",
+            "password": "cemc"
+        });
+        $.post("http://127.0.0.1/cemc_apparatus/view/processread.php", $('#station-form').serialize(), function (ret) {
+            if (ret !== "") {
+                alert(ret);
+            }
+        });
+
+        hidden.hide();
+    };
+
+    var openForm = function (event) {
+        var regulator_list = jsoncontroller.getRegulatorList(event),
+            breaker_list = jsoncontroller.getBreakerList(event),
+            regulator_ids = regulator_list.rows,
+            breaker_ids = breaker_list.rows;
+
+        $("#main-menu").html("");
 
         drawStationForm(event.data.id, event.data.name, regulator_ids, breaker_ids);
-	};
+    };
 
 	var drawStationForm = function (station_id, station_name, regulator_list, breaker_list) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
@@ -49,9 +67,11 @@ var FormController = function(jsoncontroller) {
         $('#station-form').append('<input type="hidden" name="day" value="' + getReadDay() + '"></input>');
         drawRegulatorForms(regulator_list);
         drawBreakerForms(breaker_list);
-        $('.table-wrapper').append('<input type="button" name="back" value="BACK" onclick="showMenu()" />');
-        $('.table-wrapper').append('<input type="button" name="check json" value="CHECK JSON" onclick="showJSON()" />');
-        $('.table-wrapper').append('<input type="button" name="submit" value="submit" onclick="submitRead()" />');
+        $('.table-wrapper').append('<input type="button" id="back" name="back" value="BACK" />');
+        $('.table-wrapper').append('<input type="button" id="submit" name="submit" value="SUBMIT" />');
+        $('#back').click(FormController.showMenu);
+        $('#submit').click(submitForm);
+
     };
 
     var drawRegulatorForms = function (regulator_list) {
@@ -198,25 +218,6 @@ var FormController = function(jsoncontroller) {
         $(jquery_id).append("<div class='column'></div>");
         $(jquery_id).append("<div class='column'></div>");
     };
-
-    var showJSON = function () {
-        var hidden = $('#station-form').find(':hidden');
-        hidden.show();
-
-        console.log($('#station-form').serialize());
-        $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
-            "username": "cemc",
-            "password": "cemc"
-        });
-        $.post("http://127.0.0.1/cemc_apparatus/view/processread.php", $('#station-form').serialize(), function (ret) {
-            if (ret !== "") {
-                alert(ret);
-            }
-        });
-
-        hidden.hide();
-    };
-
 
     //All these get date functions need refactoring. this is lazy.
     var getReadDate = function () {
