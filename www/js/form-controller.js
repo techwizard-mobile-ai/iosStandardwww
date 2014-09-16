@@ -13,7 +13,7 @@
  */
 var FormController = function (json_controller) {
     
-    var form_generator = new FormGenerator();
+    var form_generator = new FormGenerator(json_controller);
     
     /**
      * Adds click event handler to the setup button
@@ -34,7 +34,7 @@ var FormController = function (json_controller) {
 	this.showMenu = function (event) {
 		var stations = json_controller.getStationList();
 
-		$("#main-menu").html("");
+        form_generator.clearMainMenu();
 
 		stations.rows.forEach(function (station) {
             var id = '#' + station.station_id,
@@ -75,7 +75,8 @@ var FormController = function (json_controller) {
 
         drawStationForm(event.data.id, event.data.name, regulator_ids, breaker_ids);
     };
-
+    
+    //MVC WOES: Move this eventually
 	var drawStationForm = function (station_id, station_name, regulator_list, breaker_list) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
         $('#main-menu').append(form_string);
@@ -88,40 +89,13 @@ var FormController = function (json_controller) {
         $('#station-form').append('<input type="hidden" name="year" value="' + getReadYear() + '"></input>');
         $('#station-form').append('<input type="hidden" name="month" value="' + getReadMonth() + '"></input>');
         $('#station-form').append('<input type="hidden" name="day" value="' + getReadDay() + '"></input>');
-        drawRegulatorForms(regulator_list);
-        drawBreakerForms(breaker_list);
+        form_generator.drawRegulatorForms(regulator_list);
+        form_generator.drawBreakerForms(breaker_list);
         $('.table-wrapper').append('<input type="button" id="back" name="back" value="BACK" />');
         $('.table-wrapper').append('<input type="button" id="submit" name="submit" value="SUBMIT" />');
         $('#back').click(FormController.showMenu);
         $('#submit').click(submitForm);
-
-    };
-
-    var drawRegulatorForms = function (regulator_list) {
-        regulator_list.forEach(function (regulator) {
-            var regulator_info = json_controller.getRegulatorInfo(regulator);
-
-            form_generator.drawRegulatorFormHeader(regulator_info);
-            form_generator.drawRegulatorAForms(regulator.regulator_id);
-            form_generator.drawRegulatorBForms(regulator.regulator_id);
-            form_generator.drawRegulatorCForms(regulator.regulator_id);
-        });
-    };
-
-    var drawBreakerForms = function (breaker_list) {
-        breaker_list.forEach(function (breaker) {
-            var breaker_info = json_controller.getBreakerInfo(breaker);
-
-            form_generator.drawBreakerFormHeader(breaker_info);
-            form_generator.drawBreakerCountForms(breaker.breaker_id);
-            if (breaker_info.rows.breaker_has_mult !== 0) {
-                form_generator.drawBreakerMultForms(breaker.breaker_id);
-            }
-            if (breaker_info.rows.breaker_has_amp !== 0) {
-                form_generator.drawBreakerAmpForms(breaker.breaker_id);
-            }
-        });
-    };
+    };    
 
     //All these get date functions need refactoring. this is lazy.
     var getReadDate = function () {

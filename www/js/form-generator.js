@@ -8,10 +8,10 @@
 
 /**
  * Constructor for the FormGenerator class
- * @param none
+ * @param {Object} json_controller
  * @returns none
  */
-var FormGenerator = function () {
+var FormGenerator = function (json_controller) {
     
     /**
      * Clears the MainMenu div
@@ -22,7 +22,33 @@ var FormGenerator = function () {
         $("#main-menu").html("");
     };
     
-    this.drawRegulatorFormHeader = function (regulator_info) {
+    this.drawRegulatorForms = function (regulator_list) {
+        regulator_list.forEach(function (regulator) {
+            var regulator_info = json_controller.getRegulatorInfo(regulator);
+
+            drawRegulatorFormHeader(regulator_info);
+            drawRegulatorAForms(regulator.regulator_id);
+            drawRegulatorBForms(regulator.regulator_id);
+            drawRegulatorCForms(regulator.regulator_id);
+        });
+    };
+
+    this.drawBreakerForms = function (breaker_list) {
+        breaker_list.forEach(function (breaker) {
+            var breaker_info = json_controller.getBreakerInfo(breaker);
+
+            drawBreakerFormHeader(breaker_info);
+            drawBreakerCountForms(breaker.breaker_id);
+            if (breaker_info.rows.breaker_has_mult !== 0) {
+                drawBreakerMultForms(breaker.breaker_id);
+            }
+            if (breaker_info.rows.breaker_has_amp !== 0) {
+                drawBreakerAmpForms(breaker.breaker_id);
+            }
+        });
+    };
+    
+    var drawRegulatorFormHeader = function (regulator_info) {
         var regulator_name = regulator_info.rows.regulator_name,
             id = "regulator" + regulator_name + "header",
             jquery_id = "#" + id;
@@ -40,7 +66,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column-header'>Comments</div>");
     };
     
-    this.drawRegulatorAForms = function (regulator_id) {
+    var drawRegulatorAForms = function (regulator_id) {
         var jquery_id = "#a" + regulator_id;
 
         $('.table-wrapper').append("<div class='row' id='a" + regulator_id + "'></div>");
@@ -54,7 +80,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_comments' value='' /></div>");
     };
 
-    this.drawRegulatorBForms = function (regulator_id) {
+    var drawRegulatorBForms = function (regulator_id) {
         var jquery_id = "#b" + regulator_id;
 
         $('.table-wrapper').append("<div class='row' id='b" + regulator_id + "'></div>");
@@ -68,7 +94,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_comments' value='' /></div>");
     };
 
-    this.drawRegulatorCForms = function (regulator_id) {
+    var drawRegulatorCForms = function (regulator_id) {
         var jquery_id = "#c" + regulator_id;
 
         $('.table-wrapper').append("<div class='row' id='c" + regulator_id + "'></div>");
@@ -82,7 +108,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_comments' value='' /></div>");
     };
     
-    this.drawBreakerFormHeader = function (breaker_info) {
+    var drawBreakerFormHeader = function (breaker_info) {
         var breaker_name = breaker_info.rows.breaker_name,
             id = "header" + breaker_name,
             jquery_id = "#" + id;
@@ -98,7 +124,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column-header'>Comments</div>");
     };
 
-    this.drawBreakerCountForms = function (breaker_id) {
+    var drawBreakerCountForms = function (breaker_id) {
         var jquery_id = "#breaker" + breaker_id;
 
         $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "'></div>");
@@ -112,7 +138,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "comments' value='' /></div>");
     };
 
-    this.drawBreakerMultForms = function (breaker_id) {
+    var drawBreakerMultForms = function (breaker_id) {
         var jquery_id = "#breaker" + breaker_id + "mult";
 
         $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "mult'></div>");
@@ -126,7 +152,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'></div>");
     };
 
-    this.drawBreakerAmpForms = function (breaker_id) {
+    var drawBreakerAmpForms = function (breaker_id) {
         var jquery_id = "#breaker" + breaker_id + "amp";
 
         $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "amp'></div>");
