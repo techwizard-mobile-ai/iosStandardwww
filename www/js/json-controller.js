@@ -1,3 +1,4 @@
+/*global $:false, document:false, console:false, alert:false */
 var JSONController = function () {
 
     this.getStationList = function () {

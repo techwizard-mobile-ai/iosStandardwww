@@ -1,5 +1,22 @@
-var FormController = function(jsoncontroller) {
+/*global $:false, document:false, console:false, alert:false */
 
+/**
+ * This class controls form generation for substations
+ * @author Christopher Wilson
+ * @version 9/16/2014
+ */
+
+/**
+ * Constructor for the form controller class.
+ * @param {Object} jsoncontroller
+ *      the JSONController instance to use
+ */
+var FormController = function (jsoncontroller) {
+    
+    /**
+     * Adds click event handler to the setup button
+     * @return none
+     */
 	this.enableSetup = function () {
         $('#setup').click(function () {
             $('#main-menu').removeClass('hidden');
@@ -7,14 +24,18 @@ var FormController = function(jsoncontroller) {
             $('#setup').addClass('hidden');
         });
     };
-
-	this.showMenu = function(event) {
+    
+    /**
+     * Queries the JSONController instance for a list of available substations
+     * and generates the html to display them for the user
+     */
+	this.showMenu = function (event) {
 		var stations = jsoncontroller.getStationList();
 
 		$("#main-menu").html("");
 
 		stations.rows.forEach(function (station) {
-            var id = '#' + station.station_id;
+            var id = '#' + station.station_id,
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
             $('#main-menu').append(station_name);
             $(id).click({

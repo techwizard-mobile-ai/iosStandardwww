@@ -1,4 +1,4 @@
-/*global $:false, document:false */
+/*global $:false, document:false, JSONController:false, FormController:false */
 $(document).ready(function () {
 
     var jsonController = new JSONController(),
