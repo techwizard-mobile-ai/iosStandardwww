@@ -1,4 +1,4 @@
-/*global $:false, document:false, console:false, alert:false */
+/*global $:false, document:false, console:false, alert:false, FormGenerator:false */
 
 /**
  * This class controls form generation for substations
@@ -8,10 +8,12 @@
 
 /**
  * Constructor for the form controller class.
- * @param {Object} jsoncontroller
+ * @param {Object} json_controller
  *      the JSONController instance to use
  */
-var FormController = function (jsoncontroller) {
+var FormController = function (json_controller) {
+    
+    var form_generator = new FormGenerator();
     
     /**
      * Adds click event handler to the setup button
@@ -30,7 +32,7 @@ var FormController = function (jsoncontroller) {
      * and generates the html to display them for the user
      */
 	this.showMenu = function (event) {
-		var stations = jsoncontroller.getStationList();
+		var stations = json_controller.getStationList();
 
 		$("#main-menu").html("");
 
@@ -64,12 +66,12 @@ var FormController = function (jsoncontroller) {
     };
 
     var openForm = function (event) {
-        var regulator_list = jsoncontroller.getRegulatorList(event),
-            breaker_list = jsoncontroller.getBreakerList(event),
+        var regulator_list = json_controller.getRegulatorList(event),
+            breaker_list = json_controller.getBreakerList(event),
             regulator_ids = regulator_list.rows,
             breaker_ids = breaker_list.rows;
 
-        $("#main-menu").html("");
+        form_generator.clearMainMenu();
 
         drawStationForm(event.data.id, event.data.name, regulator_ids, breaker_ids);
     };
@@ -97,147 +99,28 @@ var FormController = function (jsoncontroller) {
 
     var drawRegulatorForms = function (regulator_list) {
         regulator_list.forEach(function (regulator) {
-            var regulator_info = jsoncontroller.getRegulatorInfo(regulator);
+            var regulator_info = json_controller.getRegulatorInfo(regulator);
 
-            drawRegulatorFormHeader(regulator_info);
-            drawRegulatorAForms(regulator.regulator_id);
-            drawRegulatorBForms(regulator.regulator_id);
-            drawRegulatorCForms(regulator.regulator_id);
+            form_generator.drawRegulatorFormHeader(regulator_info);
+            form_generator.drawRegulatorAForms(regulator.regulator_id);
+            form_generator.drawRegulatorBForms(regulator.regulator_id);
+            form_generator.drawRegulatorCForms(regulator.regulator_id);
         });
-    };
-
-    var drawRegulatorFormHeader = function (regulator_info) {
-        var regulator_name = regulator_info.rows.regulator_name,
-            id = "regulator" + regulator_name + "header",
-            jquery_id = "#" + id;
-
-        console.log(regulator_name);
-
-        $('.table-wrapper').append("<div class='row-top-header' id='" + id + "'></div>");
-        $(jquery_id).append("<div class='column-header-small'>" + regulator_name + "</div>");
-        $(jquery_id).append("<div class='column-header'>Count</div>");
-        $(jquery_id).append("<div class='column-header'>Raise</div>");
-        $(jquery_id).append("<div class='column-header'>Lower</div>");
-        $(jquery_id).append("<div class='column-header'>AMP</div>");
-        $(jquery_id).append("<div class='column-header'>High Voltage</div>");
-        $(jquery_id).append("<div class='column-header'>Low Voltage</div>");
-        $(jquery_id).append("<div class='column-header'>Comments</div>");
-    };
-
-    var drawRegulatorAForms = function (regulator_id) {
-        var jquery_id = "#a" + regulator_id;
-
-        $('.table-wrapper').append("<div class='row' id='a" + regulator_id + "'></div>");
-        $(jquery_id).append("<div class='column-small'>A</div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_count' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_raise' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_lower' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_amp' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_high_voltage' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_low_voltage' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_comments' value='' /></div>");
-    };
-
-    var drawRegulatorBForms = function (regulator_id) {
-        var jquery_id = "#b" + regulator_id;
-
-        $('.table-wrapper').append("<div class='row' id='b" + regulator_id + "'></div>");
-        $(jquery_id).append("<div class='column-small'>B</div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_count' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_raise' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_lower' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_amp' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_high_voltage' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_low_voltage' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_comments' value='' /></div>");
-    };
-
-    var drawRegulatorCForms = function (regulator_id) {
-        var jquery_id = "#c" + regulator_id;
-
-        $('.table-wrapper').append("<div class='row' id='c" + regulator_id + "'></div>");
-        $(jquery_id).append("<div class='column-small'>C</div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_count' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_raise' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_lower' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_amp' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_high_voltage' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_low_voltage' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_comments' value='' /></div>");
     };
 
     var drawBreakerForms = function (breaker_list) {
         breaker_list.forEach(function (breaker) {
-            var breaker_info = jsoncontroller.getBreakerInfo(breaker);
+            var breaker_info = json_controller.getBreakerInfo(breaker);
 
-            drawBreakerFormHeader(breaker_info);
-            drawBreakerCountForms(breaker.breaker_id);
+            form_generator.drawBreakerFormHeader(breaker_info);
+            form_generator.drawBreakerCountForms(breaker.breaker_id);
             if (breaker_info.rows.breaker_has_mult !== 0) {
-                //TODO Dont forget to check for if it has amps
-                drawBreakerMultForms(breaker.breaker_id);
+                form_generator.drawBreakerMultForms(breaker.breaker_id);
             }
             if (breaker_info.rows.breaker_has_amp !== 0) {
-                drawBreakerAmpForms(breaker.breaker_id);
+                form_generator.drawBreakerAmpForms(breaker.breaker_id);
             }
         });
-    };
-
-    var drawBreakerFormHeader = function (breaker_info) {
-        var breaker_name = breaker_info.rows.breaker_name,
-            id = "header" + breaker_name,
-            jquery_id = "#" + id;
-
-        $('.table-wrapper').append("<div class='row-header' id='" + id + "'></div>");
-        $(jquery_id).append("<div class='column-header-small'>" + breaker_name + "</div>");
-        $(jquery_id).append("<div class='column-header'>Count</div>");
-        $(jquery_id).append("<div class='column-header'>A</div>");
-        $(jquery_id).append("<div class='column-header'>B</div>");
-        $(jquery_id).append("<div class='column-header'>C</div>");
-        $(jquery_id).append("<div class='column-header'>N</div>");
-        $(jquery_id).append("<div class='column-header'>Battery</div>");
-        $(jquery_id).append("<div class='column-header'>Comments</div>");
-    };
-
-    var drawBreakerCountForms = function (breaker_id) {
-        var jquery_id = "#breaker" + breaker_id;
-
-        $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "'></div>");
-        $(jquery_id).append("<div class='column-small'></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "count' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "a_flag' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "b_flag' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "c_flag' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "n_flag' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "battery' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "comments' value='' /></div>");
-    };
-
-    var drawBreakerMultForms = function (breaker_id) {
-        var jquery_id = "#breaker" + breaker_id + "mult";
-
-        $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "mult'></div>");
-        $(jquery_id).append("<div class='column-small'></div>");
-        $(jquery_id).append("<div class='column-bold'>Mult</div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "a_mult' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "b_mult' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "c_mult' value='' /></div>");
-        $(jquery_id).append("<div class='column'></div>");
-        $(jquery_id).append("<div class='column'></div>");
-        $(jquery_id).append("<div class='column'></div>");
-    };
-
-    var drawBreakerAmpForms = function (breaker_id) {
-        var jquery_id = "#breaker" + breaker_id + "amp";
-
-        $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "amp'></div>");
-        $(jquery_id).append("<div class='column-small'></div>");
-        $(jquery_id).append("<div class='column-bold'>Amps</div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "a_amps' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "b_amps' value='' /></div>");
-        $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "c_amps' value='' /></div>");
-        $(jquery_id).append("<div class='column'></div>");
-        $(jquery_id).append("<div class='column'></div>");
-        $(jquery_id).append("<div class='column'></div>");
     };
 
     //All these get date functions need refactoring. this is lazy.
