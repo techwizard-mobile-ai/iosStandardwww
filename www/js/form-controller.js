@@ -56,7 +56,7 @@ var FormController = function (jsoncontroller) {
         });
         $.post("http://127.0.0.1/cemc_apparatus/view/processread.php", $('#station-form').serialize(), function (ret) {
             if (ret !== "") {
-                alert(ret);
+                alert("SUCCESS");
             }
         });
 
