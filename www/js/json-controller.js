@@ -1,6 +1,23 @@
 /*global $:false, document:false, console:false, alert:false */
+
+/**
+ * This class controls JSON requests to and from the main app server
+ * @author Christopher Wilson
+ * @version 9/16/2014
+ */
+
+/**
+ * Constructor for the JSONController class
+ * @param none
+ * @return none
+ */
 var JSONController = function () {
 
+    /**
+     * Request the list of substations from the app server
+     * @param none
+     * @return {Object} stations
+     */
     this.getStationList = function () {
     	var station_json,
     		stations;
@@ -20,7 +37,12 @@ var JSONController = function () {
 
         return stations;
     };
-
+    
+    /**
+     * Request a list of breakers from the selected substation
+     * @param {Object} event
+     * @return {Object} breaker_list
+     */
     this.getBreakerList = function (event) {
     	var breaker_json,
     		breaker_list;
@@ -41,7 +63,12 @@ var JSONController = function () {
 
         return breaker_list;
     };
-
+    
+    /**
+     * Request information on a specific breaker
+     * @param {Object} breaker
+     * @return {Object} breaker_info
+     */
     this.getBreakerInfo = function (breaker) {
     	var breaker_json,
             breaker_info;
@@ -62,7 +89,12 @@ var JSONController = function () {
 
         return breaker_info;
     };
-
+    
+    /**
+     * Request a list of regulators for the selected substation
+     * @param {Object} event
+     * @return {Object} regulator_list
+     */
     this.getRegulatorList = function (event) {
     	var regulator_json,
     		regulator_list;
@@ -83,7 +115,12 @@ var JSONController = function () {
 
         return regulator_list;
     };
-
+    
+    /**
+     * Request information for a specific regulator
+     * @param {Object} regulator
+     * @return {Object} regulator information
+     */
     this.getRegulatorInfo = function (regulator) {
     	var regulator_json,
             regulator_info;
