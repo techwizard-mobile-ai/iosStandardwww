@@ -22,6 +22,11 @@ var FormGenerator = function (json_controller) {
         $("#main-menu").html("");
     };
     
+    /**
+     * draw form fields for each regulator
+     * @param {Object} regulator_list
+     * @return none
+     */
     this.drawRegulatorForms = function (regulator_list) {
         regulator_list.forEach(function (regulator) {
             var regulator_info = json_controller.getRegulatorInfo(regulator);
@@ -32,7 +37,12 @@ var FormGenerator = function (json_controller) {
             drawRegulatorCForms(regulator.regulator_id);
         });
     };
-
+    
+    /**
+     * draw form fields for each breaker
+     * @param {Object} breaker_list
+     * @return none
+     */
     this.drawBreakerForms = function (breaker_list) {
         breaker_list.forEach(function (breaker) {
             var breaker_info = json_controller.getBreakerInfo(breaker);
