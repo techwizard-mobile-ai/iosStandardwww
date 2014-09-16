@@ -1,4 +1,4 @@
-/*global $:false, document:false, console:false, alert:false */
+/*global $:false, document:false, console:false, alert:false, window:false */
 
 /**
  * This class controls local file storage in the event that the main app server cannot be reached
@@ -11,6 +11,14 @@
  * @param none
  * @return none
  */
-var DBController = function() {
-        
+var DBController = function () {
+    
+    this.checkConnection = function () {
+        if (window.navigator.onLine === true) {
+            console.log("ONLINE");
+        }
+        else {
+            console.log("OFFLINE");
+        }
+    };
 };

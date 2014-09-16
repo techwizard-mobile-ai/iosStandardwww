@@ -1,4 +1,4 @@
-/*global $:false, document:false, console:false, alert:false */
+/*global $:false, document:false, console:false, alert:false, DBController:false */
 
 /**
  * This class controls JSON requests to and from the main app server
@@ -12,6 +12,10 @@
  * @return none
  */
 var JSONController = function () {
+    
+    var db_controller = new DBController();
+    
+    db_controller.checkConnection();
 
     /**
      * Request the list of substations from the app server
