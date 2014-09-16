@@ -19,8 +19,7 @@ $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", function () {
     if ("indexedDB" in window) {
         console.log("IndexedDB Available");
-    } 
-    else {
+    } else {
         console.log("IndexedDB Unavailable");
     }
 });
