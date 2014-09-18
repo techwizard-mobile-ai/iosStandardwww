@@ -33,6 +33,10 @@ var DBController = function () {
         }
     };    
     
+    this.addSubStation = function(sub_station) {
+        //TODO Make Models
+    };
+    
     function checkSupport () {
         if ("indexedDB" in window) {
             return true;
@@ -47,6 +51,11 @@ var DBController = function () {
 
             openRequest.onupgradeneeded = function(event) {
                 console.log("Upgrading...");
+                var thisDB = event.target.result;
+                
+                if (!thisDB.objectStoreNames.contains("substation_list")) {
+                    this.DB.createObjectStore("substation_list", { autoIncrement: true });
+                }
             };
 
             openRequest.onsuccess = function(event) {
