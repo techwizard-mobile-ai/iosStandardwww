@@ -61,7 +61,7 @@ var DBController = function () {
                 db = event.target.result;
                 
                 if (!db.objectStoreNames.contains("substation_list")) {
-                    db.createObjectStore("substation_list", { autoIncrement: true });
+                    db.createObjectStore("substation_list", { keypath: "id" });
                 }
             };
 
