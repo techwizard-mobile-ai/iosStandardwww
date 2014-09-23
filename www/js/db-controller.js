@@ -39,9 +39,17 @@ var DBController = function () {
      * @return none
      */
     this.addSubStation = function(sub_station) {
-        var transaction = db.transaction(["substation_list"], "readwrite");
-        var objectStore = transaction.objectStore("substation_list");
-        var request = objectStore.add(sub_station);
+        var transaction = db.transaction(["substation_list"], "readwrite"),
+            objectStore = transaction.objectStore("substation_list"),
+            request = objectStore.add(sub_station);
+        
+        request.onerror = function(event) {
+            console.log("Error", event.target.error.name);
+        };
+        
+        request.onsuccess = function(event) {
+            console.log("record added");
+        };
     };
     
     function checkSupport () {
