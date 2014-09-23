@@ -39,16 +39,17 @@ var DBController = function () {
      * @return none
      */
     this.addSubStation = function(sub_station) {
-        var transaction = db.transaction(["substation_list"], "readwrite"),
-            objectStore = transaction.objectStore("substation_list"),
-            request = objectStore.add(sub_station);
+        var request = indexedDB.open("test1", 1);
         
-        request.onerror = function(event) {
+        request.onerror = function (event) {
             console.log("Error", event.target.error.name);
         };
         
-        request.onsuccess = function(event) {
-            console.log("record added");
+        request.onsuccess = function (event) {
+            var db = event.target.result,
+                objectStore = db.transaction("substation_list", "readwrite").objectStore("substation_list");
+                objectStore.add(sub_station);
+                console.log("Record added.");                
         };
     };
     
@@ -62,14 +63,14 @@ var DBController = function () {
     
     function setOpenRequest () {
         if (isSupported) {
-            openRequest = indexedDB.open("test", 1);
+            openRequest = indexedDB.open("test1", 1);
 
             openRequest.onupgradeneeded = function(event) {
                 console.log("Upgrading...");
                 db = event.target.result;
                 
                 if (!db.objectStoreNames.contains("substation_list")) {
-                    var objectStore = db.createObjectStore("substation_list", { keypath: "id" });
+                    var objectStore = db.createObjectStore("substation_list", { autoIncrement : true });
                     objectStore.createIndex("id", "id", {unique:true});
                     objectStore.createIndex("name", "name", {unique:true});
                 }

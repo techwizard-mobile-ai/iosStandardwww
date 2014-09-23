@@ -1,4 +1,4 @@
-/*global $:false, document:false, console:false, alert:false, FormGenerator:false */
+/*global $:false, document:false, console:false, alert:false, FormGenerator:false, DBController:false, SubStation:false*/
 
 /**
  * This class controls form generation for substations
@@ -14,6 +14,7 @@
 var FormController = function (json_controller) {
     
     var form_generator = new FormGenerator(json_controller);
+    var db_controller = new DBController();
     
     /**
      * Adds click event handler to the setup button
@@ -44,6 +45,9 @@ var FormController = function (json_controller) {
                 id: station.station_id,
                 name: station.station_name
             }, openForm);
+            
+            var sub_station = new SubStation(station.station_id, station.station_name);
+            db_controller.addSubStation(sub_station);
         });
 	};
 
