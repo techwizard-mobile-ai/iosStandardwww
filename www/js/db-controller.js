@@ -40,8 +40,8 @@ var DBController = function () {
      */
     this.addSubStation = function(sub_station) {
         var transaction = db.transaction(["substation_list"], "readwrite");
-        var store = transaction.objectStore("substation_list");
-        var request = store.add(sub_station);
+        var objectStore = transaction.objectStore("substation_list");
+        var request = objectStore.add(sub_station);
     };
     
     function checkSupport () {
@@ -61,7 +61,9 @@ var DBController = function () {
                 db = event.target.result;
                 
                 if (!db.objectStoreNames.contains("substation_list")) {
-                    db.createObjectStore("substation_list", { keypath: "id" });
+                    var objectStore = db.createObjectStore("substation_list", { keypath: "id" });
+                    objectStore.createIndex("id", "id", {unique:true});
+                    objectStore.createIndex("name", "name", {unique:true});
                 }
             };
 
