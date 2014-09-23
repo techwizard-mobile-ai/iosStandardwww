@@ -33,8 +33,15 @@ var DBController = function () {
         }
     };    
     
+    /**
+     * This method adds a substation to the IndexedDB station list backup
+     * @param {Object} sub_station
+     * @return none
+     */
     this.addSubStation = function(sub_station) {
-        //TODO Make Models
+        var transaction = db.transaction(["substation_list"], "readwrite");
+        var store = transaction.objectStore("substation_list");
+        var request = store.add(sub_station);
     };
     
     function checkSupport () {
@@ -51,10 +58,10 @@ var DBController = function () {
 
             openRequest.onupgradeneeded = function(event) {
                 console.log("Upgrading...");
-                var thisDB = event.target.result;
+                db = event.target.result;
                 
-                if (!thisDB.objectStoreNames.contains("substation_list")) {
-                    this.DB.createObjectStore("substation_list", { autoIncrement: true });
+                if (!db.objectStoreNames.contains("substation_list")) {
+                    db.createObjectStore("substation_list", { autoIncrement: true });
                 }
             };
 
