@@ -49,6 +49,7 @@ var FormController = function (json_controller) {
             var sub_station = new SubStation(station.station_id, station.station_name);
             db_controller.addSubStation(sub_station);
         });
+        db_controller.getStationList();
 	};
 
 	var submitForm = function (event) {

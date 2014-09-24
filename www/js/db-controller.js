@@ -53,6 +53,48 @@ var DBController = function () {
         };
     };
     
+    /**
+     * This method returns a list of sub_stations to the form_controller
+     * when an internet connection is not available
+     * @param none
+     * @return {Array} the list of stations
+     */
+    this.getStationList = function () {
+        if (isSupported) {
+            var stations = [],
+                openRequest = indexedDB.open("test1", 1);
+            
+            openRequest.onsuccess = function(event) {
+               var db = event.target.result,
+                   objectStore = db.transaction(["substation_list"], "readonly").objectStore("substation_list"),
+                   cursor = objectStore.openCursor();
+                
+                cursor.onsuccess = function(event) {
+                    var result = event.target.result;                        
+                    
+                    if (result) {
+                        console.log("station_name: ", result.value.name, "station_id: ", result.value.id);
+                        stations.push(result.value);
+                        result.continue();
+                    } else {
+                        console.log(stations);
+                        return stations;
+                    }
+                };                    
+            };
+            
+            openRequest.onerror = function(event) {
+                console.log("Error");
+                console.dir(event);
+            };
+            
+            
+            
+        } else {
+            return [];
+        }
+    };
+    
     function checkSupport () {
         if ("indexedDB" in window) {
             return true;
