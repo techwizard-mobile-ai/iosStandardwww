@@ -73,7 +73,7 @@ var DBController = function () {
                     var result = event.target.result;                        
                     
                     if (result) {
-                        console.log("station_name: ", result.value.name, "station_id: ", result.value.id);
+                        console.log("station_name: ", result.value.station_name, "station_id: ", result.value.station_id);
                         stations.push(result.value);
                         result.continue();
                     } else {
@@ -86,9 +86,7 @@ var DBController = function () {
             openRequest.onerror = function(event) {
                 console.log("Error");
                 console.dir(event);
-            };
-            
-            
+            };           
             
         } else {
             return [];

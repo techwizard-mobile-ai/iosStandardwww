@@ -33,8 +33,13 @@ var FormController = function (json_controller) {
      * and generates the html to display them for the user
      */
 	this.showMenu = function (event) {
-		var stations = json_controller.getStationList();
-
+		var stations;
+        if (db_controller.checkConnection === true) {
+            stations = json_controller.getStationList();
+        } else {
+            stations = db_controller.getStationList();
+        }
+        
         form_generator.clearMainMenu();
 
 		stations.rows.forEach(function (station) {
@@ -51,7 +56,7 @@ var FormController = function (json_controller) {
         });
         db_controller.getStationList();
 	};
-
+    
 	var submitForm = function (event) {
         var hidden = $('#station-form').find(':hidden');
         hidden.show();

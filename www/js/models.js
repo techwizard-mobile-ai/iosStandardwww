@@ -4,6 +4,6 @@
  */
 
 var SubStation = function (id, name) {
-    this.id = id;
-    this.name = name;
+    this.station_id = id;
+    this.station_name = name;
 };
