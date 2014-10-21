@@ -13,6 +13,11 @@
  */
 var DBController = function () {
     
+    //CONSTANTS (TODO: conform to best practices yada yada yada)
+    var DB_NAME = 'test',
+        DB_VERSION = 1;
+    
+    
     var isSupported = checkSupport(),
         openRequest = setOpenRequest(),
         db;
@@ -112,7 +117,6 @@ var DBController = function () {
                 
                 if (!db.objectStoreNames.contains('substation_list')) {
                     var objectStore = db.createObjectStore('substation_list', { keyPath: 'station_id', autoIncrement : false });
-                    //objectStore.createIndex('station_id', 'station_id', {unique : true});
                     objectStore.createIndex('station_name', 'station_name', {unique : true});
                 }
             };
@@ -132,5 +136,21 @@ var DBController = function () {
         }
     }
     
+    function getObjectStore(store_name, mode) {
+        var tx = db.transaction(store_name, mode);
+        return tx.objectStore(store_name);
+    }
+    
+    function clearObjectStore (store_name) {
+        var store = getObjectStore(store_name, 'readwrite'),
+            req = store.clear();
+            
+        req.onsuccess = function (event) {
+            console.log('object store cleared');
+        };
+        req.onerror = function (event) {
+            console.error('clearObjectStore:', event.target.errorCode);
+        };
+    }
     
 };
