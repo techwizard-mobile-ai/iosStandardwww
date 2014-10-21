@@ -34,26 +34,33 @@ var FormController = function (json_controller) {
      */
 	this.showMenu = function (event) {
 		var stations;
-        if (db_controller.checkConnection === true) {
+        form_generator.clearMainMenu();
+        
+        if (db_controller.checkConnection() === true) {
             stations = json_controller.getStationList();
+            
+            stations.rows.forEach(function(station) {
+                var id = '#' + station.station_id,
+                station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
+                $('#main-menu').append(station_name);
+                $(id).click({
+                    id: station.station_id,
+                    name: station.station_name
+                }, openForm);
+            
+                //var sub_station = new SubStation(station.station_id, station.station_name);
+                db_controller.addSubStation(station.station_id, station.station_name);
+            });
+            
+            console.log("connected");
         } else {
             stations = db_controller.getStationList();
+            console.log("not connected");
         }
         
-        form_generator.clearMainMenu();
-
-		stations.rows.forEach(function (station) {
-            var id = '#' + station.station_id,
-            station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
-            $('#main-menu').append(station_name);
-            $(id).click({
-                id: station.station_id,
-                name: station.station_name
-            }, openForm);
-            
-            var sub_station = new SubStation(station.station_id, station.station_name);
-            db_controller.addSubStation(sub_station);
-        });
+        
+        
+		
         db_controller.getStationList();
 	};
     

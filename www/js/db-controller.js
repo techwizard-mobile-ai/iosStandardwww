@@ -24,11 +24,11 @@ var DBController = function () {
      */
     this.checkConnection = function () {
         if (window.navigator.onLine === true) {
-            console.log("ONLINE");
+            console.log('ONLINE');
             return true;
         }
         else {
-            console.log("OFFLINE");
+            console.log('OFFLINE');
             return false;
         }
     };    
@@ -38,18 +38,20 @@ var DBController = function () {
      * @param {Object} sub_station
      * @return none
      */
-    this.addSubStation = function(sub_station) {
-        var request = indexedDB.open("test1", 1);
+    this.addSubStation = function(id, name) {
+        var sub_station = {station_id: id, station_name: name},
+            request = indexedDB.open('test5', 1);
         
         request.onerror = function (event) {
-            console.log("Error", event.target.error.name);
+            console.log('Error', event.target.error.name);
         };
         
         request.onsuccess = function (event) {
             var db = event.target.result,
-                objectStore = db.transaction("substation_list", "readwrite").objectStore("substation_list");
+                objectStore = db.transaction('substation_list', 'readwrite').objectStore('substation_list');
+                console.log(sub_station);
                 objectStore.add(sub_station);
-                console.log("Record added.");                
+                console.log('Record added.');                
         };
     };
     
@@ -62,39 +64,38 @@ var DBController = function () {
     this.getStationList = function () {
         if (isSupported) {
             var stations = [],
-                openRequest = indexedDB.open("test1", 1);
+                openRequest = indexedDB.open('test5', 1);
             
             openRequest.onsuccess = function(event) {
                var db = event.target.result,
-                   objectStore = db.transaction(["substation_list"], "readonly").objectStore("substation_list"),
+                   objectStore = db.transaction(['substation_list'], 'readonly').objectStore('substation_list'),
                    cursor = objectStore.openCursor();
                 
                 cursor.onsuccess = function(event) {
                     var result = event.target.result;                        
                     
                     if (result) {
-                        console.log("station_name: ", result.value.station_name, "station_id: ", result.value.station_id);
+                        console.log('station_name: ', result.value.station_name, 'station_id: ', result.value.station_id);
                         stations.push(result.value);
                         result.continue();
                     } else {
                         console.log(stations);
-                        return stations;
                     }
                 };                    
             };
             
             openRequest.onerror = function(event) {
-                console.log("Error");
+                console.log('Error');
                 console.dir(event);
             };           
-            
+            return stations;
         } else {
             return [];
         }
     };
     
     function checkSupport () {
-        if ("indexedDB" in window) {
+        if ('indexedDB' in window) {
             return true;
         } else {
             return false;
@@ -103,31 +104,31 @@ var DBController = function () {
     
     function setOpenRequest () {
         if (isSupported) {
-            openRequest = indexedDB.open("test1", 1);
+            openRequest = indexedDB.open('test5', 1);
 
             openRequest.onupgradeneeded = function(event) {
-                console.log("Upgrading...");
+                console.log('Upgrading...');
                 db = event.target.result;
                 
-                if (!db.objectStoreNames.contains("substation_list")) {
-                    var objectStore = db.createObjectStore("substation_list", { autoIncrement : true });
-                    objectStore.createIndex("id", "id", {unique:true});
-                    objectStore.createIndex("name", "name", {unique:true});
+                if (!db.objectStoreNames.contains('substation_list')) {
+                    var objectStore = db.createObjectStore('substation_list', { keyPath: 'station_id', autoIncrement : false });
+                    //objectStore.createIndex('station_id', 'station_id', {unique : true});
+                    objectStore.createIndex('station_name', 'station_name', {unique : true});
                 }
             };
 
             openRequest.onsuccess = function(event) {
-                console.log("Success!");
+                console.log('Success!');
                 db = event.target.result;
             };
 
             openRequest.onerror = function(event) {
-                console.log("Error");
+                console.log('Error');
                 console.dir(event);
             };
         } else {
             openRequest = null;
-            console.log("IndexedDB not supported");
+            console.log('IndexedDB not supported');
         }
     }
     
