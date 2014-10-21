@@ -14,7 +14,7 @@
 var DBController = function () {
     
     //CONSTANTS (TODO: conform to best practices yada yada yada)
-    var DB_NAME = 'test',
+    var DB_NAME = 'test5',
         DB_VERSION = 1;
     
     
@@ -45,7 +45,7 @@ var DBController = function () {
      */
     this.addSubStation = function(id, name) {
         var sub_station = {station_id: id, station_name: name},
-            request = indexedDB.open('test5', 1);
+            request = indexedDB.open(DB_NAME, DB_VERSION);
         
         request.onerror = function (event) {
             console.log('Error', event.target.error.name);
@@ -69,7 +69,7 @@ var DBController = function () {
     this.getStationList = function () {
         if (isSupported) {
             var stations = [],
-                openRequest = indexedDB.open('test5', 1);
+                openRequest = indexedDB.open(DB_NAME, DB_VERSION);
             
             openRequest.onsuccess = function(event) {
                var db = event.target.result,
@@ -109,7 +109,7 @@ var DBController = function () {
     
     function setOpenRequest () {
         if (isSupported) {
-            openRequest = indexedDB.open('test5', 1);
+            openRequest = indexedDB.open(DB_NAME, DB_VERSION);
 
             openRequest.onupgradeneeded = function(event) {
                 console.log('Upgrading...');
