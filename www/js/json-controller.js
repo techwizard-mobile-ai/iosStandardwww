@@ -14,8 +14,6 @@
 var JSONController = function () {
     
     var db_controller = new DBController();
-    
-    db_controller.checkConnection();
 
     /**
      * Request the list of substations from the app server
