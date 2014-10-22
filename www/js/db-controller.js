@@ -67,9 +67,9 @@ var DBController = function () {
      * @return {Array} the list of stations
      */
     this.getStationList = function () {
+        var stations = [];
         if (isSupported) {
-            var stations = [],
-                openRequest = indexedDB.open(DB_NAME, DB_VERSION);
+            var openRequest = indexedDB.open(DB_NAME, DB_VERSION);
             
             openRequest.onsuccess = function(event) {
                var db = event.target.result,
@@ -82,6 +82,7 @@ var DBController = function () {
                     if (result) {
                         console.log('station_name: ', result.value.station_name, 'station_id: ', result.value.station_id);
                         stations.push(result.value);
+                        console.log("INLINE",stations);
                         result.continue();
                     } else {
                         console.log(stations);
@@ -92,11 +93,10 @@ var DBController = function () {
             openRequest.onerror = function(event) {
                 console.log('Error');
                 console.dir(event);
-            };           
-            return stations;
-        } else {
-            return [];
+            };
+            
         }
+        //return stations;
     };
     
     function checkSupport () {

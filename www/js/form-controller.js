@@ -54,14 +54,17 @@ var FormController = function (json_controller) {
             
             console.log("connected");
         } else {
+            console.log('im working');
+            console.log(db_controller.getStationList());
             stations = db_controller.getStationList();
+            
+            stations.forEach(function(station) {
+                console.log(station);
+            });
+            
             console.log("not connected");
         }
         
-        
-        
-		
-        db_controller.getStationList();
 	};
     
 	var submitForm = function (event) {
