@@ -36,7 +36,7 @@ var FormController = function (json_controller) {
 		var stations;
         form_generator.clearMainMenu();
         
-        if (db_controller.checkConnection() === true) {
+        if (db_controller.checkConnection === true) {
             stations = json_controller.getStationList();
             
             stations.rows.forEach(function(station) {
@@ -56,13 +56,6 @@ var FormController = function (json_controller) {
         } else {
             console.log('im working');
             console.log(db_controller.getStationList());
-            stations = db_controller.getStationList();
-            
-            stations.forEach(function(station) {
-                console.log(station);
-            });
-            
-            console.log("not connected");
         }
         
 	};
