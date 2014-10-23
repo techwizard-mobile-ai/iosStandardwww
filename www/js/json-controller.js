@@ -13,8 +13,6 @@
  */
 var JSONController = function () {
     
-    var db_controller = new DBController();
-
     /**
      * Request the list of substations from the app server
      * @param none

@@ -1,4 +1,4 @@
-/*global $:false, document:false, console:false, alert:false, FormGenerator:false, DBController:false, SubStation:false*/
+/*global $:false, document:false, console:false, alert:false, FormGenerator:false, DBController:false, SubStation:false, JSONController:false */
 
 /**
  * This class controls form generation for substations
@@ -11,10 +11,12 @@
  * @param {Object} json_controller
  *      the JSONController instance to use
  */
-var FormController = function (json_controller) {
+var FormController = function () {
     
-    var form_generator = new FormGenerator(json_controller);
-    var db_controller = new DBController();
+    var json_controller = new JSONController(),
+        db_controller = new DBController(),
+        form_generator = new FormGenerator(json_controller);
+        
     
     /**
      * Adds click event handler to the setup button
@@ -36,27 +38,24 @@ var FormController = function (json_controller) {
 		var stations;
         form_generator.clearMainMenu();
         
-        if (db_controller.checkConnection === true) {
-            stations = json_controller.getStationList();
+        
+        stations = json_controller.getStationList();
+
+        stations.rows.forEach(function(station) {
+            var id = '#' + station.station_id,
+            station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
+            $('#main-menu').append(station_name);
+            $(id).click({
+                id: station.station_id,
+                name: station.station_name
+            }, openForm);
+
+            //var sub_station = new SubStation(station.station_id, station.station_name);
+            db_controller.addSubStation(station.station_id, station.station_name);
+        });
             
-            stations.rows.forEach(function(station) {
-                var id = '#' + station.station_id,
-                station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
-                $('#main-menu').append(station_name);
-                $(id).click({
-                    id: station.station_id,
-                    name: station.station_name
-                }, openForm);
-            
-                //var sub_station = new SubStation(station.station_id, station.station_name);
-                db_controller.addSubStation(station.station_id, station.station_name);
-            });
-            
-            console.log("connected");
-        } else {
-            console.log('im working');
-            console.log(db_controller.getStationList());
-        }
+
+
         
 	};
     

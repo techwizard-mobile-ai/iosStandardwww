@@ -7,8 +7,7 @@
  */
 $(document).ready(function () {
 
-    var jsonController = new JSONController(),
-        formController = new FormController(jsonController);   
+    var formController = new FormController();   
     
     formController.enableSetup();
     formController.showMenu();
