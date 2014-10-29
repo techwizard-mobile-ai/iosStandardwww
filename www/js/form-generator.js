@@ -27,8 +27,8 @@ var FormGenerator = function () {
      * @param {Object} regulator_list
      * @return none
      */
-    this.drawRegulatorForms = function (regulator_info, regulator) { //TODO EXTRACT THIS TO FORM CONTROLLER
-        drawRegulatorFormHeader(regulator_info); //TODO KEEP THIS
+    this.drawRegulatorForms = function (regulator_info, regulator) {
+        drawRegulatorFormHeader(regulator_info); 
         drawRegulatorAForms(regulator.regulator_id);
         drawRegulatorBForms(regulator.regulator_id);
         drawRegulatorCForms(regulator.regulator_id);        
