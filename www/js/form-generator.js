@@ -11,7 +11,7 @@
  * @param {Object} json_controller
  * @returns none
  */
-var FormGenerator = function (json_controller) {
+var FormGenerator = function () {
     
     /**
      * Clears the MainMenu div
@@ -27,15 +27,11 @@ var FormGenerator = function (json_controller) {
      * @param {Object} regulator_list
      * @return none
      */
-    this.drawRegulatorForms = function (regulator_list) {
-        regulator_list.forEach(function (regulator) {
-            var regulator_info = json_controller.getRegulatorInfo(regulator);
-
-            drawRegulatorFormHeader(regulator_info);
-            drawRegulatorAForms(regulator.regulator_id);
-            drawRegulatorBForms(regulator.regulator_id);
-            drawRegulatorCForms(regulator.regulator_id);
-        });
+    this.drawRegulatorForms = function (regulator_info, regulator) {
+        drawRegulatorFormHeader(regulator_info); 
+        drawRegulatorAForms(regulator.regulator_id);
+        drawRegulatorBForms(regulator.regulator_id);
+        drawRegulatorCForms(regulator.regulator_id);        
     };
     
     /**
@@ -43,19 +39,15 @@ var FormGenerator = function (json_controller) {
      * @param {Object} breaker_list
      * @return none
      */
-    this.drawBreakerForms = function (breaker_list) {
-        breaker_list.forEach(function (breaker) {
-            var breaker_info = json_controller.getBreakerInfo(breaker);
-
-            drawBreakerFormHeader(breaker_info);
-            drawBreakerCountForms(breaker.breaker_id);
-            if (breaker_info.rows.breaker_has_mult !== 0) {
-                drawBreakerMultForms(breaker.breaker_id);
-            }
-            if (breaker_info.rows.breaker_has_amp !== 0) {
-                drawBreakerAmpForms(breaker.breaker_id);
-            }
-        });
+    this.drawBreakerForms = function (breaker_info, breaker) {
+        drawBreakerFormHeader(breaker_info); 
+        drawBreakerCountForms(breaker.breaker_id); 
+        if (breaker_info.rows.breaker_has_mult !== 0) { 
+            drawBreakerMultForms(breaker.breaker_id);
+        }
+        if (breaker_info.rows.breaker_has_amp !== 0) {
+            drawBreakerAmpForms(breaker.breaker_id);
+        }
     };
     
     var drawRegulatorFormHeader = function (regulator_info) {

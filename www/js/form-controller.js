@@ -1,4 +1,4 @@
-/*global $:false, document:false, console:false, alert:false, FormGenerator:false, DBController:false, SubStation:false*/
+/*global $:false, document:false, console:false, alert:false, FormGenerator:false, DBController:false, SubStation:false, JSONController:false */
 
 /**
  * This class controls form generation for substations
@@ -11,10 +11,12 @@
  * @param {Object} json_controller
  *      the JSONController instance to use
  */
-var FormController = function (json_controller) {
+var FormController = function () {
     
-    var form_generator = new FormGenerator(json_controller);
-    var db_controller = new DBController();
+    var json_controller = new JSONController(),
+        db_controller = new DBController(),
+        form_generator = new FormGenerator();
+        
     
     /**
      * Adds click event handler to the setup button
@@ -36,29 +38,36 @@ var FormController = function (json_controller) {
 		var stations;
         form_generator.clearMainMenu();
         
-        if (db_controller.checkConnection === true) {
-            stations = json_controller.getStationList();
-            
-            stations.rows.forEach(function(station) {
-                var id = '#' + station.station_id,
-                station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
-                $('#main-menu').append(station_name);
-                $(id).click({
-                    id: station.station_id,
-                    name: station.station_name
-                }, openForm);
-            
-                //var sub_station = new SubStation(station.station_id, station.station_name);
-                db_controller.addSubStation(station.station_id, station.station_name);
-            });
-            
-            console.log("connected");
-        } else {
-            console.log('im working');
-            console.log(db_controller.getStationList());
-        }
         
+        stations = json_controller.getStationList();
+
+        stations.rows.forEach(function(station) {
+            var id = '#' + station.station_id,
+            station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
+            $('#main-menu').append(station_name);
+            $(id).click({
+                id: station.station_id,
+                name: station.station_name
+            }, openForm);
+
+            //var sub_station = new SubStation(station.station_id, station.station_name);
+            db_controller.addSubStation(station.station_id, station.station_name);
+        });        
 	};
+    
+    var drawBreakerForms = function (breaker_list) {
+        breaker_list.forEach(function (breaker) { 
+            var breaker_info = json_controller.getBreakerInfo(breaker); 
+            form_generator.drawBreakerForms(breaker_info, breaker);        
+        });
+    };
+    
+    var drawRegulatorForms = function (regulator_list) { 
+        regulator_list.forEach(function (regulator) { 
+            var regulator_info = json_controller.getRegulatorInfo(regulator);
+            form_generator.drawRegulatorForms(regulator_info, regulator);
+        });
+    };
     
 	var submitForm = function (event) {
         var hidden = $('#station-form').find(':hidden');
@@ -102,8 +111,8 @@ var FormController = function (json_controller) {
         $('#station-form').append('<input type="hidden" name="year" value="' + getReadYear() + '"></input>');
         $('#station-form').append('<input type="hidden" name="month" value="' + getReadMonth() + '"></input>');
         $('#station-form').append('<input type="hidden" name="day" value="' + getReadDay() + '"></input>');
-        form_generator.drawRegulatorForms(regulator_list);
-        form_generator.drawBreakerForms(breaker_list);
+        drawRegulatorForms(regulator_list);
+        drawBreakerForms(breaker_list);
         $('.table-wrapper').append('<input type="button" id="back" name="back" value="BACK" />');
         $('.table-wrapper').append('<input type="button" id="submit" name="submit" value="SUBMIT" />');
         $('#back').click(FormController.showMenu);
