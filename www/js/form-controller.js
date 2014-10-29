@@ -15,7 +15,7 @@ var FormController = function () {
     
     var json_controller = new JSONController(),
         db_controller = new DBController(),
-        form_generator = new FormGenerator(json_controller);
+        form_generator = new FormGenerator();
         
     
     /**
@@ -52,12 +52,22 @@ var FormController = function () {
 
             //var sub_station = new SubStation(station.station_id, station.station_name);
             db_controller.addSubStation(station.station_id, station.station_name);
-        });
-            
-
-
-        
+        });        
 	};
+    
+    var drawBreakerForms = function (breaker_list) {
+        breaker_list.forEach(function (breaker) { 
+            var breaker_info = json_controller.getBreakerInfo(breaker); 
+            form_generator.drawBreakerForms(breaker_info, breaker);        
+        });
+    };
+    
+    var drawRegulatorForms = function (regulator_list) { 
+        regulator_list.forEach(function (regulator) { 
+            var regulator_info = json_controller.getRegulatorInfo(regulator);
+            form_generator.drawRegulatorForms(regulator_info, regulator);
+        });
+    };
     
 	var submitForm = function (event) {
         var hidden = $('#station-form').find(':hidden');
@@ -101,8 +111,8 @@ var FormController = function () {
         $('#station-form').append('<input type="hidden" name="year" value="' + getReadYear() + '"></input>');
         $('#station-form').append('<input type="hidden" name="month" value="' + getReadMonth() + '"></input>');
         $('#station-form').append('<input type="hidden" name="day" value="' + getReadDay() + '"></input>');
-        form_generator.drawRegulatorForms(regulator_list);
-        form_generator.drawBreakerForms(breaker_list);
+        drawRegulatorForms(regulator_list);
+        drawBreakerForms(breaker_list);
         $('.table-wrapper').append('<input type="button" id="back" name="back" value="BACK" />');
         $('.table-wrapper').append('<input type="button" id="submit" name="submit" value="SUBMIT" />');
         $('#back').click(FormController.showMenu);
