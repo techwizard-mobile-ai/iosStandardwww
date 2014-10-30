@@ -51,7 +51,7 @@ var FormGenerator = function () {
     };
     
     var drawRegulatorFormHeader = function (regulator_info) {
-        var regulator_name = regulator_info.rows.regulator_name,
+        var regulator_name = regulator_info.regulator_name,
             id = "regulator" + regulator_name + "header",
             jquery_id = "#" + id;
 
