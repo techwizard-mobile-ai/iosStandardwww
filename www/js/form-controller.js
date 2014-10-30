@@ -41,7 +41,7 @@ var FormController = function () {
         
         stations = json_controller.getStationList();
 
-        stations.rows.forEach(function(station) {
+        stations.forEach(function(station) { //stations.rows.forEach
             var id = '#' + station.station_id,
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
             $('#main-menu').append(station_name);
@@ -89,13 +89,11 @@ var FormController = function () {
 
     var openForm = function (event) {
         var regulator_list = json_controller.getRegulatorList(event),
-            breaker_list = json_controller.getBreakerList(event),
-            regulator_ids = regulator_list.rows,
-            breaker_ids = breaker_list.rows;
+            breaker_list = json_controller.getBreakerList(event);
 
         form_generator.clearMainMenu();
 
-        drawStationForm(event.data.id, event.data.name, regulator_ids, breaker_ids);
+        drawStationForm(event.data.id, event.data.name, regulator_list, breaker_list);
     };
     
     //MVC WOES: Move this eventually
