@@ -42,15 +42,15 @@ var FormGenerator = function () {
     this.drawBreakerForms = function (breaker_info, breaker) {
         drawBreakerFormHeader(breaker_info); 
         drawBreakerCountForms(breaker.breaker_id); 
-        if (breaker_info.rows.breaker_has_mult !== 0) { 
+        if (breaker_info.breaker_has_mult !== 0) { 
             drawBreakerMultForms(breaker.breaker_id);
         }
-        if (breaker_info.rows.breaker_has_amp !== 0) {
+        if (breaker_info.breaker_has_amp !== 0) {
             drawBreakerAmpForms(breaker.breaker_id);
         }
     };
     
-    var drawRegulatorFormHeader = function (regulator_info) {
+    var drawRegulatorFormHeader = function (regulator_info) { //TODO REFACTOR
         var regulator_name = regulator_info.regulator_name,
             id = "regulator" + regulator_name + "header",
             jquery_id = "#" + id;
@@ -110,8 +110,8 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_comments' value='' /></div>");
     };
     
-    var drawBreakerFormHeader = function (breaker_info) {
-        var breaker_name = breaker_info.rows.breaker_name,
+    var drawBreakerFormHeader = function (breaker_info) { //TODO REFACTOR
+        var breaker_name = breaker_info.breaker_name,
             id = "header" + breaker_name,
             jquery_id = "#" + id;
 
