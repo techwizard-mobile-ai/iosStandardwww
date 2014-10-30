@@ -15,8 +15,9 @@ var FormController = function () {
     
     var json_controller = new JSONController(),
         db_controller = new DBController(),
-        form_generator = new FormGenerator();
-        
+        form_generator = new FormGenerator(),
+        that = this;
+    
     
     /**
      * Adds click event handler to the setup button
@@ -50,7 +51,6 @@ var FormController = function () {
                 name: station.station_name
             }, openForm);
 
-            //var sub_station = new SubStation(station.station_id, station.station_name);
             db_controller.addSubStation(station.station_id, station.station_name);
         });        
 	};
@@ -113,7 +113,7 @@ var FormController = function () {
         drawBreakerForms(breaker_list);
         $('.table-wrapper').append('<input type="button" id="back" name="back" value="BACK" />');
         $('.table-wrapper').append('<input type="button" id="submit" name="submit" value="SUBMIT" />');
-        $('#back').click(FormController.showMenu);
+        $('#back').click(that.showMenu);
         $('#submit').click(submitForm);
     };    
 
