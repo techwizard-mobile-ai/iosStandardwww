@@ -58,14 +58,14 @@ var FormController = function () {
     var drawBreakerForms = function (breaker_list) {
         breaker_list.forEach(function (breaker) { 
             var breaker_info = json_controller.getBreakerInfo(breaker); 
-            form_generator.drawBreakerForms(breaker_info, breaker);        
+            form_generator.drawBreakerForms(breaker_info);        
         });
     };
     
     var drawRegulatorForms = function (regulator_list) { 
         regulator_list.forEach(function (regulator) { 
             var regulator_info = json_controller.getRegulatorInfo(regulator);
-            form_generator.drawRegulatorForms(regulator_info, regulator);
+            form_generator.drawRegulatorForms(regulator_info);
         });
     };
     
@@ -93,18 +93,18 @@ var FormController = function () {
 
         form_generator.clearMainMenu();
 
-        drawStationForm(event.data.id, event.data.name, regulator_list, breaker_list);
+        drawStationForm(event.data, regulator_list, breaker_list);
     };
     
     //MVC WOES: Move this eventually
-	var drawStationForm = function (station_id, station_name, regulator_list, breaker_list) {
+	var drawStationForm = function (station, regulator_list, breaker_list) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
         $('#main-menu').append(form_string);
         $('#station-form').append('<div id="nav-wrapper"></div > ');
         $('#nav-wrapper').append('<div class="inner-banner" id="station-select"></div>');
-        $('#station-form').append('<input type="hidden" name="station-id" value="' + station_id + '"></input>');
+        $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
         $('#station-form').append('<div class="table-wrapper"></div>');
-        $('#station-form').append('<input type="hidden" name="station_name" value="' + station_name + '"></input>');
+        $('#station-form').append('<input type="hidden" name="station_name" value="' + station.name + '"></input>');
         $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
         $('#station-form').append('<input type="hidden" name="year" value="' + getReadYear() + '"></input>');
         $('#station-form').append('<input type="hidden" name="month" value="' + getReadMonth() + '"></input>');

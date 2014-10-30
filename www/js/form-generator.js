@@ -27,8 +27,8 @@ var FormGenerator = function () {
      * @param {Object} regulator_list
      * @return none
      */
-    this.drawRegulatorForms = function (regulator_info, regulator) {
-        drawRegulatorFormHeader(regulator_info); 
+    this.drawRegulatorForms = function (regulator) {
+        drawRegulatorFormHeader(regulator); 
         drawRegulatorAForms(regulator.regulator_id);
         drawRegulatorBForms(regulator.regulator_id);
         drawRegulatorCForms(regulator.regulator_id);        
@@ -39,19 +39,19 @@ var FormGenerator = function () {
      * @param {Object} breaker_list
      * @return none
      */
-    this.drawBreakerForms = function (breaker_info, breaker) {
-        drawBreakerFormHeader(breaker_info); 
+    this.drawBreakerForms = function (breaker) {
+        drawBreakerFormHeader(breaker); 
         drawBreakerCountForms(breaker.breaker_id); 
-        if (breaker_info.breaker_has_mult !== 0) { 
+        if (breaker.breaker_has_mult !== 0) { 
             drawBreakerMultForms(breaker.breaker_id);
         }
-        if (breaker_info.breaker_has_amp !== 0) {
+        if (breaker.breaker_has_amp !== 0) {
             drawBreakerAmpForms(breaker.breaker_id);
         }
     };
     
-    var drawRegulatorFormHeader = function (regulator_info) { //TODO REFACTOR
-        var regulator_name = regulator_info.regulator_name,
+    var drawRegulatorFormHeader = function (regulator) { //TODO REFACTOR
+        var regulator_name = regulator.regulator_name,
             id = "regulator" + regulator_name + "header",
             jquery_id = "#" + id;
 
@@ -110,8 +110,8 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_comments' value='' /></div>");
     };
     
-    var drawBreakerFormHeader = function (breaker_info) { //TODO REFACTOR
-        var breaker_name = breaker_info.breaker_name,
+    var drawBreakerFormHeader = function (breaker) { //TODO REFACTOR
+        var breaker_name = breaker.breaker_name,
             id = "header" + breaker_name,
             jquery_id = "#" + id;
 
