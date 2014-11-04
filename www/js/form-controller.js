@@ -36,24 +36,14 @@ var FormController = function () {
      * and generates the html to display them for the user
      */
 	this.showMenu = function (event) {
-		var stations;
         form_generator.clearMainMenu();
         
-        db_controller.getStationList(callback);
-        stations = json_controller.getStationList();
-
-        stations.forEach(function(station) { //stations.rows.forEach
-            var id = '#' + station.station_id,
-            station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
-            $('#main-menu').append(station_name);
-            $(id).click({
-                id: station.station_id,
-                name: station.station_name
-            }, openForm);
-
-            db_controller.addSubStation(station.station_id, station.station_name);
-        });        
-	};
+        if (db_controller.checkConnection()) {
+            json_controller.getStationList(callback);
+        } else {
+            db_controller.getStationList(callback);
+        }        
+    };
     
     var drawBreakerForms = function (breaker_list) {
         breaker_list.forEach(function (breaker) { 
@@ -140,9 +130,24 @@ var FormController = function () {
         return d.getDate();
     };
     
+    //TODO RENAME THIS LAZYNESS
     var callback = function (stations) {
         console.log("FINAL ANSWER");
-        console.log(stations);
+        callback2(stations);
+    };
+    
+    var callback2 = function (stations) { //meaningful name
+        stations.forEach(function(station) { //stations.rows.forEach
+            var id = '#' + station.station_id,
+            station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
+            $('#main-menu').append(station_name);
+            $(id).click({
+                id: station.station_id,
+                name: station.station_name
+            }, openForm);
+
+            db_controller.addSubStation(station.station_id, station.station_name);
+        });
     };
 
 };

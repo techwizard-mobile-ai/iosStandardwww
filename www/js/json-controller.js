@@ -18,7 +18,7 @@ var JSONController = function () {
      * @param none
      * @return {Object} stations
      */
-    this.getStationList = function () {
+    this.getStationList = function (callback) {
     	var station_json,
     		stations;
 
@@ -35,7 +35,7 @@ var JSONController = function () {
         stations = JSON.parse(station_json);
         console.log(stations);
 
-        return stations;
+        callback(stations);
     };
     
     /**
