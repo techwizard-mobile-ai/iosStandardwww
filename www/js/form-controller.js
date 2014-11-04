@@ -39,7 +39,7 @@ var FormController = function () {
 		var stations;
         form_generator.clearMainMenu();
         
-        
+        db_controller.getStationList(callback);
         stations = json_controller.getStationList();
 
         stations.forEach(function(station) { //stations.rows.forEach
@@ -138,6 +138,11 @@ var FormController = function () {
     var getReadDay = function () {
         var d = new Date();
         return d.getDate();
+    };
+    
+    var callback = function (stations) {
+        console.log("FINAL ANSWER");
+        console.log(stations);
     };
 
 };
