@@ -66,14 +66,15 @@ var DBController = function () {
      * @param none
      * @return {Array} the list of stations
      */
-    this.getStationList = function () {
+    this.getStationList = function (callback) {
         var stations = [];
         if (isSupported) {
             var openRequest = indexedDB.open(DB_NAME, DB_VERSION);
             
             openRequest.onsuccess = function(event) {
                var db = event.target.result,
-                   objectStore = db.transaction(['substation_list'], 'readonly').objectStore('substation_list'),
+                   transaction = db.transaction(['substation_list'], 'readonly'),
+                   objectStore = transaction.objectStore('substation_list'),
                    cursor = objectStore.openCursor();
                 
                 cursor.onsuccess = function(event) {
@@ -86,6 +87,7 @@ var DBController = function () {
                         result.continue();
                     } else {
                         console.log(stations);
+                        callback(stations); //test this
                     }
                 };                    
             };
