@@ -130,8 +130,8 @@ var FormController = function () {
         return d.getDate();
     };
     
-    var generateStationButtons = function (stations) { //meaningful name
-        stations.forEach(function(station) { //stations.rows.forEach
+    var generateStationButtons = function (stations) {
+        stations.forEach(function(station) {
             var id = '#' + station.station_id,
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
             $('#main-menu').append(station_name);
