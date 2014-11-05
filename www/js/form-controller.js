@@ -38,10 +38,10 @@ var FormController = function () {
 	this.showMenu = function (event) {
         form_generator.clearMainMenu();
         
-        if (db_controller.checkConnection()) {
-            json_controller.getStationList(callback);
+        if (db_controller.checkConnection() === true) {
+            json_controller.getStationList(generateStationButtons);
         } else {
-            db_controller.getStationList(callback);
+            db_controller.getStationList(generateStationButtons);
         }        
     };
     
@@ -130,13 +130,7 @@ var FormController = function () {
         return d.getDate();
     };
     
-    //TODO RENAME THIS LAZYNESS
-    var callback = function (stations) {
-        console.log("FINAL ANSWER");
-        callback2(stations);
-    };
-    
-    var callback2 = function (stations) { //meaningful name
+    var generateStationButtons = function (stations) { //meaningful name
         stations.forEach(function(station) { //stations.rows.forEach
             var id = '#' + station.station_id,
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
