@@ -169,7 +169,8 @@ var FormGenerator = function () {
     };
     
     this.drawDateForm = function () {
-        $('#nav-wrapper').append("<div class='inner-banner' id='date-select'></div>");
+        $('#nav-wrapper').append("<div class='inner-banner' id='date-select-wrapper'></div>");
+        $('#date-select-wrapper').append("<div class='height-align' id='date-select'></div>");
         drawMonthForm(11);
         drawDayForm(6);
         drawYearForm(2014);

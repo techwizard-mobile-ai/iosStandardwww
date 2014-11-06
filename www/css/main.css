@@ -2,6 +2,11 @@
  * main css style settings for the substation application
  */
 
+label {
+    font-weight: bold;
+    vertical-align: middle;
+}
+
 .button {
     background-color: lightgreen;
     text-align: center;
@@ -28,7 +33,7 @@
     float: left;
     margin-left: 10px;
 }
-div#nav-wrapper {
+.nav-wrapper {
     background: white url("../img/logo.png") no-repeat right;
     border-left: .2em solid black;
     border-right: .2em solid black;
@@ -37,14 +42,14 @@ div#nav-wrapper {
     padding-left: 1em;
     padding-top: 1em;
 }
-div.column {
+.column {
     background-color: palegreen;
     color: black;
     float: left;
     text-align: center;
     width: 13%;
 }
-div.column-bold {
+.column-bold {
     background-color: palegreen;
     color: black;
     float: left;
@@ -52,7 +57,7 @@ div.column-bold {
     text-align: center;
     width: 13%;
 }
-div.column-header {
+.column-header {
     background-color: darkgreen;
     color: white;
     float: left;
@@ -62,7 +67,7 @@ div.column-header {
     text-align: center;
     width: 13%;
 }
-div.column-header-small {
+.column-header-small {
     background-color: darkgreen;
     color: white;
     float: left;
@@ -72,7 +77,7 @@ div.column-header-small {
     text-align: center;
     width: 7%;
 }
-div.column-header-wide {
+.column-header-wide {
     background-color: darkgreen;
     color: white;
     float: left;
@@ -82,7 +87,7 @@ div.column-header-wide {
     text-align: center;
     width: 25%;
 }
-div.column-small {
+.column-small {
     background-color: palegreen;
     color: black;
     float: left;
@@ -91,7 +96,13 @@ div.column-small {
     height: 1px;
     width: 7%;
 }
-div.inner-banner {
+.height-align {
+    display: block;
+    font-weight: bold;
+    height: 2em;
+    padding: 0;
+}
+.inner-banner {
     display: inline-table;
     float: left;
     font-weight: bold;
@@ -99,40 +110,40 @@ div.inner-banner {
     height: auto;
     margin-left: .5em;
 }
-div.row {
+.row {
     background-color: palegreen;
     display: inline-block;
     padding-top: 5px;
     width: 100%;
 }
-div.row-bottom {
+.row-bottom {
     background-color: palegreen;
     display: inline-block;
     padding-bottom: 5px;
     padding-top: 5px;
     width: 100%;
 }
-div.row-header {
+.row-header {
     background-color: darkgreen;
     border-bottom: 2px solid black;
     display: inline-block;
     width: 100%;
 }
-div.row-top-header {
+.row-top-header {
     background-color: darkgreen;
     border-bottom: 2px solid black;
     display: inline-block;
     width: 100%;
 }
-div.select-wrapper {
+.select-wrapper {
     display: inline-block;
 }
-div.table-wrapper {
+.table-wrapper {
     background-color: palegreen;
     border: .2em solid black;
     position: relative;
 }
-div.wrapper {
+.wrapper {
     border: none;
     color: black;
     margin-left: auto;
@@ -140,7 +151,7 @@ div.wrapper {
     text-align: left;
     width: 100%;
 }
-input.button {
+.button {
     background-color: darkgreen;
     border: .2em solid black;
     color: white;
@@ -152,7 +163,7 @@ input.button {
     padding: .25em .5em .25em .5em;
     width: 9em;
 }
-input.button-right {
+.button-right {
     background-color: darkgreen;
     border: .2em solid black;
     color: white;
@@ -164,15 +175,11 @@ input.button-right {
     padding: .25em .5em .25em .5em;
     width: 9em;
 }
-input.text-box {
+.text-box {
     border: .2em solid black;
     width: 95%;
 }
-label {
-    font-weight: bold;
-    vertical-align: middle;
-}
-select.select-custom {
+.select-custom {
     background-color: darkgreen;
     border: .2em solid black;
     color: white;
