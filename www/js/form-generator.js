@@ -168,4 +168,23 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'></div>");
     };
     
+    var drawMonthForm = function (current_month) {
+        $('#nav-wrapper').append("<div class='select-wrapper' id='month-select-wrapper'></div>");
+        $('#month-select-wrapper').append("<select name='start_month' id='month-select-form' class='select-custom'></select>");
+        //populate months
+    };
+    
+    var drawDayForm = function (current_day) {
+        $('#nav-wrapper').append("<div class='select-wrapper' id='day-select-wrapper'></div>");
+        $('#day-select-wrapper').append("<select name='start_day' id='day-select-form' class='select-custom'></select>");
+        //populate days
+    };
+    
+    var drawYearForm = function (current_year) {
+        $('nav-wrapper').append("<div class='select-wrapper' id='year-select-wrapper'></div>");
+        $('#year-select-wrapper').append("<select name='start_year' id='year-select-form' class='select-custom'></select>");
+        //populate years
+    };
+    
+    
 };
