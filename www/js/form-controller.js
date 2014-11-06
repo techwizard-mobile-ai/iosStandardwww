@@ -90,7 +90,7 @@ var FormController = function () {
 	var drawStationForm = function (station, regulator_list, breaker_list) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
         $('#main-menu').append(form_string);
-        $('#station-form').append('<div id="nav-wrapper"></div > ');
+        $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
         $('#nav-wrapper').append('<div class="inner-banner" id="station-select"></div>');
         form_generator.drawDateForm();
         $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
