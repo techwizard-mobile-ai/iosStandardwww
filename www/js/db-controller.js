@@ -28,14 +28,7 @@ var DBController = function () {
      * @return {Boolean}
      */
     this.checkConnection = function () {
-        if (window.navigator.onLine === true) {
-            console.log('ONLINE');
-            return true;
-        }
-        else {
-            console.log('OFFLINE');
-            return false;
-        }
+        return window.navigator.onLine;
     };    
     
     /**
@@ -54,9 +47,7 @@ var DBController = function () {
         request.onsuccess = function (event) {
             var db = event.target.result,
                 objectStore = db.transaction('substation_list', 'readwrite').objectStore('substation_list');
-                console.log(sub_station);
                 objectStore.add(sub_station);
-                console.log('Record added.');                
         };
     };
     
@@ -81,13 +72,10 @@ var DBController = function () {
                     var result = event.target.result;                        
                     
                     if (result) {
-                        console.log('station_name: ', result.value.station_name, 'station_id: ', result.value.station_id);
                         stations.push(result.value);
-                        console.log("INLINE",stations);
                         result.continue();
                     } else {
-                        console.log(stations);
-                        callback(stations); //test this
+                        callback(stations);
                     }
                 };                    
             };
@@ -98,7 +86,6 @@ var DBController = function () {
             };
             
         }
-        //return stations;
     };
     
     function checkSupport () {
@@ -124,7 +111,6 @@ var DBController = function () {
             };
 
             openRequest.onsuccess = function(event) {
-                console.log('Success!');
                 db = event.target.result;
             };
 

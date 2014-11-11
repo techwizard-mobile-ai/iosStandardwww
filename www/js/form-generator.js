@@ -28,7 +28,7 @@ var FormGenerator = function () {
      * @returns none
      */
     this.drawDateForm = function (current_date) {
-        $('#read-info').append("<br>Date: ");
+        $('#read-info').append("Date: ");
         drawMonthForm(current_date.getMonth());
         drawDayForm(current_date.getDate());
         drawYearForm(current_date.getFullYear());
@@ -62,12 +62,17 @@ var FormGenerator = function () {
         }
     };
     
-    var drawRegulatorFormHeader = function (regulator) { //TODO REFACTOR
+    var drawRegulatorFormHeader = function (regulator) {
         var regulator_name = regulator.regulator_name,
-            id = "regulator" + regulator_name + "header",
+            id,
+            jquery_id;
+        
+            if (regulator_name === null) {
+                regulator_name = '';
+            }
+        
+            id = "regulator" + regulator_name + "header";
             jquery_id = "#" + id;
-
-        console.log(regulator_name);
 
         $('.table-wrapper').append("<div class='row-top-header' id='" + id + "'></div>");
         $(jquery_id).append("<div class='column-header-small'>" + regulator_name + "</div>");
@@ -122,7 +127,7 @@ var FormGenerator = function () {
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_comments' value='' /></div>");
     };
     
-    var drawBreakerFormHeader = function (breaker) { //TODO REFACTOR
+    var drawBreakerFormHeader = function (breaker) {
         var breaker_name = breaker.breaker_name,
             id = "header" + breaker_name,
             jquery_id = "#" + id;
@@ -182,7 +187,7 @@ var FormGenerator = function () {
         
     var drawMonthForm = function (current_month) {
         $('#read-info').append("<div class='select-wrapper' id='month-select-wrapper'></div>");
-        $('#month-select-wrapper').append("<select name='start_month' id='month-select-form' class='select-custom'></select>");
+        $('#month-select-wrapper').append("<select name='month' id='month-select-form' class='select-custom'></select>");
         for (var i = 1; i < 13; i++) {
             if (i == (current_month + 1)) {
                 $('#month-select-form').append("<option value='" + i + "' selected='selected'>" + i + "</option>");
@@ -196,7 +201,7 @@ var FormGenerator = function () {
     
     var drawDayForm = function (current_day) {
         $('#read-info').append("<div class='select-wrapper' id='day-select-wrapper'></div>");
-        $('#day-select-wrapper').append("<select name='start_day' id='day-select-form' class='select-custom'></select>");
+        $('#day-select-wrapper').append("<select name='day' id='day-select-form' class='select-custom'></select>");
         for (var i = 1; i < 32; i++) {
             if (i == current_day) {
                 $('#day-select-form').append("<option value='" + i + "' selected='selected'>" + i + "</option>");
@@ -210,7 +215,7 @@ var FormGenerator = function () {
     
     var drawYearForm = function (current_year) {
         $('#read-info').append("<div class='select-wrapper' id='year-select-wrapper'></div>");
-        $('#year-select-wrapper').append("<select name='start_year' id='year-select-form' class='select-custom'></select>");
+        $('#year-select-wrapper').append("<select name='year' id='year-select-form' class='select-custom'></select>");
         for (var i = 2000; i < current_year + 1 ; i++) {
             if (i == current_year) {
                 $('#year-select-form').append("<option value='" + i + "' selected='selected'>" + i + "</option>");

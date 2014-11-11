@@ -33,7 +33,6 @@ var JSONController = function () {
         }).responseText;
 
         stations = JSON.parse(station_json);
-        console.log(stations);
 
         callback(stations);
     };
@@ -59,7 +58,6 @@ var JSONController = function () {
         }).responseText;
 
         breaker_list = JSON.parse(breaker_json);
-        console.log(breaker_list);
 
         return breaker_list;
     };
@@ -85,7 +83,6 @@ var JSONController = function () {
         }).responseText;
 
         breaker_info = JSON.parse(breaker_json);
-        console.log(breaker_info);
 
         return breaker_info;
     };
@@ -111,7 +108,6 @@ var JSONController = function () {
         }).responseText;
 
         regulator_list = JSON.parse(regulator_json);
-        console.log(regulator_list);
 
         return regulator_list;
     };
@@ -137,7 +133,6 @@ var JSONController = function () {
         }).responseText;
 
         regulator_info = JSON.parse(regulator_json);
-        console.log(regulator_info);
 
         return regulator_info;
     };

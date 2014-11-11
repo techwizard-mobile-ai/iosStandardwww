@@ -60,11 +60,12 @@ var FormController = function () {
         });
     };
     
+    //BUG WARNING: FOR SOME REASON MY BR TAGS GET HIDDEN. TRYING TO FIND OUT WHY.
 	var submitForm = function (event) {
         var hidden = $('#station-form').find(':hidden');
         hidden.show();
-
-        console.log($('#station-form').serialize());
+        console.log($('#station-form').serializeObject());
+/*
         $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
             "username": "cemc",
             "password": "cemc"
@@ -74,7 +75,7 @@ var FormController = function () {
                 alert("SUCCESS");
             }
         });
-
+*/
         hidden.hide();
     };
 
@@ -92,19 +93,16 @@ var FormController = function () {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
         $('#main-menu').append(form_string);
         $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
-        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + station.name + '</div>');
+        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + station.name + '&nbsp;<br></div>');
         form_generator.drawDateForm(current_date);
-        $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
-        $('#station-form').append('<div class="table-wrapper"></div>');
-        $('#station-form').append('<input type="hidden" name="station_name" value="' + station.name + '"></input>');
-        $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
-        $('#station-form').append('<input type="hidden" name="year" value="' + current_date.getFullYear() + '"></input>');
-        $('#station-form').append('<input type="hidden" name="month" value="' + (current_date.getMonth() + 1) + '"></input>');
-        $('#station-form').append('<input type="hidden" name="day" value="' + current_date.getDate() + '"></input>');
+        $('#station-form').append('<div class="table-wrapper"></div>'); 
         drawRegulatorForms(regulator_list);
         drawBreakerForms(breaker_list);
         $('.table-wrapper').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
         $('.table-wrapper').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
+        $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
+        $('#station-form').append('<input type="hidden" name="station_name" value="' + station.name + '"></input>');
+        $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
         $('#back').click(that.showMenu);
         $('#submit').click(submitForm);
     };    
@@ -127,6 +125,24 @@ var FormController = function () {
 
             db_controller.addSubStation(station.station_id, station.station_name);
         });
+    };
+    
+    $.fn.serializeObject = function()
+    {
+        var object = {};
+        var array = this.serializeArray();
+        $.each(array, function() {
+            if (object[this.name] !== undefined) {
+                if (!object[this.name].push) {
+                    object[this.name] = [object[this.name]];
+                }
+                object[this.name].push(this.value || '');
+            }
+            else {
+                object[this.name] = this.value || '';
+            }
+        });
+        return object;
     };
 
 };
