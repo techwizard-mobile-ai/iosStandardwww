@@ -108,6 +108,10 @@ var DBController = function () {
                     var objectStore = db.createObjectStore('substation_list', { keyPath: 'station_id', autoIncrement : false });
                     objectStore.createIndex('station_name', 'station_name', {unique : true});
                 }
+                
+                //if (!db.objectStoreNames.contains('station_readings')) {
+                    //var objectStore =  db.createObjectStore('station_readings', { keyPath: 'read_id', autoIncrement : true });
+                    //objectStore.createIndex('
             };
 
             openRequest.onsuccess = function(event) {
