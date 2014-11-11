@@ -27,6 +27,7 @@ label {
     height: 2.5em;
     margin-left: 0;
     margin-right: 1.5em;
+    margin-top: .5em;
     padding: .25em .5em .25em .5em;
     width: 9em;
 }
@@ -39,6 +40,7 @@ label {
     height: 2.5em;
     margin-left: 1.5em;
     margin-right: 0;
+    margin-top: .5em;
     padding: .25em .5em .25em .5em;
     width: 9em;
 }

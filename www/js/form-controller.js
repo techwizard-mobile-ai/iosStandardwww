@@ -16,6 +16,7 @@ var FormController = function () {
     var json_controller = new JSONController(),
         db_controller = new DBController(),
         form_generator = new FormGenerator(),
+        current_date = new Date(),
         that = this;
     
     
@@ -92,45 +93,28 @@ var FormController = function () {
         $('#main-menu').append(form_string);
         $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
         $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + station.name + '</div>');
-        form_generator.drawDateForm();
+        form_generator.drawDateForm(current_date);
         $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
         $('#station-form').append('<div class="table-wrapper"></div>');
         $('#station-form').append('<input type="hidden" name="station_name" value="' + station.name + '"></input>');
         $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
-        $('#station-form').append('<input type="hidden" name="year" value="' + getReadYear() + '"></input>');
-        $('#station-form').append('<input type="hidden" name="month" value="' + getReadMonth() + '"></input>');
-        $('#station-form').append('<input type="hidden" name="day" value="' + getReadDay() + '"></input>');
+        $('#station-form').append('<input type="hidden" name="year" value="' + current_date.getFullYear() + '"></input>');
+        $('#station-form').append('<input type="hidden" name="month" value="' + (current_date.getMonth() + 1) + '"></input>');
+        $('#station-form').append('<input type="hidden" name="day" value="' + current_date.getDate() + '"></input>');
         drawRegulatorForms(regulator_list);
         drawBreakerForms(breaker_list);
-        $('.table-wrapper').append('<input type="button" id="back" name="back" value="BACK" />');
-        $('.table-wrapper').append('<input type="button" id="submit" name="submit" value="SUBMIT" />');
+        $('.table-wrapper').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
+        $('.table-wrapper').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
         $('#back').click(that.showMenu);
         $('#submit').click(submitForm);
     };    
 
-    //All these get date functions need refactoring. this is lazy.
     var getReadDate = function () {
         var date_string = "";
-        var d = new Date();
-        date_string = date_string + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        date_string = date_string + current_date.getFullYear() + "-" + (current_date.getMonth() + 1) + "-" + current_date.getDate();
         return date_string;
     };
 
-    var getReadYear = function () {
-        var d = new Date();
-        return d.getFullYear();
-    };
-
-    var getReadMonth = function () {
-        var d = new Date();
-        return d.getMonth() + 1;
-    };
-
-    var getReadDay = function () {
-        var d = new Date();
-        return d.getDate();
-    };
-    
     var generateStationButtons = function (stations) {
         stations.forEach(function(station) {
             var id = '#' + station.station_id,

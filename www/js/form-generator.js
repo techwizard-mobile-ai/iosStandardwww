@@ -27,11 +27,11 @@ var FormGenerator = function () {
      * @param {date} date
      * @returns none
      */
-    this.drawDateForm = function () {
+    this.drawDateForm = function (current_date) {
         $('#read-info').append("<br>Date: ");
-        drawMonthForm(11);
-        drawDayForm(6);
-        drawYearForm(2014);
+        drawMonthForm(current_date.getMonth);
+        drawDayForm(current_date.getDate());
+        drawYearForm(current_date.getFullYear());
     };
     
     /**
