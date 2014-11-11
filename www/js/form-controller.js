@@ -91,7 +91,7 @@ var FormController = function () {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
         $('#main-menu').append(form_string);
         $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
-        $('#nav-wrapper').append('<div class="inner-banner" id="station-select"></div>');
+        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + station.name + '</div>');
         form_generator.drawDateForm();
         $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
         $('#station-form').append('<div class="table-wrapper"></div>');

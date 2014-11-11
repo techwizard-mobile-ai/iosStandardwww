@@ -6,7 +6,6 @@ label {
     font-weight: bold;
     vertical-align: middle;
 }
-
 .button {
     background-color: lightgreen;
     text-align: center;
@@ -18,6 +17,30 @@ label {
     width: 100px;
     height: 50px;
     border: 2px solid black;
+}
+.button-dark {
+    background-color: darkgreen;
+    border: .2em solid black;
+    color: white;
+    float: left;
+    font-weight: bold;
+    height: 2.5em;
+    margin-left: 0;
+    margin-right: 1.5em;
+    padding: .25em .5em .25em .5em;
+    width: 9em;
+}
+.button-dark-right {
+    background-color: darkgreen;
+    border: .2em solid black;
+    color: white;
+    float: right;
+    font-weight: bold;
+    height: 2.5em;
+    margin-left: 1.5em;
+    margin-right: 0;
+    padding: .25em .5em .25em .5em;
+    width: 9em;
 }
 .view {
     width: 100%;
@@ -150,30 +173,6 @@ label {
     margin-right: auto;
     text-align: left;
     width: 100%;
-}
-.button {
-    background-color: darkgreen;
-    border: .2em solid black;
-    color: white;
-    float: left;
-    font-weight: bold;
-    height: 2.5em;
-    margin-left: 0;
-    margin-right: 1.5em;
-    padding: .25em .5em .25em .5em;
-    width: 9em;
-}
-.button-right {
-    background-color: darkgreen;
-    border: .2em solid black;
-    color: white;
-    float: right;
-    font-weight: bold;
-    height: 2.5em;
-    margin-left: 1.5em;
-    margin-right: 0;
-    padding: .25em .5em .25em .5em;
-    width: 9em;
 }
 .text-box {
     border: .2em solid black;
