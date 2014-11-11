@@ -29,7 +29,7 @@ var FormGenerator = function () {
      */
     this.drawDateForm = function (current_date) {
         $('#read-info').append("<br>Date: ");
-        drawMonthForm(current_date.getMonth);
+        drawMonthForm(current_date.getMonth());
         drawDayForm(current_date.getDate());
         drawYearForm(current_date.getFullYear());
     };
@@ -184,7 +184,12 @@ var FormGenerator = function () {
         $('#read-info').append("<div class='select-wrapper' id='month-select-wrapper'></div>");
         $('#month-select-wrapper').append("<select name='start_month' id='month-select-form' class='select-custom'></select>");
         for (var i = 1; i < 13; i++) {
-            $('#month-select-form').append("<option value='" + i + "'>" + i + "</option>");
+            if (i == (current_month + 1)) {
+                $('#month-select-form').append("<option value='" + i + "' selected='selected'>" + i + "</option>");
+            }
+            else {
+                $('#month-select-form').append("<option value='" + i + "'>" + i + "</option>");
+            }
         }
         $('#read-info').append("&nbsp;");
     };
@@ -193,18 +198,28 @@ var FormGenerator = function () {
         $('#read-info').append("<div class='select-wrapper' id='day-select-wrapper'></div>");
         $('#day-select-wrapper').append("<select name='start_day' id='day-select-form' class='select-custom'></select>");
         for (var i = 1; i < 32; i++) {
-            $('#day-select-form').append("<option value='" + i + "'>" + i + "</option>");
+            if (i == current_day) {
+                $('#day-select-form').append("<option value='" + i + "' selected='selected'>" + i + "</option>");
+            } 
+            else {
+                $('#day-select-form').append("<option value='" + i + "'>" + i + "</option>");
+            }
         }
-         $('#read-info').append("&nbsp;");
+        $('#read-info').append("&nbsp;");
     };
     
     var drawYearForm = function (current_year) {
         $('#read-info').append("<div class='select-wrapper' id='year-select-wrapper'></div>");
         $('#year-select-wrapper').append("<select name='start_year' id='year-select-form' class='select-custom'></select>");
         for (var i = 2000; i < current_year + 1 ; i++) {
-            $('#year-select-form').append("<option value='" + i + "'>" + i + "</option>");
+            if (i == current_year) {
+                $('#year-select-form').append("<option value='" + i + "' selected='selected'>" + i + "</option>");
+            } 
+            else {
+                $('#year-select-form').append("<option value='" + i + "'>" + i + "</option>");
+            }
         }
-         $('#read-info').append("&nbsp;");
+        $('#read-info').append("&nbsp;");
     };
     
     
