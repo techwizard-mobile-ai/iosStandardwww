@@ -15,7 +15,7 @@ var DBController = function () {
     
     //CONSTANTS (TODO: conform to best practices yada yada yada)
     var DB_NAME = 'test5',
-        DB_VERSION = 1;
+        DB_VERSION = 2;
     
     
     var isSupported = checkSupport(),
@@ -48,6 +48,27 @@ var DBController = function () {
             var db = event.target.result,
                 objectStore = db.transaction('substation_list', 'readwrite').objectStore('substation_list');
                 objectStore.add(sub_station);
+        };
+    };
+    
+    /**
+     * This method adds a substation reading (converted to a serialized object) to
+     * the indexedDB when internet access is unavailable
+     * @param {Object} station_read
+     * @return none
+     */
+    this.addReading = function(station_read) {
+        var request =  indexedDB.open(DB_NAME, DB_VERSION);
+        
+        request.onerror = function (event) {
+            console.log('Error', event.target.error.name);
+        };
+        
+        request.onsuccess = function(event) {
+            var db = event.target.result,
+                transaction = db.transaction('station_readings', 'readwrite'),
+                objectStore = transaction.objectStore('station_readings');
+                objectStore.add(station_read);
         };
     };
     
@@ -104,14 +125,19 @@ var DBController = function () {
                 console.log('Upgrading...');
                 db = event.target.result;
                 
+                var objectStore;
+                
                 if (!db.objectStoreNames.contains('substation_list')) {
-                    var objectStore = db.createObjectStore('substation_list', { keyPath: 'station_id', autoIncrement : false });
+                    objectStore = db.createObjectStore('substation_list', { keyPath: 'station_id', autoIncrement : false });
                     objectStore.createIndex('station_name', 'station_name', {unique : true});
                 }
                 
-                //if (!db.objectStoreNames.contains('station_readings')) {
-                    //var objectStore =  db.createObjectStore('station_readings', { keyPath: 'read_id', autoIncrement : true });
-                    //objectStore.createIndex('
+                if (!db.objectStoreNames.contains('station_readings')) {
+                    objectStore =  db.createObjectStore('station_readings', { keyPath: 'read_id', autoIncrement : true });
+                    objectStore.createIndex('station_name', 'station_name', {unique : false});
+                    objectStore.createIndex('date', 'date', {unique : false});
+                }
+                    
             };
 
             openRequest.onsuccess = function(event) {

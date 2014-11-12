@@ -62,9 +62,14 @@ var FormController = function () {
     
     //BUG WARNING: FOR SOME REASON MY BR TAGS GET HIDDEN. TRYING TO FIND OUT WHY.
 	var submitForm = function (event) {
-        var hidden = $('#station-form').find(':hidden');
+        var hidden = $('#station-form').find(':hidden'),
+            station_read = $('#station-form').serializeObject();
+        
         hidden.show();
-        console.log($('#station-form').serializeObject());
+        
+        console.log(station_read);
+        
+        db_controller.addReading(station_read);
 /*
         $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
             "username": "cemc",
