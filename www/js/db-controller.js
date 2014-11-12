@@ -75,7 +75,7 @@ var DBController = function () {
     /**
      * This method returns a list of sub_stations to the form_controller
      * when an internet connection is not available
-     * @param none
+     * @param {Function} callback
      * @return {Array} the list of stations
      */
     this.getStationList = function (callback) {
@@ -108,6 +108,43 @@ var DBController = function () {
             
         }
     };
+    
+    /**
+     * This method returns a list of readings to the form_controller
+     * that are stored in the local database waiting to be uploaded
+     * @param {Function} callback
+     * @return {Array} the list of readings
+     */
+    this.getReadings = function (callback) {
+        var readings = [];
+        if (isSupported) {
+            var openRequest = indexedDB.open(DB_NAME, DB_VERSION);
+            
+            openRequest.onsuccess = function(event) {
+                var db =  event.target.result,
+                    transaction = db.transaction(['station_readings'], 'readonly'),
+                    objectStore = transaction.objectStore('station_readings'),
+                    cursor = objectStore.openCursor();
+                
+                cursor.onsuccess = function(event) {
+                    var result = event.target.result;
+                    
+                    if (result) {
+                        readings.push(result.value);
+                        result.continue();
+                    } else {
+                        callback(readings);
+                    }
+                };
+            };
+            
+            openRequest.onerror = function(event) {
+                console.log('Error');
+                console.dir(event);
+            };
+        }
+    };
+            
     
     function checkSupport () {
         if ('indexedDB' in window) {
