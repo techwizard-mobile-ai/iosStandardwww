@@ -14,8 +14,8 @@
 var DBController = function () {
     
     //CONSTANTS (TODO: conform to best practices yada yada yada)
-    var DB_NAME = 'test5',
-        DB_VERSION = 2;
+    var DB_NAME = 'test6',
+        DB_VERSION = 1;
     
     
     var isSupported = checkSupport(),
@@ -134,8 +134,7 @@ var DBController = function () {
                 
                 if (!db.objectStoreNames.contains('station_readings')) {
                     objectStore =  db.createObjectStore('station_readings', { keyPath: 'read_id', autoIncrement : true });
-                    objectStore.createIndex('station_name', 'station_name', {unique : false});
-                    objectStore.createIndex('date', 'date', {unique : false});
+                    objectStore.createIndex('station_read', ['station_name', 'date'] , {unique : true});
                 }
                     
             };

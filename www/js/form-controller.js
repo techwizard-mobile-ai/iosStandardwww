@@ -82,6 +82,7 @@ var FormController = function () {
         });
 */
         hidden.hide();
+        $("br").css("display", "block");
     };
 
     var openForm = function (event) {
