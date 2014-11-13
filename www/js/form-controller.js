@@ -68,7 +68,8 @@ var FormController = function () {
         
         console.log(station_read);
         
-        db_controller.addReading(station_read);
+        //db_controller.addReading(station_read);
+        db_controller.getReadings(listReadings);
 /*
         $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
             "username": "cemc",
@@ -133,7 +134,11 @@ var FormController = function () {
     };
     
     var listReadings = function(readings) {
-        //form_generator.clearMainMenu();
+        form_generator.clearMainMenu();
+        readings.forEach(function(reading) {
+            $('#main-menu').append("" + reading.station_name + "&nbsp;" + reading.date);
+            $('#main-menu').append("<br>");
+        });
         console.log(readings);
     };
     
