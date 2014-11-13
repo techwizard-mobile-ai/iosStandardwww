@@ -60,7 +60,6 @@ var FormController = function () {
         });
     };
     
-    //BUG WARNING: FOR SOME REASON MY BR TAGS GET HIDDEN. TRYING TO FIND OUT WHY.
 	var submitForm = function (event) {
         var hidden = $('#station-form').find(':hidden'),
             station_read = $('#station-form').serializeObject();
@@ -131,6 +130,11 @@ var FormController = function () {
 
             db_controller.addSubStation(station.station_id, station.station_name);
         });
+    };
+    
+    var listReadings = function(readings) {
+        //form_generator.clearMainMenu();
+        console.log(readings);
     };
     
     $.fn.serializeObject = function()
