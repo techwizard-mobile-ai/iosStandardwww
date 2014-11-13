@@ -135,9 +135,16 @@ var FormController = function () {
     
     var listReadings = function(readings) {
         form_generator.clearMainMenu();
-        readings.forEach(function(reading) {
-            $('#main-menu').append("" + reading.station_name + "&nbsp;" + reading.date);
-            $('#main-menu').append("<br>");
+        $('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
+        $('#main-menu').append('<div class="table-wrapper"></div>');
+        $('.table-wrapper').append('<div class="row-dark"></div>');
+        $('.row-dark').append('<div class="column-header">Station Name: </div>');
+        $('.row-dark').append('<div class="column-header">Date:</div>');
+        readings.forEach(function(reading) {   
+            var jquery_id = reading.station_name + reading.date;
+            $('.table-wrapper').append('<div class="row" id="' + jquery_id + '"></div>');
+            $('#' + jquery_id).append('<div class="column">' + reading.station_name + '</div>');
+            $('#' + jquery_id).append('<div class="column">' + reading.date + '</div>');
         });
         console.log(readings);
     };
