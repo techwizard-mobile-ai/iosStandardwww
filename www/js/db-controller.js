@@ -8,7 +8,6 @@
 
 /**
  * Constructor for the DBController class
- * @param none
  * @return none
  */
 var DBController = function () {
@@ -24,7 +23,6 @@ var DBController = function () {
             
     /**
      * This method checks to see if there is a connection to the internet available
-     * @param none
      * @return {Boolean}
      */
     this.checkConnection = function () {
@@ -33,7 +31,8 @@ var DBController = function () {
     
     /**
      * This method adds a substation to the IndexedDB station list backup
-     * @param {Object} sub_station
+     * @param {Number} id
+     * @param {String} name
      * @return none
      */
     this.addSubStation = function(id, name) {
@@ -147,11 +146,7 @@ var DBController = function () {
             
     
     function checkSupport () {
-        if ('indexedDB' in window) {
-            return true;
-        } else {
-            return false;
-        }
+        return ('indexedDB' in window);
     }
     
     function setOpenRequest () {
