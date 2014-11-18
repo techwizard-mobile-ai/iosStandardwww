@@ -65,12 +65,12 @@ var FormGenerator = function () {
             id,
             jquery_id;
         
-            if (regulator_name === null) {
-                regulator_name = '';
-            }
-        
-            id = "regulator" + regulator_name + "header";
-            jquery_id = "#" + id;
+        if (regulator_name === null) {
+            regulator_name = '';
+        }
+
+        id = "regulator" + regulator_name + "header";
+        jquery_id = "#" + id;
 
         $('.table-wrapper').append("<div class='row-top-header' id='" + id + "'></div>");
         $(jquery_id).append("<div class='column-header-small'>" + regulator_name + "</div>");
