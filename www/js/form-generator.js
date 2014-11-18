@@ -8,14 +8,12 @@
 
 /**
  * Constructor for the FormGenerator class
- * @param {Object} json_controller
  * @returns none
  */
 var FormGenerator = function () {
     
     /**
      * Clears the MainMenu div
-     * @param none
      * @returns none
      */
     this.clearMainMenu = function () {
@@ -24,7 +22,7 @@ var FormGenerator = function () {
     
     /**
      * draw date select boxes for readings
-     * @param {date} date
+     * @param {Date} current_date
      * @returns none
      */
     this.drawDateForm = function (current_date) {
@@ -36,7 +34,7 @@ var FormGenerator = function () {
     
     /**
      * draw form fields for each regulator
-     * @param {Object} regulator_list
+     * @param {Object} regulator
      * @return none
      */
     this.drawRegulatorForms = function (regulator) {
@@ -48,7 +46,7 @@ var FormGenerator = function () {
     
     /**
      * draw form fields for each breaker
-     * @param {Object} breaker_list
+     * @param {Object} breaker
      * @return none
      */
     this.drawBreakerForms = function (breaker) {

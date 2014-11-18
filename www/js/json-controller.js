@@ -8,14 +8,13 @@
 
 /**
  * Constructor for the JSONController class
- * @param none
  * @return none
  */
 var JSONController = function () {
     
     /**
      * Request the list of substations from the app server
-     * @param none
+     * @param {Function} callback
      * @return {Object} stations
      */
     this.getStationList = function (callback) {

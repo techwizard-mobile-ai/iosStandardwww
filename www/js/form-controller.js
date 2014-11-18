@@ -8,8 +8,6 @@
 
 /**
  * Constructor for the form controller class.
- * @param {Object} json_controller
- *      the JSONController instance to use
  */
 var FormController = function () {
     
