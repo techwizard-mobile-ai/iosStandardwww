@@ -45,7 +45,8 @@ var DBController = function () {
         
         request.onsuccess = function (event) {
             var db = event.target.result,
-                objectStore = db.transaction('substation_list', 'readwrite').objectStore('substation_list');
+                transaction = db.transaction('substation_list', 'readwrite'),
+                objectStore = transaction.objectStore('substation_list');
                 objectStore.add(sub_station);
         };
     };
@@ -65,7 +66,7 @@ var DBController = function () {
         
         request.onsuccess = function(event) {
             var db = event.target.result,
-                transaction = db.transaction('station_readings', 'readwrite'),
+                transaction = db.transaction('station_readings', "readwrite"),
                 objectStore = transaction.objectStore('station_readings');
                 objectStore.add(station_read);
         };
@@ -194,7 +195,7 @@ var DBController = function () {
         var store = getObjectStore(store_name, 'readwrite'),
             req = store.clear();
             
-        req.onsuccess = function (event) {
+        req.onsuccess = function () { //unused event param removed
             console.log('object store cleared');
         };
         req.onerror = function (event) {

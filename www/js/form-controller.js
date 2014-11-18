@@ -34,7 +34,7 @@ var FormController = function () {
      * Queries the JSONController instance for a list of available substations
      * and generates the html to display them for the user
      */
-	this.showMenu = function (event) {
+	this.showMenu = function () { //unused event param removed
         form_generator.clearMainMenu();
         
         if (db_controller.checkConnection() === true) {
@@ -58,7 +58,7 @@ var FormController = function () {
         });
     };
     
-	var submitForm = function (event) {
+	var submitForm = function () { //unused event param removed
         var hidden = $('#station-form').find(':hidden'),
             station_read = $('#station-form').serializeObject();
         
