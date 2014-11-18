@@ -15,13 +15,7 @@ var FormController = function () {
         db_controller = new DBController(),
         form_generator = new FormGenerator(),
         current_date = new Date(),
-        that = this,
-        //JQUERY SELECTORS
-        station_form = $('#station-form'),
-        main_menu = $('#main-menu'),
-        table_wrapper = $('.table-wrapper'),
-        row_dark = $('.row-dark'),
-        nav_wrapper = $('#nav-wrapper');
+        that = this;
     
     
     /**
@@ -30,8 +24,8 @@ var FormController = function () {
      */
 	this.enableSetup = function () {
         $('#setup').click(function () {
-            main_menu.removeClass('hidden');
-            main_menu.addClass('visible');
+            $('#main-menu').removeClass('hidden');
+            $('#main-menu').addClass('visible');
             $('#setup').addClass('hidden');
         });
     };
@@ -65,8 +59,8 @@ var FormController = function () {
     };
     
 	var submitForm = function () { //unused event param removed
-        var hidden = station_form.find(':hidden'),
-            station_read = station_form.serializeObject();
+        var hidden = $('#station-form').find(':hidden'),
+            station_read = $('#station-form').serializeObject();
         
         hidden.show();
         
@@ -101,18 +95,18 @@ var FormController = function () {
     //MVC WOES: Move this eventually
 	var drawStationForm = function (station, regulator_list, breaker_list) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
-        main_menu.append(form_string);
-        station_form.append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
-        nav_wrapper.append('<div class="inner-banner" id="read-info">Station: ' + station.name + '&nbsp;<br></div>');
+        $('#main-menu').append(form_string);
+        $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
+        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + station.name + '&nbsp;<br></div>');
         form_generator.drawDateForm(current_date);
-        station_form.append('<div class="table-wrapper"></div>');
+        $('#station-form').append('<div class="table-wrapper"></div>'); 
         drawRegulatorForms(regulator_list);
         drawBreakerForms(breaker_list);
-        table_wrapper.append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
-        table_wrapper.append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
-        station_form.append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
-        station_form.append('<input type="hidden" name="station_name" value="' + station.name + '"></input>');
-        station_form.append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
+        $('.table-wrapper').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
+        $('.table-wrapper').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
+        $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
+        $('#station-form').append('<input type="hidden" name="station_name" value="' + station.name + '"></input>');
+        $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
         $('#back').click(that.showMenu);
         $('#submit').click(submitForm);
     };    
@@ -125,10 +119,10 @@ var FormController = function () {
 
     var generateStationButtons = function (stations) {
         stations.forEach(function(station) {
-            var id = $('#' + station.station_id),
+            var id = '#' + station.station_id,
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
-            main_menu.append(station_name);
-            id.click({
+            $('#main-menu').append(station_name);
+            $(id).click({
                 id: station.station_id,
                 name: station.station_name
             }, openForm);
@@ -139,16 +133,16 @@ var FormController = function () {
     
     var listReadings = function(readings) {
         form_generator.clearMainMenu();
-        main_menu.append('<div class="nav-wrapper" id="nav-wrapper"></div>');
-        main_menu.append('<div class="table-wrapper"></div>');
-        table_wrapper.append('<div class="row-dark"></div>');
-        row_dark.append('<div class="column-header">Station Name: </div>');
-        row_dark.append('<div class="column-header">Date:</div>');
+        $('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
+        $('#main-menu').append('<div class="table-wrapper"></div>');
+        $('.table-wrapper').append('<div class="row-dark"></div>');
+        $('.row-dark').append('<div class="column-header">Station Name: </div>');
+        $('.row-dark').append('<div class="column-header">Date:</div>');
         readings.forEach(function(reading) {   
-            var jquery_id = $('#' + reading.station_name + reading.date);
-            table_wrapper.append('<div class="row" id="' + jquery_id + '"></div>');
-            jquery_id.append('<div class="column">' + reading.station_name + '</div>');
-            jquery_id.append('<div class="column">' + reading.date + '</div>');
+            var jquery_id = reading.station_name + reading.date;
+            $('.table-wrapper').append('<div class="row" id="' + jquery_id + '"></div>');
+            $('#' + jquery_id).append('<div class="column">' + reading.station_name + '</div>');
+            $('#' + jquery_id).append('<div class="column">' + reading.date + '</div>');
         });
         console.log(readings);
     };
