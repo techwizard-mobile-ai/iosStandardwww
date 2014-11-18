@@ -125,10 +125,10 @@ var FormController = function () {
 
     var generateStationButtons = function (stations) {
         stations.forEach(function(station) {
-            var id = '#' + station.station_id,
+            var id = $('#' + station.station_id),
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
             main_menu.append(station_name);
-            $(id).click({
+            id.click({
                 id: station.station_id,
                 name: station.station_name
             }, openForm);
@@ -149,7 +149,6 @@ var FormController = function () {
             table_wrapper.append('<div class="row" id="' + jquery_id + '"></div>');
             jquery_id.append('<div class="column">' + reading.station_name + '</div>');
             jquery_id.append('<div class="column">' + reading.date + '</div>');
-
         });
         console.log(readings);
     };
