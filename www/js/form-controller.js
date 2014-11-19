@@ -99,7 +99,7 @@ var FormController = function () {
         $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
         $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + station.name + '&nbsp;<br></div>');
         form_generator.drawDateForm(current_date);
-        $('#station-form').append('<div class="table-wrapper"></div>'); 
+        $('#station-form').append('<div class="table-wrapper"></div>');
         drawRegulatorForms(regulator_list);
         drawBreakerForms(breaker_list);
         $('.table-wrapper').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
@@ -109,7 +109,8 @@ var FormController = function () {
         $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
         $('#back').click(that.showMenu);
         $('#submit').click(submitForm);
-    };    
+        showReading(station.reading);
+    };
 
     var getReadDate = function () {
         var date_string = "";
@@ -124,7 +125,8 @@ var FormController = function () {
             $('#main-menu').append(station_name);
             $(id).click({
                 id: station.station_id,
-                name: station.station_name
+                name: station.station_name,
+                reading: []
             }, openForm);
 
             db_controller.addSubStation(station.station_id, station.station_name);
@@ -151,6 +153,16 @@ var FormController = function () {
             }, openForm);
         });
         console.log(readings);
+    };
+
+    var showReading = function(reading) {
+        for (property in reading) {
+            var field_id = property,
+                field_value = reading[property];
+
+            console.log(field_id);
+            $('#' + field_id).val(field_value);
+        }
     };
     
     $.fn.serializeObject = function()
