@@ -160,7 +160,6 @@ var FormController = function () {
             var field_id = property,
                 field_value = reading[property];
 
-            console.log(field_id);
             $('#' + field_id).val(field_value);
         }
     };
