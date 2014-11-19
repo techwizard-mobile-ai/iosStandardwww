@@ -139,10 +139,16 @@ var FormController = function () {
         $('.row-dark').append('<div class="column-header">Station Name: </div>');
         $('.row-dark').append('<div class="column-header">Date:</div>');
         readings.forEach(function(reading) {   
-            var jquery_id = reading.station_name + reading.date;
-            $('.table-wrapper').append('<div class="row" id="' + jquery_id + '"></div>');
-            $('#' + jquery_id).append('<div class="column">' + reading.station_name + '</div>');
-            $('#' + jquery_id).append('<div class="column">' + reading.date + '</div>');
+            var reading_id = reading.station_name + reading.date;
+            $('.table-wrapper').append('<div class="row" id="' + reading_id + '"></div>');
+            $('#' + reading_id).append('<div class="column">' + reading.station_name + '</div>');
+            $('#' + reading_id).append('<div class="column">' + reading.date + '</div>');
+
+            $('#' + reading_id).click({
+                id: reading["station-id"],
+                name: reading.station_name,
+                reading: reading
+            }, openForm);
         });
         console.log(readings);
     };
