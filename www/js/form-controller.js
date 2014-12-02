@@ -76,9 +76,7 @@ var FormController = function () {
             station_read = $('#station-form').serializeObject();
         
         hidden.show();
-        
-        console.log(station_read);
-        
+
         //db_controller.addEntry(station_read, 'station_readings');
 
         db_controller.getEntries('station_readings', listReadings);
@@ -172,7 +170,7 @@ var FormController = function () {
                 reading: reading
             }, openForm);
         });
-        console.log(readings);
+
     };
 
     var showReading = function(reading) {
