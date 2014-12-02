@@ -50,6 +50,12 @@ var DBController = function () {
         };
     };
 
+    /**
+     * Remove an entry from the specified object store
+     * @param {String} entry
+     * @param {String} store_name
+     * @return none
+     */
     this.deleteEntry = function(entry, store_name) {
         var request = indexedDB.open(DB_NAME, DB_VERSION);
 
