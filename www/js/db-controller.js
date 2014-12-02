@@ -51,79 +51,43 @@ var DBController = function () {
     };
     
     /**
-     * This method returns a list of sub_stations to the form_controller
+     * This method returns a list of entries for the given object store
      * when an internet connection is not available
+     * @param {String} store_name
      * @param {Function} callback
-     * @return {Array} the list of stations
+     * @return {Array} the list of entries
      */
-    this.getStationList = function (callback) {
-        var stations = [];
+    this.getEntries = function (store_name, callback) {
+        var entries = [];
         if (isSupported) {
             var openRequest = indexedDB.open(DB_NAME, DB_VERSION);
-            
+
             openRequest.onsuccess = function(event) {
-               var db = event.target.result,
-                   transaction = db.transaction(['substation_list'], 'readonly'),
-                   objectStore = transaction.objectStore('substation_list'),
-                   cursor = objectStore.openCursor();
-                
-                cursor.onsuccess = function(event) {
-                    var result = event.target.result;                        
-                    
-                    if (result) {
-                        stations.push(result.value);
-                        result.continue();
-                    } else {
-                        callback(stations);
-                    }
-                };                    
-            };
-            
-            openRequest.onerror = function(event) {
-                console.log('Error');
-                console.dir(event);
-            };
-            
-        }
-    };
-    
-    /**
-     * This method returns a list of readings to the form_controller
-     * that are stored in the local database waiting to be uploaded
-     * @param {Function} callback
-     * @return {Array} the list of readings
-     */
-    this.getReadings = function (callback) {
-        var readings = [];
-        if (isSupported) {
-            var openRequest = indexedDB.open(DB_NAME, DB_VERSION);
-            
-            openRequest.onsuccess = function(event) {
-                var db =  event.target.result,
-                    transaction = db.transaction(['station_readings'], 'readonly'),
-                    objectStore = transaction.objectStore('station_readings'),
+                var db = event.target.result,
+                    transaction = db.transaction([store_name], 'readonly'),
+                    objectStore = transaction.objectStore(store_name),
                     cursor = objectStore.openCursor();
-                
+
                 cursor.onsuccess = function(event) {
                     var result = event.target.result;
-                    
+
                     if (result) {
-                        readings.push(result.value);
+                        entries.push(result.value);
                         result.continue();
                     } else {
-                        callback(readings);
+                        callback(entries);
                     }
                 };
             };
-            
+
             openRequest.onerror = function(event) {
                 console.log('Error');
                 console.dir(event);
             };
+
         }
     };
-            
-    
+
     function checkSupport () {
         return ('indexedDB' in window);
     }

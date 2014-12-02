@@ -40,7 +40,7 @@ var FormController = function () {
         if (db_controller.checkConnection() === true) {
             json_controller.getStationList(generateStationButtons);
         } else {
-            db_controller.getStationList(generateStationButtons);
+            db_controller.getEntries('substation_list', generateStationButtons);
         }        
     };
     
@@ -73,7 +73,8 @@ var FormController = function () {
         console.log(station_read);
         
         //db_controller.addEntry(station_read, 'station_readings');
-        db_controller.getReadings(listReadings);
+
+        db_controller.getEntries('station_readings', listReadings);
 /*
         $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
             "username": "cemc",
