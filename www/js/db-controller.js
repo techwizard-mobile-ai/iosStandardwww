@@ -21,13 +21,7 @@ var DBController = function () {
         openRequest = setOpenRequest(),
         db;
             
-    /**
-     * This method checks to see if there is a connection to the internet available
-     * @return {Boolean}
-     */
-    this.checkConnection = function () {
-        return window.navigator.onLine;
-    };    
+
     
     /**
      * This method adds an entry to the specified indexedDB object store

@@ -16,8 +16,15 @@ var FormController = function () {
         form_generator = new FormGenerator(),
         current_date = new Date(),
         that = this;
-    
-    
+
+    /**
+     * This method checks to see if there is a connection to the internet available
+     * @return {Boolean}
+     */
+    this.checkConnection = function () {
+        return window.navigator.onLine;
+    };
+
     /**
      * Adds click event handler to the setup button
      * @return none
@@ -37,7 +44,7 @@ var FormController = function () {
 	this.showMenu = function () { //unused event param removed
         form_generator.clearMainMenu();
         
-        if (db_controller.checkConnection() === true) {
+        if (that.checkConnection() === true) {
             json_controller.getStationList(generateStationButtons);
         } else {
             db_controller.getEntries('substation_list', generateStationButtons);
