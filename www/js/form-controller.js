@@ -46,14 +46,20 @@ var FormController = function () {
     
     var drawBreakerForms = function (breaker_list) {
         breaker_list.forEach(function (breaker) { 
-            var breaker_info = json_controller.getBreakerInfo(breaker); 
+            var breaker_info = json_controller.getBreakerInfo(breaker),
+                offline_breaker_info = { breaker_id: breaker.breaker_id, breaker_info: breaker_info};
+
+            db_controller.addEntry(offline_breaker_info, 'breaker_info');
             form_generator.drawBreakerForms(breaker_info);        
         });
     };
     
     var drawRegulatorForms = function (regulator_list) { 
         regulator_list.forEach(function (regulator) { 
-            var regulator_info = json_controller.getRegulatorInfo(regulator);
+            var regulator_info = json_controller.getRegulatorInfo(regulator),
+                offline_regulator_info = { regulator_id: regulator.regulator_id, regulator_info: regulator_info};
+
+            db_controller.addEntry(offline_regulator_info, 'regulator_info');
             form_generator.drawRegulatorForms(regulator_info);
         });
     };
@@ -85,7 +91,12 @@ var FormController = function () {
 
     var openForm = function (event) {
         var regulator_list = json_controller.getRegulatorList(event),
-            breaker_list = json_controller.getBreakerList(event);
+            offline_regulator_list = {station_id: event.data.id, regulator_list: regulator_list},
+            breaker_list = json_controller.getBreakerList(event),
+            offline_breaker_list = {station_id: event.data.id, breaker_list: breaker_list};
+
+        db_controller.addEntry(offline_regulator_list, 'regulator_list');
+        db_controller.addEntry(offline_breaker_list, 'breaker_list');
 
         form_generator.clearMainMenu();
 

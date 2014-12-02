@@ -14,7 +14,7 @@ var DBController = function () {
     
     //CONSTANTS (TODO: conform to best practices yada yada yada)
     var DB_NAME = 'test6',
-        DB_VERSION = 1;
+        DB_VERSION = 2;
     
     
     var isSupported = checkSupport(),
