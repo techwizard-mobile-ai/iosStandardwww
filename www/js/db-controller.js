@@ -66,9 +66,30 @@ var DBController = function () {
         
         request.onsuccess = function(event) {
             var db = event.target.result,
-                transaction = db.transaction('station_readings', "readwrite"),
+                transaction = db.transaction('station_readings', 'readwrite'),
                 objectStore = transaction.objectStore('station_readings');
                 objectStore.add(station_read);
+        };
+    };
+
+    /**
+     * This method adds an entry to the specified indexedDB object store
+     * @param entry the item to add
+     * @param store_name the name of the object store
+     * @return none
+     */
+    this.addEntry = function(entry, store_name) {
+        var request = indexedDB.open(DB_NAME, DB_VERSION);
+
+        request.onerror = function (event) {
+            console.log('Error', event.target.error.name);
+        };
+
+        request.onsuccess = function(event) {
+            var db = event.target.result,
+                transaction = db.transaction(store_name, 'readwrite'),
+                objectStore = transaction.objectStore(store_name);
+                objectStore.add(entry);
         };
     };
     
@@ -162,12 +183,28 @@ var DBController = function () {
                 
                 if (!db.objectStoreNames.contains('substation_list')) {
                     objectStore = db.createObjectStore('substation_list', { keyPath: 'station_id', autoIncrement : false });
-                    objectStore.createIndex('station_name', 'station_name', {unique : true});
+                    objectStore.createIndex('station_name', 'station_name', { unique : true });
+                }
+
+                if (!db.objectStoreNames.contains('breaker_list')) {
+                    objectStore = db.createObjectStore('breaker_list', { keyPath: 'station_id', autoIncrement: false });
+                }
+
+                if (!db.objectStoreNames.contains('breaker_info')) {
+                    objectStore = db.createObjectStore('breaker_info', { keyPath: 'breaker_id', autoIncrement: false });
+                }
+
+                if (!db.objectStoreNames.contains('regulator_list')) {
+                    objectStore = db.createObjectStore('regulator_list', { keyPath: 'station_id', autoIncrement: true });
+                }
+
+                if (!db.objectStoreNames.contains('regulator_info')) {
+                    objectStore = db.createObjectStore('regulator_info', { keyPath: 'regulator_id', autoIncrement: false });
                 }
                 
                 if (!db.objectStoreNames.contains('station_readings')) {
                     objectStore =  db.createObjectStore('station_readings', { keyPath: 'read_id', autoIncrement : true });
-                    objectStore.createIndex('station_read', ['station_name', 'date'] , {unique : true});
+                    objectStore.createIndex('station_read', ['station_name', 'date'] , { unique : true });
                 }
                     
             };
