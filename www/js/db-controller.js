@@ -49,6 +49,31 @@ var DBController = function () {
                 objectStore.add(entry);
         };
     };
+
+    this.deleteEntry = function(entry, store_name) {
+        var request = indexedDB.open(DB_NAME, DB_VERSION);
+
+        request.onerror = function (event) {
+            console.log('Error', event.target.error.name);
+        };
+
+        request.onsuccess = function(event) {
+            var db = event.target.result,
+                transaction = db.transaction(store_name, 'readwrite'),
+                objectStore = transaction.objectStore(store_name),
+                request = objectStore.delete(key);
+
+            request.onsuccess = function(event) {
+                console.log('delete successful');
+            };
+
+            request.onerror = function(event) {
+                console.log('Error');
+                console.dir(event);
+            };
+        }
+
+    };
     
     /**
      * This method returns a list of entries for the given object store
