@@ -55,7 +55,7 @@ var DBController = function () {
      * when an internet connection is not available
      * @param {String} store_name
      * @param {Function} callback
-     * @return {Array} the list of entries
+     * @return none
      */
     this.getEntries = function (store_name, callback) {
         var entries = [];
@@ -77,6 +77,41 @@ var DBController = function () {
                     } else {
                         callback(entries);
                     }
+                };
+            };
+
+            openRequest.onerror = function(event) {
+                console.log('Error');
+                console.dir(event);
+            };
+
+        }
+    };
+
+    /**
+     * Return the requested entry from the specified store_name and perform the provided callback function
+     * @param {String} store_name
+     * @param {String} key
+     * @param {Function} callback
+     * @return none
+     */
+    this.getEntry = function (store_name, key, callback) {
+        if (isSupported) {
+            var openRequest = indexedDB.open(DB_NAME, DB_VERSION);
+
+            openRequest.onsuccess = function(event) {
+                var db = event.target.result,
+                    transaction = db.transaction([store_name], 'readonly'),
+                    objectStore = transaction.objectStore(store_name),
+                    request = objectStore.get(key);
+
+                request.onsuccess = function(event) {
+                    callback(request.result);
+                };
+
+                request.onerror = function(event) {
+                    console.log('Error');
+                    console.dir(event);
                 };
             };
 
