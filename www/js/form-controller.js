@@ -66,7 +66,7 @@ var FormController = function () {
         
         console.log(station_read);
         
-        //db_controller.addReading(station_read);
+        //db_controller.addEntry(station_read, 'station_readings');
         db_controller.getReadings(listReadings);
 /*
         $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
@@ -129,7 +129,8 @@ var FormController = function () {
                 reading: []
             }, openForm);
 
-            db_controller.addSubStation(station.station_id, station.station_name);
+            var sub_station = {station_id: station.station_id, station_name: station.station_name};
+            db_controller.addEntry(sub_station, 'substation_list');
         });
     };
     

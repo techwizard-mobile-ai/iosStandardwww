@@ -30,49 +30,6 @@ var DBController = function () {
     };    
     
     /**
-     * This method adds a substation to the IndexedDB station list backup
-     * @param {Number} id
-     * @param {String} name
-     * @return none
-     */
-    this.addSubStation = function(id, name) {
-        var sub_station = {station_id: id, station_name: name},
-            request = indexedDB.open(DB_NAME, DB_VERSION);
-        
-        request.onerror = function (event) {
-            console.log('Error', event.target.error.name);
-        };
-        
-        request.onsuccess = function (event) {
-            var db = event.target.result,
-                transaction = db.transaction('substation_list', 'readwrite'),
-                objectStore = transaction.objectStore('substation_list');
-                objectStore.add(sub_station);
-        };
-    };
-    
-    /**
-     * This method adds a substation reading (converted to a serialized object) to
-     * the indexedDB when internet access is unavailable
-     * @param {Object} station_read
-     * @return none
-     */
-    this.addReading = function(station_read) {
-        var request =  indexedDB.open(DB_NAME, DB_VERSION);
-        
-        request.onerror = function (event) {
-            console.log('Error', event.target.error.name);
-        };
-        
-        request.onsuccess = function(event) {
-            var db = event.target.result,
-                transaction = db.transaction('station_readings', 'readwrite'),
-                objectStore = transaction.objectStore('station_readings');
-                objectStore.add(station_read);
-        };
-    };
-
-    /**
      * This method adds an entry to the specified indexedDB object store
      * @param entry the item to add
      * @param store_name the name of the object store
