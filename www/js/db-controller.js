@@ -13,8 +13,8 @@
 var DBController = function () {
     
     //CONSTANTS (TODO: conform to best practices yada yada yada)
-    var DB_NAME = 'test6',
-        DB_VERSION = 2;
+    var DB_NAME = 'test8',
+        DB_VERSION = 1;
     
     
     var isSupported = checkSupport(),
@@ -176,7 +176,7 @@ var DBController = function () {
                 }
 
                 if (!db.objectStoreNames.contains('regulator_list')) {
-                    objectStore = db.createObjectStore('regulator_list', { keyPath: 'station_id', autoIncrement: true });
+                    objectStore = db.createObjectStore('regulator_list', { keyPath: 'station_id', autoIncrement: false });
                 }
 
                 if (!db.objectStoreNames.contains('regulator_info')) {

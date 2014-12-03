@@ -97,12 +97,21 @@ var FormController = function () {
 
     var openForm = function (event) {
         var regulator_list = json_controller.getRegulatorList(event),
-            offline_regulator_list = {station_id: event.data.id, regulator_list: regulator_list},
             breaker_list = json_controller.getBreakerList(event),
-            offline_breaker_list = {station_id: event.data.id, breaker_list: breaker_list};
+            regulator_ids = [],
+            breaker_ids = [];
 
-        db_controller.addEntry(offline_regulator_list, 'regulator_list');
-        db_controller.addEntry(offline_breaker_list, 'breaker_list');
+        regulator_list.forEach(function (regulator){
+            regulator_ids.push(regulator.regulator_id);
+        });
+
+        db_controller.addEntry({station_id: event.data.id, regulator_list: regulator_ids}, 'regulator_list');
+
+        breaker_list.forEach(function (breaker){
+            breaker_ids.push(breaker.breaker_id);
+        });
+
+        db_controller.addEntry({station_id: event.data.id, breaker_list: breaker_ids}, 'breaker_list');
 
         form_generator.clearMainMenu();
 

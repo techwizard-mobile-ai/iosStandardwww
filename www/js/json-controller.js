@@ -107,6 +107,7 @@ var JSONController = function () {
         }).responseText;
 
         regulator_list = JSON.parse(regulator_json);
+        console.log(regulator_json);
 
         return regulator_list;
     };
