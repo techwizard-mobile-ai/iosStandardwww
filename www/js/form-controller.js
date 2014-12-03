@@ -53,20 +53,18 @@ var FormController = function () {
     
     var drawBreakerForms = function (breaker_list) {
         breaker_list.forEach(function (breaker) { 
-            var breaker_info = json_controller.getBreakerInfo(breaker),
-                offline_breaker_info = { breaker_id: breaker.breaker_id, breaker_info: breaker_info};
+            var breaker_info = json_controller.getBreakerInfo(breaker);
 
-            db_controller.addEntry(offline_breaker_info, 'breaker_info');
+            db_controller.addEntry(breaker_info, 'breaker_info');
             form_generator.drawBreakerForms(breaker_info);        
         });
     };
     
     var drawRegulatorForms = function (regulator_list) { 
         regulator_list.forEach(function (regulator) { 
-            var regulator_info = json_controller.getRegulatorInfo(regulator),
-                offline_regulator_info = { regulator_id: regulator.regulator_id, regulator_info: regulator_info};
+            var regulator_info = json_controller.getRegulatorInfo(regulator);
 
-            db_controller.addEntry(offline_regulator_info, 'regulator_info');
+            db_controller.addEntry(regulator_info, 'regulator_info');
             form_generator.drawRegulatorForms(regulator_info);
         });
     };

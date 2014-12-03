@@ -82,7 +82,7 @@ var JSONController = function () {
         }).responseText;
 
         breaker_info = JSON.parse(breaker_json);
-
+        console.log(breaker_info);
         return breaker_info;
     };
     
@@ -107,7 +107,6 @@ var JSONController = function () {
         }).responseText;
 
         regulator_list = JSON.parse(regulator_json);
-        console.log(regulator_json);
 
         return regulator_list;
     };
