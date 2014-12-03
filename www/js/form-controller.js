@@ -38,8 +38,14 @@ var FormController = function () {
         that.setupDB();
     };
 
+    /**
+     * Builds the database when starting up the application
+     * @return none
+     */
     this.setupDB = function () {
-        json_controller.getStationList(addStationComponentsToDB);
+        if (that.checkConnection() === true) {
+            json_controller.getStationList(addStationComponentsToDB);
+        }
     };
 
     var addStationComponentsToDB = function(stations) {
