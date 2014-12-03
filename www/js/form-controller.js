@@ -35,8 +35,50 @@ var FormController = function () {
             $('#main-menu').addClass('visible');
             $('#setup').addClass('hidden');
         });
+        that.setupDB();
     };
-    
+
+    this.setupDB = function () {
+        json_controller.getStationList(addStationComponentsToDB);
+    };
+
+    var addStationComponentsToDB = function(stations) {
+        addRegulatorListToDB(stations);
+        addBreakerListToDB(stations);
+    };
+
+    var addRegulatorListToDB = function(stations) {
+        stations.forEach(function (station) {
+            var regulator_list = json_controller.getRegulatorList({data: {id: station.station_id}}),
+                regulator_ids = [];
+
+            regulator_list.forEach(function (regulator){
+                var regulator_info = json_controller.getRegulatorInfo(regulator);
+
+                db_controller.addEntry(regulator_info, 'regulator_info');
+                regulator_ids.push(regulator.regulator_id);
+            });
+
+            db_controller.addEntry({station_id: station.station_id, regulator_list: regulator_ids}, 'regulator_list');
+        });
+    };
+
+    var addBreakerListToDB = function(stations) {
+        stations.forEach(function (station) {
+            var breaker_list = json_controller.getBreakerList({data: {id: station.station_id}}),
+                breaker_ids = [];
+
+            breaker_list.forEach(function (breaker){
+                var breaker_info = json_controller.getBreakerInfo(breaker);
+
+                db_controller.addEntry(breaker_info, 'breaker_info');
+                breaker_ids.push(breaker.breaker_id);
+            });
+
+            db_controller.addEntry({station_id: station.station_id, breaker_list: breaker_ids}, 'breaker_list');
+        });
+    };
+
     /**
      * Queries the JSONController instance for a list of available substations
      * and generates the html to display them for the user
