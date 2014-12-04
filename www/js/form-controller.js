@@ -96,20 +96,12 @@ var FormController = function () {
     };
 
     var openForm = function (event) {
-        var form_string = '<form id="station-form" action = "#" method = "post"></form>',
-            read_date = getReadDate();
-
         form_generator.clearMainMenu();
+        form_generator.drawForm(event, current_date);
 
-        $('#main-menu').append(form_string);
-        $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
-        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + event.data.name + '&nbsp;<br></div>');
-        form_generator.drawDateForm(current_date);
-        $('#station-form').append('<div class="table-wrapper"></div>');
         db_controller.getEntry('regulator_list', event.data.id, drawRegulatorForms);
         db_controller.getEntry('breaker_list', event.data.id, drawBreakerForms);
 
-        form_generator.addHiddenFields(event, read_date);
         form_generator.addBackButton(that.showMenu);
         form_generator.addSubmitButton(submitForm);
         if (event.data.reading) {
@@ -117,12 +109,6 @@ var FormController = function () {
                 db_controller.getEntry('station_readings', event.data.reading, showReading);
             }, 1000);
         }
-    };
-
-    var getReadDate = function () {
-        var date_string = "";
-        date_string = date_string + current_date.getFullYear() + "-" + (current_date.getMonth() + 1) + "-" + current_date.getDate();
-        return date_string;
     };
 
     var generateStationButtons = function (stations) {
@@ -147,7 +133,6 @@ var FormController = function () {
         $('.row-dark').append('<div class="column-header">Date:</div>');
         readings.forEach(function(reading) {   
             var reading_id = reading.station_name.replace(' ', '') + reading.date;
-            console.log(reading.station_name.trim());
             $('.table-wrapper').append('<div class="row" id="' + reading_id + '"></div>');
             $('#' + reading_id).append('<div class="column">' + reading.station_name + '</div>');
             $('#' + reading_id).append('<div class="column">' + reading.date + '</div>');

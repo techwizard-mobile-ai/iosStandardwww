@@ -20,17 +20,7 @@ var FormGenerator = function () {
         $("#main-menu").html("");
     };
 
-    /**
-     * draw date select boxes for readings
-     * @param {Date} current_date
-     * @returns none
-     */
-    this.drawDateForm = function (current_date) {
-        $('#read-info').append("Date: ");
-        drawMonthForm(current_date.getMonth());
-        drawDayForm(current_date.getDate());
-        drawYearForm(current_date.getFullYear());
-    };
+
     
     /**
      * draw form fields for each regulator
@@ -60,10 +50,22 @@ var FormGenerator = function () {
         }
     };
 
-    this.addHiddenFields = function(event, read_date) {
-        $('#station-form').append('<input type="hidden" name="station-id" value="' + event.data.id + '"></input>');
-        $('#station-form').append('<input type="hidden" name="station_name" value="' + event.data.name + '"></input>');
-        $('#station-form').append('<input type="hidden" name="date" value="' + read_date + '"></input>');
+    /**
+     * Draw Top Level Form Elements
+     * @param {Event} event
+     * @param {Date} current_date
+     * @return none
+     */
+    this.drawForm = function(event, current_date) {
+        var form_string = '<form id="station-form" action = "#" method = "post"></form>';
+
+        $('#main-menu').append(form_string);
+        $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
+        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + event.data.name + '&nbsp;<br></div>');
+        $('#station-form').append('<div class="table-wrapper"></div>');
+
+        drawDateForm(current_date);
+        drawHiddenFields(event, getReadDate(current_date));
     };
 
     this.addSubmitButton = function(callback) {
@@ -74,6 +76,25 @@ var FormGenerator = function () {
     this.addBackButton = function(callback) {
         $('#station-form').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
         $('#back').click(callback);
+    };
+
+    var drawDateForm = function (current_date) {
+        $('#read-info').append("Date: ");
+        drawMonthForm(current_date.getMonth());
+        drawDayForm(current_date.getDate());
+        drawYearForm(current_date.getFullYear());
+    };
+
+    var getReadDate = function (current_date) {
+        var date_string = "";
+        date_string = date_string + current_date.getFullYear() + "-" + (current_date.getMonth() + 1) + "-" + current_date.getDate();
+        return date_string;
+    };
+
+    var drawHiddenFields = function(event, read_date) {
+        $('#station-form').append('<input type="hidden" name="station-id" value="' + event.data.id + '"></input>');
+        $('#station-form').append('<input type="hidden" name="station_name" value="' + event.data.name + '"></input>');
+        $('#station-form').append('<input type="hidden" name="date" value="' + read_date + '"></input>');
     };
     
     var drawRegulatorFormHeader = function (regulator) {
@@ -240,6 +261,5 @@ var FormGenerator = function () {
         }
         $('#read-info').append("&nbsp;");
     };
-    
-    
+
 };
