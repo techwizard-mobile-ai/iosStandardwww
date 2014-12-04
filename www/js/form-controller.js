@@ -52,23 +52,20 @@ var FormController = function () {
      * Queries the JSONController instance for a list of available substations
      * and generates the html to display them for the user
      */
-	this.showMenu = function () { //unused event param removed
+	this.showMenu = function () {
         form_generator.clearMainMenu();
-        
-        if (that.checkConnection() === true) {
-            json_controller.getStationList(generateStationButtons);
-        } else {
-            db_controller.getEntries('substation_list', generateStationButtons);
-        }        
+        db_controller.getEntries('substation_list', generateStationButtons);
     };
     
     var drawBreakerForms = function (breaker_list) {
+        console.log('called drawBreakerForms');
         breaker_list.breaker_list.forEach(function (breaker) {
             db_controller.getEntry('breaker_info', breaker, form_generator.drawBreakerForms);
         });
     };
     
     var drawRegulatorForms = function (regulator_list) {
+        console.log('called drawRegulatorForms');
         regulator_list.regulator_list.forEach(function (regulator) {
             db_controller.getEntry('regulator_info', regulator, form_generator.drawRegulatorForms);
         });
@@ -115,11 +112,13 @@ var FormController = function () {
         form_generator.addHiddenFields(event, read_date);
         form_generator.addBackButton(that.showMenu);
         form_generator.addSubmitButton(submitForm);
-
-
-        showReading(event.data.reading);
+        if (event.data.reading) {
+            setTimeout(function() {
+                db_controller.getEntry('station_readings', event.data.reading, showReading);
+            }, 1000);
+        }
     };
-    
+
     var getReadDate = function () {
         var date_string = "";
         date_string = date_string + current_date.getFullYear() + "-" + (current_date.getMonth() + 1) + "-" + current_date.getDate();
@@ -134,11 +133,8 @@ var FormController = function () {
             $(id).click({
                 id: station.station_id,
                 name: station.station_name,
-                reading: []
+                reading: null
             }, openForm);
-
-            var sub_station = {station_id: station.station_id, station_name: station.station_name};
-            db_controller.addEntry(sub_station, 'substation_list');
         });
     };
     
@@ -150,7 +146,8 @@ var FormController = function () {
         $('.row-dark').append('<div class="column-header">Station Name: </div>');
         $('.row-dark').append('<div class="column-header">Date:</div>');
         readings.forEach(function(reading) {   
-            var reading_id = reading.station_name + reading.date;
+            var reading_id = reading.station_name.replace(' ', '') + reading.date;
+            console.log(reading.station_name.trim());
             $('.table-wrapper').append('<div class="row" id="' + reading_id + '"></div>');
             $('#' + reading_id).append('<div class="column">' + reading.station_name + '</div>');
             $('#' + reading_id).append('<div class="column">' + reading.date + '</div>');
@@ -158,19 +155,18 @@ var FormController = function () {
             $('#' + reading_id).click({
                 id: reading["station-id"],
                 name: reading.station_name,
-                reading: reading
+                reading: reading.read_id
             }, openForm);
         });
 
     };
 
     var showReading = function(reading) {
-        for (property in reading) {
-            var field_id = property,
-                field_value = reading[property];
-
-            $('#' + field_id).val(field_value);
-        }
+         for (var property in reading) {
+             if(reading.hasOwnProperty(property)) {
+                 $('#' + property).val(reading[property]);
+             }
+         }
     };
 
     var addStationComponentsToDB = function(stations) {
