@@ -59,6 +59,22 @@ var FormGenerator = function () {
             drawBreakerAmpForms(breaker.breaker_id);
         }
     };
+
+    this.addHiddenFields = function(event, read_date) {
+        $('#station-form').append('<input type="hidden" name="station-id" value="' + event.data.id + '"></input>');
+        $('#station-form').append('<input type="hidden" name="station_name" value="' + event.data.name + '"></input>');
+        $('#station-form').append('<input type="hidden" name="date" value="' + read_date + '"></input>');
+    };
+
+    this.addSubmitButton = function(callback) {
+        $('#station-form').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
+        $('#submit').click(callback);
+    };
+
+    this.addBackButton = function(callback) {
+        $('#station-form').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
+        $('#back').click(callback);
+    };
     
     var drawRegulatorFormHeader = function (regulator) {
         var regulator_name = regulator.regulator_name,

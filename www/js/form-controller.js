@@ -48,43 +48,6 @@ var FormController = function () {
         }
     };
 
-    var addStationComponentsToDB = function(stations) {
-        addRegulatorListToDB(stations);
-        addBreakerListToDB(stations);
-    };
-
-    var addRegulatorListToDB = function(stations) {
-        stations.forEach(function (station) {
-            var regulator_list = json_controller.getRegulatorList({data: {id: station.station_id}}),
-                regulator_ids = [];
-
-            regulator_list.forEach(function (regulator){
-                var regulator_info = json_controller.getRegulatorInfo(regulator);
-
-                db_controller.addEntry(regulator_info, 'regulator_info');
-                regulator_ids.push(regulator.regulator_id);
-            });
-
-            db_controller.addEntry({station_id: station.station_id, regulator_list: regulator_ids}, 'regulator_list');
-        });
-    };
-
-    var addBreakerListToDB = function(stations) {
-        stations.forEach(function (station) {
-            var breaker_list = json_controller.getBreakerList({data: {id: station.station_id}}),
-                breaker_ids = [];
-
-            breaker_list.forEach(function (breaker){
-                var breaker_info = json_controller.getBreakerInfo(breaker);
-
-                db_controller.addEntry(breaker_info, 'breaker_info');
-                breaker_ids.push(breaker.breaker_id);
-            });
-
-            db_controller.addEntry({station_id: station.station_id, breaker_list: breaker_ids}, 'breaker_list');
-        });
-    };
-
     /**
      * Queries the JSONController instance for a list of available substations
      * and generates the html to display them for the user
@@ -100,20 +63,14 @@ var FormController = function () {
     };
     
     var drawBreakerForms = function (breaker_list) {
-        breaker_list.forEach(function (breaker) { 
-            var breaker_info = json_controller.getBreakerInfo(breaker);
-
-            db_controller.addEntry(breaker_info, 'breaker_info');
-            form_generator.drawBreakerForms(breaker_info);        
+        breaker_list.breaker_list.forEach(function (breaker) {
+            db_controller.getEntry('breaker_info', breaker, form_generator.drawBreakerForms);
         });
     };
     
-    var drawRegulatorForms = function (regulator_list) { 
-        regulator_list.forEach(function (regulator) { 
-            var regulator_info = json_controller.getRegulatorInfo(regulator);
-
-            db_controller.addEntry(regulator_info, 'regulator_info');
-            form_generator.drawRegulatorForms(regulator_info);
+    var drawRegulatorForms = function (regulator_list) {
+        regulator_list.regulator_list.forEach(function (regulator) {
+            db_controller.getEntry('regulator_info', regulator, form_generator.drawRegulatorForms);
         });
     };
     
@@ -142,48 +99,27 @@ var FormController = function () {
     };
 
     var openForm = function (event) {
-        var regulator_list = json_controller.getRegulatorList(event),
-            breaker_list = json_controller.getBreakerList(event),
-            regulator_ids = [],
-            breaker_ids = [];
-
-        regulator_list.forEach(function (regulator){
-            regulator_ids.push(regulator.regulator_id);
-        });
-
-        db_controller.addEntry({station_id: event.data.id, regulator_list: regulator_ids}, 'regulator_list');
-
-        breaker_list.forEach(function (breaker){
-            breaker_ids.push(breaker.breaker_id);
-        });
-
-        db_controller.addEntry({station_id: event.data.id, breaker_list: breaker_ids}, 'breaker_list');
+        var form_string = '<form id="station-form" action = "#" method = "post"></form>',
+            read_date = getReadDate();
 
         form_generator.clearMainMenu();
 
-        drawStationForm(event.data, regulator_list, breaker_list);
-    };
-    
-    //MVC WOES: Move this eventually
-	var drawStationForm = function (station, regulator_list, breaker_list) {
-        var form_string = '<form id="station-form" action = "#" method = "post"></form>';
         $('#main-menu').append(form_string);
         $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
-        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + station.name + '&nbsp;<br></div>');
+        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + event.data.name + '&nbsp;<br></div>');
         form_generator.drawDateForm(current_date);
         $('#station-form').append('<div class="table-wrapper"></div>');
-        drawRegulatorForms(regulator_list);
-        drawBreakerForms(breaker_list);
-        $('.table-wrapper').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
-        $('.table-wrapper').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
-        $('#station-form').append('<input type="hidden" name="station-id" value="' + station.id + '"></input>');
-        $('#station-form').append('<input type="hidden" name="station_name" value="' + station.name + '"></input>');
-        $('#station-form').append('<input type="hidden" name="date" value="' + getReadDate() + '"></input>');
-        $('#back').click(that.showMenu);
-        $('#submit').click(submitForm);
-        showReading(station.reading);
-    };
+        db_controller.getEntry('regulator_list', event.data.id, drawRegulatorForms);
+        db_controller.getEntry('breaker_list', event.data.id, drawBreakerForms);
 
+        form_generator.addHiddenFields(event, read_date);
+        form_generator.addBackButton(that.showMenu);
+        form_generator.addSubmitButton(submitForm);
+
+
+        showReading(event.data.reading);
+    };
+    
     var getReadDate = function () {
         var date_string = "";
         date_string = date_string + current_date.getFullYear() + "-" + (current_date.getMonth() + 1) + "-" + current_date.getDate();
@@ -235,6 +171,43 @@ var FormController = function () {
 
             $('#' + field_id).val(field_value);
         }
+    };
+
+    var addStationComponentsToDB = function(stations) {
+        addRegulatorListToDB(stations);
+        addBreakerListToDB(stations);
+    };
+
+    var addRegulatorListToDB = function(stations) {
+        stations.forEach(function (station) {
+            var regulator_list = json_controller.getRegulatorList({data: {id: station.station_id}}),
+                regulator_ids = [];
+
+            regulator_list.forEach(function (regulator){
+                var regulator_info = json_controller.getRegulatorInfo(regulator);
+
+                db_controller.addEntry(regulator_info, 'regulator_info');
+                regulator_ids.push(regulator.regulator_id);
+            });
+
+            db_controller.addEntry({station_id: station.station_id, regulator_list: regulator_ids}, 'regulator_list');
+        });
+    };
+
+    var addBreakerListToDB = function(stations) {
+        stations.forEach(function (station) {
+            var breaker_list = json_controller.getBreakerList({data: {id: station.station_id}}),
+                breaker_ids = [];
+
+            breaker_list.forEach(function (breaker){
+                var breaker_info = json_controller.getBreakerInfo(breaker);
+
+                db_controller.addEntry(breaker_info, 'breaker_info');
+                breaker_ids.push(breaker.breaker_id);
+            });
+
+            db_controller.addEntry({station_id: station.station_id, breaker_list: breaker_ids}, 'breaker_list');
+        });
     };
     
     $.fn.serializeObject = function()

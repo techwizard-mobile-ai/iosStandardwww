@@ -82,7 +82,6 @@ var JSONController = function () {
         }).responseText;
 
         breaker_info = JSON.parse(breaker_json);
-        console.log(breaker_info);
         return breaker_info;
     };
     
