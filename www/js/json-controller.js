@@ -11,12 +11,35 @@
  * @return none
  */
 var JSONController = function () {
-    
+    var url = "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
+        that = this;
+
+    var request = function (request) {
+        var request_json,
+            response;
+
+        request_json = $.ajax({
+            url: url,
+            type: "POST",
+            data: request,
+            dataType: "json",
+            async: false
+        }).responseText;
+
+        response = JSON.parse(request_json);
+        return response;
+    };
+
     /**
      * Request the list of substations from the app server
      * @param {Function} callback
-     * @return {Object} stations
+     * @return none
      */
+    this.getStationList = function (callback) {
+        callback(request({"request": "station_list"}));
+    };
+
+    /*
     this.getStationList = function (callback) {
     	var station_json,
     		stations;
@@ -35,12 +58,18 @@ var JSONController = function () {
 
         callback(stations);
     };
+    */
     
     /**
      * Request a list of breakers from the selected substation
      * @param {Object} event
      * @return {Object} breaker_list
      */
+    this.getBreakerList = function (event) {
+        return request({"request": "get_breakers", "station_id": event.data.id});
+    };
+
+    /*
     this.getBreakerList = function (event) {
     	var breaker_json,
     		breaker_list;
@@ -60,12 +89,18 @@ var JSONController = function () {
 
         return breaker_list;
     };
+    */
     
     /**
      * Request information on a specific breaker
      * @param {Object} breaker
      * @return {Object} breaker_info
      */
+    this.getBreakerInfo = function (breaker) {
+        return request({"request" : "build_breaker", "breaker_id": breaker.breaker_id});
+    };
+
+    /*
     this.getBreakerInfo = function (breaker) {
     	var breaker_json,
             breaker_info;
@@ -84,7 +119,8 @@ var JSONController = function () {
         breaker_info = JSON.parse(breaker_json);
         return breaker_info;
     };
-    
+    */
+
     /**
      * Request a list of regulators for the selected substation
      * @param {Object} event
