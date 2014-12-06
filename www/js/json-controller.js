@@ -4,7 +4,6 @@
  * This class controls JSON requests to and from the main app server
  * @author Christopher Wilson
  * @version 9/16/2014
- * github cfg test
  */
 
 /**
@@ -12,13 +11,12 @@
  * @return none
  */
 var JSONController = function () {
-    var url = "http://127.0.0.1/cemc_apparatus/controller/RestController.php",
+    var url = "http://programmedby.me/cemc_apparatus/controller/RestController.php",
         that = this;
 
     var request = function (request) {
         var request_json,
             response;
-
         request_json = $.ajax({
             url: url,
             type: "POST",
@@ -98,7 +96,7 @@ var JSONController = function () {
      * @return {Object} breaker_info
      */
     this.getBreakerInfo = function (breaker) {
-        return request({"request" : "build_breaker", "breaker_id": breaker.breaker_id});
+        return request({ "request" : "build_breaker", "breaker_id" : breaker.breaker_id });
     };
 
     /*
@@ -128,6 +126,11 @@ var JSONController = function () {
      * @return {Object} regulator_list
      */
     this.getRegulatorList = function (event) {
+        return request({ "request" : "get_regulators", "station_id" : event.data.id });
+    };
+
+    /*
+    this.getRegulatorList = function (event) {
     	var regulator_json,
     		regulator_list;
 
@@ -146,12 +149,18 @@ var JSONController = function () {
 
         return regulator_list;
     };
-    
+    */
+
     /**
      * Request information for a specific regulator
      * @param {Object} regulator
      * @return {Object} regulator information
      */
+    this.getRegulatorInfo = function (regulator) {
+        return request({ "request" : "build_regulator", "regulator_id" : regulator.regulator_id });
+    };
+
+    /*
     this.getRegulatorInfo = function (regulator) {
     	var regulator_json,
             regulator_info;
@@ -171,5 +180,6 @@ var JSONController = function () {
 
         return regulator_info;
     };
+    */
 
 };

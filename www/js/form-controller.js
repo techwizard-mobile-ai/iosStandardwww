@@ -34,8 +34,8 @@ var FormController = function () {
             $('#main-menu').removeClass('hidden');
             $('#main-menu').addClass('visible');
             $('#setup').addClass('hidden');
+            that.setupDB();
         });
-        that.setupDB();
     };
 
     /**
@@ -112,6 +112,7 @@ var FormController = function () {
     };
 
     var generateStationButtons = function (stations) {
+        console.log(stations);
         stations.forEach(function(station) {
             var id = '#' + station.station_id,
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
@@ -155,6 +156,9 @@ var FormController = function () {
     };
 
     var addStationComponentsToDB = function(stations) {
+        stations.forEach(function (station) {
+            db_controller.addEntry({station_id: station.station_id, station_name: station.station_name}, 'substation_list');
+        });
         addRegulatorListToDB(stations);
         addBreakerListToDB(stations);
     };
