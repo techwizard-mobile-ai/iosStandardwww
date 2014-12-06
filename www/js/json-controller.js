@@ -4,6 +4,7 @@
  * This class controls JSON requests to and from the main app server
  * @author Christopher Wilson
  * @version 9/16/2014
+ * github cfg test
  */
 
 /**
