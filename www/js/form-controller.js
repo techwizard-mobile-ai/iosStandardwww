@@ -26,23 +26,55 @@ var FormController = function () {
     };
 
     /**
-     * Adds click event handler to the setup button
+     * Adds click event handler to the main buttons
      * @return none
      */
-	this.enableSetup = function () {
+    this.enableButtons = function () {
+        enableSetup();
+        enableNew();
+        enableView();
+    };
+
+    var enableSetup = function () {
         $('#setup').click(function () {
-            $('#main-menu').removeClass('hidden');
-            $('#main-menu').addClass('visible');
-            $('#setup').addClass('hidden');
-            that.setupDB();
+            hideButtons();
+            setupDB();
         });
+    };
+
+    var enableNew = function () {
+        $('#show-stations').click(function () {
+            hideButtons();
+            showMainMenu();
+            showStationList();
+        });
+    };
+
+    var enableView = function () {
+        $('#view-readings').click(function () {
+            hideButtons();
+            showMainMenu();
+            db_controller.getEntries('station_readings', listReadings);
+        });
+    };
+
+    var hideButtons = function () {
+        $('#setup').addClass('hidden');
+        $('#show-stations').addClass('hidden');
+        $('#view-readings').addClass('hidden');
+    };
+
+    var showMainMenu = function () {
+        $('#main-menu').removeClass('hidden');
+        $('#main-menu').addClass('visible');
+        form_generator.clearMainMenu();
     };
 
     /**
      * Builds the database when starting up the application
      * @return none
      */
-    this.setupDB = function () {
+    var setupDB = function () {
         if (that.checkConnection() === true) {
             json_controller.getStationList(addStationComponentsToDB);
         }
@@ -52,20 +84,18 @@ var FormController = function () {
      * Queries the JSONController instance for a list of available substations
      * and generates the html to display them for the user
      */
-	this.showMenu = function () {
-        form_generator.clearMainMenu();
+	var showStationList = function () {
+
         db_controller.getEntries('substation_list', generateStationButtons);
     };
     
     var drawBreakerForms = function (breaker_list) {
-        console.log('called drawBreakerForms');
         breaker_list.breaker_list.forEach(function (breaker) {
             db_controller.getEntry('breaker_info', breaker, form_generator.drawBreakerForms);
         });
     };
     
     var drawRegulatorForms = function (regulator_list) {
-        console.log('called drawRegulatorForms');
         regulator_list.regulator_list.forEach(function (regulator) {
             db_controller.getEntry('regulator_info', regulator, form_generator.drawRegulatorForms);
         });
@@ -80,7 +110,6 @@ var FormController = function () {
         db_controller.addEntry(station_read, 'station_readings');
 
         //json_controller.submitReading();
-        db_controller.getEntries('station_readings', listReadings);
 
         hidden.hide();
         $("br").css("display", "block");
@@ -103,7 +132,6 @@ var FormController = function () {
     };
 
     var generateStationButtons = function (stations) {
-        console.log(stations);
         stations.forEach(function(station) {
             var id = '#' + station.station_id,
             station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";

@@ -9,8 +9,7 @@ $(document).ready(function () {
 
     var formController = new FormController();   
     
-    formController.enableSetup();
-    formController.showMenu();
+    formController.enableButtons();
     
 });
 
