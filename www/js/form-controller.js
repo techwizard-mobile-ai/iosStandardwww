@@ -71,26 +71,17 @@ var FormController = function () {
         });
     };
     
-	var submitForm = function () { //unused event param removed
+	var submitForm = function () {
         var hidden = $('#station-form').find(':hidden'),
             station_read = $('#station-form').serializeObject();
         
         hidden.show();
 
-        //db_controller.addEntry(station_read, 'station_readings');
+        db_controller.addEntry(station_read, 'station_readings');
 
+        //json_controller.submitReading();
         db_controller.getEntries('station_readings', listReadings);
-/*
-        $.post("http://127.0.0.1/cemc_apparatus/view/login.php", {
-            "username": "cemc",
-            "password": "cemc"
-        });
-        $.post("http://127.0.0.1/cemc_apparatus/view/processread.php", $('#station-form').serialize(), function (ret) {
-            if (ret !== "") {
-                alert("SUCCESS");
-            }
-        });
-*/
+
         hidden.hide();
         $("br").css("display", "block");
     };
