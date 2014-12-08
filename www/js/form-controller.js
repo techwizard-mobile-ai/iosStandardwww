@@ -146,24 +146,42 @@ var FormController = function () {
     
     var listReadings = function(readings) {
         form_generator.clearMainMenu();
-        $('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
-        $('#main-menu').append('<div class="table-wrapper"></div>');
-        $('.table-wrapper').append('<div class="row-dark"></div>');
-        $('.row-dark').append('<div class="column-header">Station Name: </div>');
-        $('.row-dark').append('<div class="column-header">Date:</div>');
+        form_generator.drawViewHeaders();
         readings.forEach(function(reading) {   
             var reading_id = reading.station_name.replace(' ', '') + reading.date;
             $('.table-wrapper').append('<div class="row" id="' + reading_id + '"></div>');
             $('#' + reading_id).append('<div class="column">' + reading.station_name + '</div>');
             $('#' + reading_id).append('<div class="column">' + reading.date + '</div>');
-
-            $('#' + reading_id).click({
-                id: reading["station-id"],
-                name: reading.station_name,
-                reading: reading.read_id
-            }, openForm);
+            $('#' + reading_id).append('<div class="column" id="edit' + reading_id + '">Edit</div>');
+            $('#' + reading_id).append('<div class="column" id="submit' + reading_id + '">Submit</div>');
+            $('#' + reading_id).append('<div class="column" id="delete' + reading_id + '">Delete</div>');
+            addViewActions(reading_id, reading);
         });
+    };
 
+    var addViewActions = function(reading_id, reading) {
+        $('#edit' + reading_id).click({
+            id: reading["station-id"],
+            name: reading.station_name,
+            reading: reading.read_id
+        }, openForm);
+
+        $('#submit' + reading_id).click({
+            id: reading["station-id"],
+            name: reading.station_name,
+            reading: reading.read_id
+        }, submitForm);
+
+        $('#delete' + reading_id).click({
+            id: reading["station-id"],
+            name: reading.station_name,
+            reading: reading.read_id
+        }, deleteReading);
+    };
+
+    var deleteReading = function(event) {
+        console.log(event.data);
+        db_controller.deleteEntry(event.data.reading, "station_readings");
     };
 
     var showReading = function(reading) {

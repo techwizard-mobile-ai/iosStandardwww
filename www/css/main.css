@@ -74,6 +74,13 @@ label {
     text-align: center;
     width: 13%;
 }
+.column-red {
+    background-color: palevioletred;
+    color: black;
+    float: left;
+    text-align: center;
+    width: 13%;
+}
 .column-bold {
     background-color: palegreen;
     color: black;

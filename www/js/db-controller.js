@@ -61,7 +61,7 @@ var DBController = function () {
             var db = event.target.result,
                 transaction = db.transaction(store_name, 'readwrite'),
                 objectStore = transaction.objectStore(store_name),
-                request = objectStore.delete(key);
+                request = objectStore.delete(entry);
 
             request.onsuccess = function(event) {
                 console.log('delete successful');

@@ -78,6 +78,17 @@ var FormGenerator = function () {
         $('#back').click(callback);
     };
 
+    this.drawViewHeaders = function() {
+        $('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
+        $('#main-menu').append('<div class="table-wrapper"></div>');
+        $('.table-wrapper').append('<div class="row-dark"></div>');
+        $('.row-dark').append('<div class="column-header">Station Name: </div>');
+        $('.row-dark').append('<div class="column-header">Date:</div>');
+        $('.row-dark').append('<div class="column-header">Actions:</div>');
+        $('.row-dark').append('<div class="column-header">&nbsp;</div>');
+        $('.row-dark').append('<div class="column-header">&nbsp;</div>');
+    };
+
     var drawDateForm = function (current_date) {
         $('#read-info').append("Date: ");
         drawMonthForm(current_date.getMonth());
