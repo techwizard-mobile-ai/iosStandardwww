@@ -73,6 +73,11 @@ var FormGenerator = function () {
         $('#submit').click(callback);
     };
 
+    this.addSendButton = function(callback) {
+        $('#station-form').append('<input type="button" class="button-dark-right" id="send" name="send" value="SEND" />');
+        $('#send').click(callback);
+    };
+
     this.addBackButton = function(callback) {
         $('#station-form').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
         $('#back').click(callback);
@@ -81,12 +86,10 @@ var FormGenerator = function () {
     this.drawViewHeaders = function() {
         $('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
         $('#main-menu').append('<div class="table-wrapper"></div>');
-        $('.table-wrapper').append('<div class="row-dark"></div>');
-        $('.row-dark').append('<div class="column-header">Station Name: </div>');
-        $('.row-dark').append('<div class="column-header">Date:</div>');
-        $('.row-dark').append('<div class="column-header">Actions:</div>');
-        $('.row-dark').append('<div class="column-header">&nbsp;</div>');
-        $('.row-dark').append('<div class="column-header">&nbsp;</div>');
+        $('.table-wrapper').append('<div class="row-top-header"></div>');
+        $('.row-top-header').append('<div class="column-header">Station Name: </div>');
+        $('.row-top-header').append('<div class="column-header">Date:</div>');
+        $('.row-top-header').append('<div class="column-header">Actions:</div>');
     };
 
     var drawDateForm = function (current_date) {

@@ -59,15 +59,28 @@ var FormController = function () {
     };
 
     var hideButtons = function () {
+        $('#setup').removeClass('visible');
         $('#setup').addClass('hidden');
+        $('#show-stations').removeClass('visible');
         $('#show-stations').addClass('hidden');
+        $('#view-readings').removeClass('visible');
         $('#view-readings').addClass('hidden');
     };
 
+    var showButtons = function () {
+        form_generator.clearMainMenu();
+        $('#setup').removeClass('hidden');
+        $('#setup').addClass('visible');
+        $('#show-stations').removeClass('hidden');
+        $('#show-stations').addClass('visible');
+        $('#view-readings').removeClass('hidden');
+        $('#view-readings').addClass('visible');
+    };
+
     var showMainMenu = function () {
+        form_generator.clearMainMenu();
         $('#main-menu').removeClass('hidden');
         $('#main-menu').addClass('visible');
-        form_generator.clearMainMenu();
     };
 
     /**
@@ -77,6 +90,8 @@ var FormController = function () {
     var setupDB = function () {
         if (that.checkConnection() === true) {
             json_controller.getStationList(addStationComponentsToDB);
+        } else {
+            alert("Connection Unavailable: Please Try Again");
         }
     };
 
@@ -109,10 +124,20 @@ var FormController = function () {
 
         db_controller.addEntry(station_read, 'station_readings');
 
-        //json_controller.submitReading();
-
         hidden.hide();
         $("br").css("display", "block");
+        alert("Reading Saved to Local Storage");
+        showButtons();
+    };
+
+    var sendForm = function () {
+        if (that.checkConnection() === true) {
+            json_controller.submitReading();
+            showButtons();
+        } else {
+            alert("Connection Unavailable: Please Try Again");
+        }
+
     };
 
     var openForm = function (event) {
@@ -122,8 +147,9 @@ var FormController = function () {
         db_controller.getEntry('regulator_list', event.data.id, drawRegulatorForms);
         db_controller.getEntry('breaker_list', event.data.id, drawBreakerForms);
 
-        form_generator.addBackButton(that.showMenu);
+        form_generator.addBackButton(showButtons);
         form_generator.addSubmitButton(submitForm);
+        form_generator.addSendButton(sendForm);
         if (event.data.reading) {
             setTimeout(function() {
                 db_controller.getEntry('station_readings', event.data.reading, showReading);
@@ -142,6 +168,8 @@ var FormController = function () {
                 reading: null
             }, openForm);
         });
+        $('#main-menu').append("<div class='button float-left' id='back'>Back</div>");
+        $('#back').click(showButtons);
     };
     
     var listReadings = function(readings) {
@@ -153,10 +181,11 @@ var FormController = function () {
             $('#' + reading_id).append('<div class="column">' + reading.station_name + '</div>');
             $('#' + reading_id).append('<div class="column">' + reading.date + '</div>');
             $('#' + reading_id).append('<div class="column" id="edit' + reading_id + '">Edit</div>');
-            $('#' + reading_id).append('<div class="column" id="submit' + reading_id + '">Submit</div>');
             $('#' + reading_id).append('<div class="column" id="delete' + reading_id + '">Delete</div>');
             addViewActions(reading_id, reading);
         });
+        $('#main-menu').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
+        $('#back').click(showButtons);
     };
 
     var addViewActions = function(reading_id, reading) {
@@ -165,12 +194,6 @@ var FormController = function () {
             name: reading.station_name,
             reading: reading.read_id
         }, openForm);
-
-        $('#submit' + reading_id).click({
-            id: reading["station-id"],
-            name: reading.station_name,
-            reading: reading.read_id
-        }, submitForm);
 
         $('#delete' + reading_id).click({
             id: reading["station-id"],
@@ -182,6 +205,8 @@ var FormController = function () {
     var deleteReading = function(event) {
         console.log(event.data);
         db_controller.deleteEntry(event.data.reading, "station_readings");
+        alert("Reading Deleted");
+        showButtons();
     };
 
     var showReading = function(reading) {
