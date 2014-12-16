@@ -71,7 +71,7 @@ var DBController = function () {
                 console.log('Error');
                 console.dir(event);
             };
-        }
+        };
 
     };
     

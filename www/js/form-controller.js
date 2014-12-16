@@ -30,16 +30,16 @@ var FormController = function () {
      * @return none
      */
     this.enableButtons = function () {
-        enableSetup();
+        $('#setup').bind('click', enableSetup);
         enableNew();
         enableView();
     };
 
     var enableSetup = function () {
-        $('#setup').click(function () {
-            hideButtons();
-            setupDB();
-        });
+        //hideButtons();
+        alert("SETTING UP DB");
+        setupDB();
+
     };
 
     var enableNew = function () {
