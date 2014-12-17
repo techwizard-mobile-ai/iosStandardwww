@@ -5,9 +5,9 @@
       "type": "Import",
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
-      "projectGuid": "62973d9d-10e4-4722-bfcf-7d006a06434a",
-      "lastModifiedDate": 1413897584210,
-      "creationDate": 1413897584184
+      "projectGuid": "8100b6c0-0a2a-468b-b5b7-0a9232e2736f",
+      "lastModifiedDate": 1418848511346,
+      "creationDate": 1418848511325
     },
     "sourceDirectory": "",
     "cordovaPluginsDirectory": "plugins",
@@ -33,14 +33,14 @@
     "cordovaPlugins": [
       {
         "id": "org.apache.cordova.device",
-        "version": "0.2.5",
+        "version": "0.2.9",
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
       },
       {
         "id": "org.apache.cordova.splashscreen",
-        "version": "0.2.5",
+        "version": "0.3.0",
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
@@ -54,7 +54,8 @@
         "name_": "Android",
         "preferences_": {
           "android-minSdkVersion": "10",
-          "android-targetSdkVersion": "19"
+          "android-targetSdkVersion": "19",
+          "android-installLocation": "auto"
         },
         "isActive_": true,
         "appName_": "apparatus",
@@ -76,7 +77,8 @@
         "name_": "Android-Crosswalk",
         "preferences_": {
           "android-minSdkVersion": "14",
-          "android-targetSdkVersion": "19"
+          "android-targetSdkVersion": "19",
+          "android-installLocation": "auto"
         },
         "isActive_": true,
         "appName_": "apparatus",

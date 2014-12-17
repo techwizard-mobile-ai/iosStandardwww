@@ -31,31 +31,25 @@ var FormController = function () {
      */
     this.enableButtons = function () {
         $('#setup').bind('click', enableSetup);
-        enableNew();
-        enableView();
+        $('show-stations').bind('click', enableNew);
+        $('#view-readings').bind('click', enableView);
     };
 
     var enableSetup = function () {
         //hideButtons();
-        alert("SETTING UP DB");
         setupDB();
-
     };
 
     var enableNew = function () {
-        $('#show-stations').click(function () {
-            hideButtons();
-            showMainMenu();
-            showStationList();
-        });
+        hideButtons();
+        showMainMenu();
+        showStationList();
     };
 
     var enableView = function () {
-        $('#view-readings').click(function () {
-            hideButtons();
-            showMainMenu();
-            db_controller.getEntries('station_readings', listReadings);
-        });
+        hideButtons();
+        showMainMenu();
+        db_controller.getEntries('station_readings', listReadings);
     };
 
     var hideButtons = function () {
