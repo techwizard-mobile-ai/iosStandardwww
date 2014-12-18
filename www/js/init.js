@@ -7,9 +7,9 @@
  */
 $(document).ready(function () {
 
-    var formController = new FormController();   
+    var applicationController = new ApplicationController();
     
-    formController.enableButtons();
+    applicationController.run();
     
 });
 
