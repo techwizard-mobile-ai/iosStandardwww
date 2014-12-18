@@ -13,13 +13,16 @@ var ApplicationController = function () {
         form_controller = new FormController(db_controller, json_controller, form_generator, current_date),
         browse_controller = new BrowseController(db_controller, form_generator);
 
-    navigation_controller.setFormController(form_controller);
-    navigation_controller.setBrowseController(browse_controller);
-    form_controller.setNavigationController(navigation_controller);
-    browse_controller.setNavigationController(navigation_controller);
-    browse_controller.setFormController(form_controller);
+    var init = function () {
+        navigation_controller.setFormController(form_controller);
+        navigation_controller.setBrowseController(browse_controller);
+        form_controller.setNavigationController(navigation_controller);
+        browse_controller.setNavigationController(navigation_controller);
+        browse_controller.setFormController(form_controller);
+    };
 
     this.run = function () {
+        init();
         navigation_controller.enableButtons();
     };
 

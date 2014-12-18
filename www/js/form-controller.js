@@ -66,13 +66,13 @@ var FormController = function (db_controller, json_controller, form_generator, c
         hidden.hide();
         $("br").css("display", "block");
         alert("Reading Saved to Local Storage");
-        showButtons();
+        navigation_controller.showButtons();
     };
 
     var sendForm = function () {
         if (that.checkConnection() === true) {
             json_controller.submitReading();
-            showButtons();
+            navigation_controller.showButtons();
         } else {
             alert("Connection Unavailable: Please Try Again");
         }
