@@ -14,6 +14,7 @@ var ApplicationController = function () {
         browse_controller = new BrowseController(db_controller, form_generator);
 
     navigation_controller.setFormController(form_controller);
+    navigation_controller.setBrowseController(browse_controller);
     form_controller.setNavigationController(navigation_controller);
     browse_controller.setNavigationController(navigation_controller);
     browse_controller.setFormController(form_controller);

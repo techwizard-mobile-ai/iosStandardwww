@@ -14,6 +14,10 @@ var NavigationController = function (db_controller, json_controller, form_genera
         form_controller = controller;
     };
 
+    this.setBrowseController = function (controller) {
+        browse_controller = controller;
+    };
+
     /**
      * This method checks to see if there is a connection to the internet available
      * @return {Boolean}

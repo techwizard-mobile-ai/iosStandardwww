@@ -35,6 +35,14 @@ var FormController = function (db_controller, json_controller, form_generator, c
         }
     };
 
+    var showReading = function(reading) {
+        for (var property in reading) {
+            if(reading.hasOwnProperty(property)) {
+                $('#' + property).val(reading[property]);
+            }
+        }
+    };
+
     var drawBreakerForms = function (breaker_list) {
         breaker_list.breaker_list.forEach(function (breaker) {
             db_controller.getEntry('breaker_info', breaker, form_generator.drawBreakerForms);

@@ -55,11 +55,4 @@ var BrowseController = function (db_controller, form_generator) {
         navigation_controller.showButtons();
     };
 
-    var showReading = function(reading) {
-        for (var property in reading) {
-            if(reading.hasOwnProperty(property)) {
-                $('#' + property).val(reading[property]);
-            }
-        }
-    };
 };
