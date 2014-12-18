@@ -44,11 +44,18 @@
 
 <body>
     <!-- content goes here-->
-    <div class="button" id="setup">Update Local Database</div>
-    <div class="button" id="show-stations">New Reading</div>
-    <div class="button" id="view-readings">View Readings</div>
-    <div class="view hidden" id="main-menu"></div>
-    <div class="view hidden" id="substation-view"></div>
+    <div class="main-wrapper">
+        <div class="nav-wrapper"></div>
+        <div class="table-wrapper">
+            <div class="view hidden" id="status"></div>
+            <div class="view hidden" id="main-menu"></div>
+            <div class="view hidden" id="substation-view"></div>
+            <div class="button float-left" id="setup">Update Local Database</div>
+            <div class="button float-left" id="show-stations">New Reading</div>
+            <div class="button float-left" id="view-readings">View Readings</div>
+        </div>
+    </div>
+
     <script src="js/init.js"></script>
 </body>
 

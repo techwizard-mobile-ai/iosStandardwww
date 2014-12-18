@@ -33,6 +33,7 @@ var JSONController = function () {
      * @return none
      */
     this.getStationList = function (callback) {
+        $('#status').append("Retrieving station list from server...</br>");
         callback(request({"request": "station_list"}));
     };
     
@@ -42,6 +43,7 @@ var JSONController = function () {
      * @return {Object} breaker_list
      */
     this.getBreakerList = function (event) {
+        $('#status').append("Retrieving breaker list for station " + event.data.id + " from server...</br>");
         return request({"request": "get_breakers", "station_id": event.data.id});
     };
     
@@ -51,6 +53,7 @@ var JSONController = function () {
      * @return {Object} breaker_info
      */
     this.getBreakerInfo = function (breaker) {
+        $('#status').append("Retrieving information for breaker " + breaker.breaker_id + " from server...</br>");
         return request({ "request" : "build_breaker", "breaker_id" : breaker.breaker_id });
     };
 
@@ -60,6 +63,7 @@ var JSONController = function () {
      * @return {Object} regulator_list
      */
     this.getRegulatorList = function (event) {
+        $('#status').append("Retrieving regulator list for station " + event.data.id + " from server...</br>");
         return request({ "request" : "get_regulators", "station_id" : event.data.id });
     };
 
@@ -69,6 +73,7 @@ var JSONController = function () {
      * @return {Object} regulator information
      */
     this.getRegulatorInfo = function (regulator) {
+        $('#status').append("Retrieving information for regulator " + regulator.regulator_id + " from server...</br>");
         return request({ "request" : "build_regulator", "regulator_id" : regulator.regulator_id });
     };
 

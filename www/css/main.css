@@ -74,6 +74,12 @@ label {
     text-align: center;
     width: 13%;
 }
+.column-left {
+    float: left;
+}
+.column-right {
+    float: right;
+}
 .column-red {
     background-color: palevioletred;
     color: black;
@@ -173,6 +179,8 @@ label {
 .table-wrapper {
     background-color: palegreen;
     border: .2em solid black;
+    min-height: 50%;
+    height: auto;
     position: relative;
 }
 .wrapper {

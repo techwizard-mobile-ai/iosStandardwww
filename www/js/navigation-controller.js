@@ -61,6 +61,8 @@ var NavigationController = function (db_controller, json_controller, form_genera
 
     var enableSetup = function () {
         console.log('update local db button clicked...');
+        $('#status').removeClass('hidden');
+        $('#status').addClass('visible');
         //hideButtons();
         setupDB();
     };
@@ -101,7 +103,7 @@ var NavigationController = function (db_controller, json_controller, form_genera
         if (that.checkConnection() === true) {
             json_controller.getStationList(addStationComponentsToDB);
         } else {
-            alert("Connection Unavailable: Please Try Again");
+            $('#status').append("Connection Unavailable: Please Try Again <br />");
         }
     };
 
