@@ -10,14 +10,26 @@ var BrowseController = function (db_controller, form_generator) {
         form_controller,
         navigation_controller;
 
+    /**
+     * Mutator for form controller
+     * @param {Object} controller
+     */
     this.setFormController = function (controller) {
         form_controller = controller;
     };
 
+    /**
+     * Mutator for navigation controller
+     * @param {Object} controller
+     */
     this.setNavigationController = function (controller) {
         navigation_controller = controller;
     };
 
+    /**
+     * Display a list of substation readings
+     * @param {Array} readings
+     */
     this.listReadings = function(readings) {
         form_generator.clearMainMenu();
         form_generator.drawViewHeaders();

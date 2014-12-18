@@ -21,6 +21,10 @@ var ApplicationController = function () {
         browse_controller.setFormController(form_controller);
     };
 
+    /**
+     * Begin application flow
+     * @return none
+     */
     this.run = function () {
         init();
         navigation_controller.enableButtons();

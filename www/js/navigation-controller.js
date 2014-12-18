@@ -10,10 +10,18 @@ var NavigationController = function (db_controller, json_controller, form_genera
         browse_controller,
         that = this;
 
+    /**
+     * Mutator for form controller
+     * @param {Object} controller
+     */
     this.setFormController = function (controller) {
         form_controller = controller;
     };
 
+    /**
+     * Mutator for browse controller
+     * @param {Object} controller
+     */
     this.setBrowseController = function (controller) {
         browse_controller = controller;
     };
@@ -37,6 +45,10 @@ var NavigationController = function (db_controller, json_controller, form_genera
         $('#view-readings').bind('click', enableView);
     };
 
+    /**
+     * Show navigation buttons
+     * @return none
+     */
     this.showButtons = function () {
         form_generator.clearMainMenu();
         $('#setup').removeClass('hidden');
@@ -155,7 +167,5 @@ var NavigationController = function (db_controller, json_controller, form_genera
         $('#main-menu').append("<div class='button float-left' id='back'>Back</div>");
         $('#back').click(that.showButtons);
     };
-
-
 
 };

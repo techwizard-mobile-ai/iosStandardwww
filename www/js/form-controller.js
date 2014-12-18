@@ -14,10 +14,18 @@ var FormController = function (db_controller, json_controller, form_generator, c
     var that = this,
         navigation_controller;
 
+    /**
+     * Mutator for navigation controller
+     * @param {Object} controller
+     */
     this.setNavigationController = function(controller) {
         navigation_controller = controller;
     };
 
+    /**
+     * Open the specified substation form
+     * @param {Event} event
+     */
     this.openForm = function (event) {
         form_generator.clearMainMenu();
         form_generator.drawForm(event, current_date);
