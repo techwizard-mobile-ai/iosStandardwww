@@ -38,12 +38,6 @@ var NavigationController = function (db_controller, json_controller, form_genera
         return window.navigator.onLine;
     };
 
-    this.goToMainMenu = function () {
-        main_menu.addClass('hidden');
-        main_menu.removeClass('visible');
-        that.enableButtons();
-    };
-
     /**
      * Adds click event handler to the main buttons
      * @return none
@@ -60,10 +54,10 @@ var NavigationController = function (db_controller, json_controller, form_genera
      * @return none
      */
     this.toggleButtons = function () {
-        form_generator.clearMainMenu();
         setup.toggle();
         show_stations.toggle();
         view_readings.toggle();
+        main_menu.toggle();
     };
 
     var enableSetup = function () {
@@ -81,13 +75,14 @@ var NavigationController = function (db_controller, json_controller, form_genera
 
     var enableView = function () {
         that.toggleButtons();
+        form_generator.clearMainMenu();
         toggleMainMenu();
         db_controller.getEntries('station_readings', browse_controller.listReadings);
     };
 
     var toggleMainMenu = function () {
         form_generator.clearMainMenu();
-        main_menu.toggle();
+
     };
 
     /**
@@ -163,6 +158,7 @@ var NavigationController = function (db_controller, json_controller, form_genera
         });
         main_menu.append("<div class='button float-left' id='back'>Back</div>");
         $('#back').click(that.toggleButtons);
+
     };
 
 };

@@ -11,13 +11,16 @@
  * @returns none
  */
 var FormGenerator = function () {
-    
+
+    var main_menu = $('#main-menu'),
+        nav_wrapper = $('#nav-wrapper');
+
     /**
      * Clears the MainMenu div
      * @returns none
      */
     this.clearMainMenu = function () {
-        $("#main-menu").html("");
+        main_menu.html("");
     };
 
     /**
@@ -57,10 +60,8 @@ var FormGenerator = function () {
     this.drawForm = function(event, current_date) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
 
-        $('#main-menu').append(form_string);
-        //$('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
-        $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + event.data.name + '&nbsp;<br></div>');
-        //$('#station-form').append('<div class="table-wrapper"></div>');
+        main_menu.append(form_string);
+        nav_wrapper.append('<div class="inner-banner" id="read-info">Station: ' + event.data.name + '&nbsp;<br></div>');
 
         drawDateForm(current_date);
         drawHiddenFields(event, getReadDate(current_date));
