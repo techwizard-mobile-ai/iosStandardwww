@@ -8,6 +8,10 @@ var NavigationController = function (db_controller, json_controller, form_genera
 
     var form_controller,
         browse_controller,
+        main_menu = $('#main-menu'),
+        setup = $('#setup'),
+        show_stations = $('#show-stations'),
+        view_readings = $('#view-readings');
         that = this;
 
     /**
@@ -34,65 +38,56 @@ var NavigationController = function (db_controller, json_controller, form_genera
         return window.navigator.onLine;
     };
 
+    this.goToMainMenu = function () {
+        main_menu.addClass('hidden');
+        main_menu.removeClass('visible');
+        that.enableButtons();
+    };
+
     /**
      * Adds click event handler to the main buttons
      * @return none
      */
     this.enableButtons = function () {
         console.log('enabling buttons...');
-        $('#setup').bind('click', enableSetup);
-        $('#show-stations').bind('click', enableNew);
-        $('#view-readings').bind('click', enableView);
+        setup.bind('click', enableSetup);
+        show_stations.bind('click', enableNew);
+        view_readings.bind('click', enableView);
     };
 
     /**
      * Show navigation buttons
      * @return none
      */
-    this.showButtons = function () {
+    this.toggleButtons = function () {
         form_generator.clearMainMenu();
-        $('#setup').removeClass('hidden');
-        $('#setup').addClass('visible');
-        $('#show-stations').removeClass('hidden');
-        $('#show-stations').addClass('visible');
-        $('#view-readings').removeClass('hidden');
-        $('#view-readings').addClass('visible');
+        setup.toggle();
+        show_stations.toggle();
+        view_readings.toggle();
     };
 
     var enableSetup = function () {
         console.log('update local db button clicked...');
-        $('#status').removeClass('hidden');
-        $('#status').addClass('visible');
-        //hideButtons();
+        status.toggle();
         setupDB();
     };
 
     var enableNew = function () {
         console.log('new reading button clicked...');
-        hideButtons();
-        showMainMenu();
+        that.toggleButtons();
+        toggleMainMenu();
         showStationList();
     };
 
     var enableView = function () {
-        hideButtons();
-        showMainMenu();
+        that.toggleButtons();
+        toggleMainMenu();
         db_controller.getEntries('station_readings', browse_controller.listReadings);
     };
 
-    var hideButtons = function () {
-        $('#setup').removeClass('visible');
-        $('#setup').addClass('hidden');
-        $('#show-stations').removeClass('visible');
-        $('#show-stations').addClass('hidden');
-        $('#view-readings').removeClass('visible');
-        $('#view-readings').addClass('hidden');
-    };
-
-    var showMainMenu = function () {
+    var toggleMainMenu = function () {
         form_generator.clearMainMenu();
-        $('#main-menu').removeClass('hidden');
-        $('#main-menu').addClass('visible');
+        main_menu.toggle();
     };
 
     /**
@@ -159,15 +154,15 @@ var NavigationController = function (db_controller, json_controller, form_genera
         stations.forEach(function(station) {
             var id = '#' + station.station_id,
                 station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
-            $('#main-menu').append(station_name);
+            main_menu.append(station_name);
             $(id).click({
                 id: station.station_id,
                 name: station.station_name,
                 reading: null
             }, form_controller.openForm);
         });
-        $('#main-menu').append("<div class='button float-left' id='back'>Back</div>");
-        $('#back').click(that.showButtons);
+        main_menu.append("<div class='button float-left' id='back'>Back</div>");
+        $('#back').click(that.toggleButtons);
     };
 
 };

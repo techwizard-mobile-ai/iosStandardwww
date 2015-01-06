@@ -42,8 +42,10 @@ var BrowseController = function (db_controller, form_generator) {
             $('#' + reading_id).append('<div class="column" id="delete' + reading_id + '">Delete</div>');
             addViewActions(reading_id, reading);
         });
-        $('#main-menu').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
-        $('#back').click(navigation_controller.showButtons);
+        setTimeout(function () {
+            form_generator.addBackButton(navigation_controller.toggleButtons);
+        }, 500);
+
     };
 
     var addViewActions = function(reading_id, reading) {
@@ -64,7 +66,7 @@ var BrowseController = function (db_controller, form_generator) {
         console.log(event.data);
         db_controller.deleteEntry(event.data.reading, "station_readings");
         alert("Reading Deleted");
-        navigation_controller.showButtons();
+        navigation_controller.toggleButtons();
     };
 
 };

@@ -36,7 +36,7 @@ var FormController = function (db_controller, json_controller, form_generator, c
         db_controller.getEntry('breaker_list', event.data.id, drawBreakerForms);
 
         setTimeout(function() {
-            form_generator.addBackButton(navigation_controller.showButtons);
+            form_generator.addBackButton(navigation_controller.goToMainMenu);
             form_generator.addSubmitButton(submitForm);
             form_generator.addSendButton(sendForm);
         }, 500);
@@ -79,13 +79,13 @@ var FormController = function (db_controller, json_controller, form_generator, c
         hidden.hide();
         $("br").css("display", "block");
         alert("Reading Saved to Local Storage");
-        navigation_controller.showButtons();
+        navigation_controller.toggleButtons();
     };
 
     var sendForm = function () {
         if (that.checkConnection() === true) {
             json_controller.submitReading();
-            navigation_controller.showButtons();
+            navigation_controller.toggleButtons();
         } else {
             alert("Connection Unavailable: Please Try Again");
         }
