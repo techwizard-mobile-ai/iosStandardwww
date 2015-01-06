@@ -44,16 +44,7 @@ label {
     padding: .25em .5em .25em .5em;
     width: 9em;
 }
-.view {
-    width: 100%;
-    background-color: green;
-}
-.hidden {
-    display: none;
-}
-.visible {
-    display: block;
-}
+
 .float-left {
     float: left;
     margin-left: 10px;

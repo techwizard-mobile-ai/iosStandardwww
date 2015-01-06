@@ -62,7 +62,6 @@ var NavigationController = function (db_controller, json_controller, form_genera
 
     var enableSetup = function () {
         console.log('update local db button clicked...');
-        status.toggle();
         setupDB();
     };
 
@@ -82,7 +81,7 @@ var NavigationController = function (db_controller, json_controller, form_genera
 
     var toggleMainMenu = function () {
         form_generator.clearMainMenu();
-
+        main_menu.toggle();
     };
 
     /**
