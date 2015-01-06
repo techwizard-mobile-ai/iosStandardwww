@@ -28,14 +28,19 @@ var FormController = function (db_controller, json_controller, form_generator, c
      */
     this.openForm = function (event) {
         form_generator.clearMainMenu();
+        //form_generator.clearButtonWrapper();
+
         form_generator.drawForm(event, current_date);
 
         db_controller.getEntry('regulator_list', event.data.id, drawRegulatorForms);
         db_controller.getEntry('breaker_list', event.data.id, drawBreakerForms);
 
-        form_generator.addBackButton(navigation_controller.showButtons);
-        form_generator.addSubmitButton(submitForm);
-        form_generator.addSendButton(sendForm);
+        setTimeout(function() {
+            form_generator.addBackButton(navigation_controller.showButtons);
+            form_generator.addSubmitButton(submitForm);
+            form_generator.addSendButton(sendForm);
+        }, 500);
+
         if (event.data.reading) {
             setTimeout(function() {
                 db_controller.getEntry('station_readings', event.data.reading, showReading);

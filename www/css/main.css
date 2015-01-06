@@ -58,11 +58,15 @@ label {
     float: left;
     margin-left: 10px;
 }
+
+.button-wrapper {
+    margin: auto;
+    width: 22em;
+}
+
 .nav-wrapper {
     background: white url("../img/logo.png") no-repeat right;
-    border-left: .2em solid black;
-    border-right: .2em solid black;
-    border-top: .2em solid black;
+    border-bottom: .2em solid black;
     height: 5em;
     padding-left: 1em;
     padding-top: 1em;
@@ -178,8 +182,7 @@ label {
 }
 .table-wrapper {
     background-color: palegreen;
-    border: .2em solid black;
-    min-height: 50%;
+    border: none;
     height: auto;
     position: relative;
 }

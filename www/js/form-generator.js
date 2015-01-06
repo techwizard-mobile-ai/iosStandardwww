@@ -20,8 +20,6 @@ var FormGenerator = function () {
         $("#main-menu").html("");
     };
 
-
-    
     /**
      * draw form fields for each regulator
      * @param {Object} regulator
@@ -60,32 +58,32 @@ var FormGenerator = function () {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
 
         $('#main-menu').append(form_string);
-        $('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
+        //$('#station-form').append('<div class="nav-wrapper" id="nav-wrapper"></div > ');
         $('#nav-wrapper').append('<div class="inner-banner" id="read-info">Station: ' + event.data.name + '&nbsp;<br></div>');
-        $('#station-form').append('<div class="table-wrapper"></div>');
+        //$('#station-form').append('<div class="table-wrapper"></div>');
 
         drawDateForm(current_date);
         drawHiddenFields(event, getReadDate(current_date));
     };
 
     this.addSubmitButton = function(callback) {
-        $('#station-form').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
+        $('#table-wrapper').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
         $('#submit').click(callback);
     };
 
     this.addSendButton = function(callback) {
-        $('#station-form').append('<input type="button" class="button-dark-right" id="send" name="send" value="SEND" />');
+        $('#table-wrapper').append('<input type="button" class="button-dark-right" id="send" name="send" value="SEND" />');
         $('#send').click(callback);
     };
 
     this.addBackButton = function(callback) {
-        $('#station-form').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
+        $('#table-wrapper').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
         $('#back').click(callback);
     };
 
     this.drawViewHeaders = function() {
-        $('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
-        $('#main-menu').append('<div class="table-wrapper"></div>');
+        //$('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
+        //$('#main-menu').append('<div class="table-wrapper"></div>');
         $('.table-wrapper').append('<div class="row-top-header"></div>');
         $('.row-top-header').append('<div class="column-header">Station Name: </div>');
         $('.row-top-header').append('<div class="column-header">Date:</div>');
