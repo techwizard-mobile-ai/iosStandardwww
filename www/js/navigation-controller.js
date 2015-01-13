@@ -8,10 +8,11 @@ var NavigationController = function (db_controller, json_controller, form_genera
 
     var form_controller,
         browse_controller,
-        main_menu = $('#main-menu'),
-        setup = $('#setup'),
-        show_stations = $('#show-stations'),
-        view_readings = $('#view-readings');
+        content = $('#content'),
+        setup_button = $('#setup-button'),
+        new_reading_button = $('#new-reading-button'),
+        view_reading_button = $('#view-reading-button'),
+        button_wrapper = $('#button-wrapper'),
         that = this;
 
     /**
@@ -44,44 +45,28 @@ var NavigationController = function (db_controller, json_controller, form_genera
      */
     this.enableButtons = function () {
         console.log('enabling buttons...');
-        setup.bind('click', enableSetup);
-        show_stations.bind('click', enableNew);
-        view_readings.bind('click', enableView);
+        setup_button.bind('click', setupButtonOnClick);
+        new_reading_button.bind('click', newReadingButtonOnClick);
+        view_reading_button.bind('click', viewReadingButtonOnClick);
     };
 
-    /**
-     * Show navigation buttons
-     * @return none
-     */
-    this.toggleButtons = function () {
-        setup.toggle();
-        show_stations.toggle();
-        view_readings.toggle();
-        main_menu.toggle();
-    };
-
-    var enableSetup = function () {
+    var setupButtonOnClick = function () {
         console.log('update local db button clicked...');
+        content.html();
         setupDB();
+
     };
 
-    var enableNew = function () {
+    var newReadingButtonOnClick = function () {
         console.log('new reading button clicked...');
-        that.toggleButtons();
-        toggleMainMenu();
+        content.html();
         showStationList();
     };
 
-    var enableView = function () {
-        that.toggleButtons();
-        form_generator.clearMainMenu();
-        toggleMainMenu();
+    var viewReadingButtonOnClick = function () {
+        console.log('view reading button clicked...');
+        content.html();
         db_controller.getEntries('station_readings', browse_controller.listReadings);
-    };
-
-    var toggleMainMenu = function () {
-        form_generator.clearMainMenu();
-        main_menu.toggle();
     };
 
     /**
@@ -92,7 +77,7 @@ var NavigationController = function (db_controller, json_controller, form_genera
         if (that.checkConnection() === true) {
             json_controller.getStationList(addStationComponentsToDB);
         } else {
-            $('#status').append("Connection Unavailable: Please Try Again <br />");
+            content.append("Connection Unavailable: Please Try Again <br />");
         }
     };
 
@@ -148,14 +133,14 @@ var NavigationController = function (db_controller, json_controller, form_genera
         stations.forEach(function(station) {
             var id = '#' + station.station_id,
                 station_name = "<div class='button float-left' id='" + station.station_id + "'>" + station.station_name + "</div>";
-            main_menu.append(station_name);
+            content.append(station_name);
             $(id).click({
                 id: station.station_id,
                 name: station.station_name,
                 reading: null
             }, form_controller.openForm);
         });
-        main_menu.append("<div class='button float-left' id='back'>Back</div>");
+        content.append("<div class='button float-left' id='back'>Back</div>");
         $('#back').click(that.toggleButtons);
 
     };
