@@ -12,6 +12,7 @@
 var FormController = function (db_controller, json_controller, form_generator, current_date) {
     
     var that = this,
+        content = $('#content'),
         navigation_controller;
 
     /**
@@ -27,8 +28,7 @@ var FormController = function (db_controller, json_controller, form_generator, c
      * @param {Event} event
      */
     this.openForm = function (event) {
-        form_generator.clearMainMenu();
-        //form_generator.clearButtonWrapper();
+        content.html("");
 
         form_generator.drawForm(event, current_date);
 

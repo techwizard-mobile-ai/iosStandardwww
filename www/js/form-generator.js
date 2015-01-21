@@ -12,16 +12,8 @@
  */
 var FormGenerator = function () {
 
-    var main_menu = $('#main-menu'),
-        nav_wrapper = $('#nav-wrapper');
-
-    /**
-     * Clears the MainMenu div
-     * @returns none
-     */
-    this.clearMainMenu = function () {
-        main_menu.html("");
-    };
+    var nav_wrapper = $('#nav-wrapper'),
+        content = $('#content');
 
     /**
      * draw form fields for each regulator
@@ -60,7 +52,7 @@ var FormGenerator = function () {
     this.drawForm = function(event, current_date) {
         var form_string = '<form id="station-form" action = "#" method = "post"></form>';
 
-        main_menu.append(form_string);
+        content.append(form_string);
         nav_wrapper.append('<div class="inner-banner" id="read-info">Station: ' + event.data.name + '&nbsp;<br></div>');
 
         drawDateForm(current_date);

@@ -4,7 +4,7 @@
  * Created by cwilson on 12/18/2014.
  */
 
-var NavigationController = function (db_controller, json_controller, form_generator) {
+var NavigationController = function (db_controller, json_controller) {
 
     var form_controller,
         browse_controller,
@@ -50,22 +50,26 @@ var NavigationController = function (db_controller, json_controller, form_genera
         view_reading_button.bind('click', viewReadingButtonOnClick);
     };
 
+    this.toggleButtons = function () {
+        button_wrapper.toggle();
+        content.html("");
+    };
+
     var setupButtonOnClick = function () {
         console.log('update local db button clicked...');
-        content.html();
+        content.html("");
         setupDB();
-
     };
 
     var newReadingButtonOnClick = function () {
         console.log('new reading button clicked...');
-        content.html();
+        content.html("");
         showStationList();
     };
 
     var viewReadingButtonOnClick = function () {
         console.log('view reading button clicked...');
-        content.html();
+        content.html("");
         db_controller.getEntries('station_readings', browse_controller.listReadings);
     };
 
@@ -127,6 +131,7 @@ var NavigationController = function (db_controller, json_controller, form_genera
      */
     var showStationList = function () {
         db_controller.getEntries('substation_list', generateStationButtons);
+        button_wrapper.toggle();
     };
 
     var generateStationButtons = function (stations) {
@@ -141,8 +146,7 @@ var NavigationController = function (db_controller, json_controller, form_genera
             }, form_controller.openForm);
         });
         content.append("<div class='button float-left' id='back'>Back</div>");
-        $('#back').click(that.toggleButtons);
-
+        $('#back').bind('click', that.toggleButtons);
     };
 
 };

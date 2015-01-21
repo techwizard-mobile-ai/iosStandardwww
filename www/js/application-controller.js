@@ -9,7 +9,7 @@ var ApplicationController = function () {
         json_controller = new JSONController(),
         form_generator = new FormGenerator(),
         current_date = new Date(),
-        navigation_controller = new NavigationController(db_controller, json_controller, form_generator),
+        navigation_controller = new NavigationController(db_controller, json_controller),
         form_controller = new FormController(db_controller, json_controller, form_generator, current_date),
         browse_controller = new BrowseController(db_controller, form_generator);
 
