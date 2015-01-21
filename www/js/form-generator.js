@@ -13,6 +13,7 @@
 var FormGenerator = function () {
 
     var nav_wrapper = $('#nav-wrapper'),
+        row_top_header = $('.row-top-header'),
         content = $('#content');
 
     /**
@@ -76,9 +77,9 @@ var FormGenerator = function () {
 
     this.drawViewHeaders = function() {
         content.append('<div class="row-top-header"></div>');
-        $('.row-top-header').append('<div class="column-header">Station Name: </div>');
-        $('.row-top-header').append('<div class="column-header">Date:</div>');
-        $('.row-top-header').append('<div class="column-header">Actions:</div>');
+        row_top_header.append('<div class="column-header">Station Name: </div>');
+        row_top_header.append('<div class="column-header">Date:</div>');
+        row_top_header.append('<div class="column-header">Actions:</div>');
     };
 
     var drawDateForm = function (current_date) {

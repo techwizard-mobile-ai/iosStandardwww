@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90459aeb-6001-44f0-a9af-dc0d4548e405" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/browse-controller.js" afterPath="$PROJECT_DIR$/www/js/browse-controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/navigation-controller.js" afterPath="$PROJECT_DIR$/www/js/navigation-controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/application-controller.js" afterPath="$PROJECT_DIR$/www/js/application-controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/form-generator.js" afterPath="$PROJECT_DIR$/www/js/form-generator.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/json-controller.js" afterPath="$PROJECT_DIR$/www/js/json-controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="apparatus_ios.iws" />
@@ -28,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="application-controller.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="application-controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/application-controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
-              <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.2944573" vertical-offset="0" max-vertical-offset="866">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -43,7 +44,7 @@
       <file leaf-file-name="browse-controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/browse-controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1343">
+            <state vertical-scroll-proportion="0.0" vertical-offset="477" max-vertical-offset="1343">
               <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -55,21 +56,9 @@
       <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="3468">
+            <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="3468">
               <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form-controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/form-controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="612" max-vertical-offset="2040">
-              <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -77,30 +66,8 @@
       <file leaf-file-name="form-generator.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/form-generator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3112" max-vertical-offset="4641">
-              <caret line="237" column="6" selection-start-line="237" selection-start-column="6" selection-end-line="237" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="navigation-controller.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/js/navigation-controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1374134" vertical-offset="0" max-vertical-offset="2703">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.846153" vertical-offset="68" max-vertical-offset="1156">
-              <caret line="42" column="7" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="4658">
+              <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -109,8 +76,8 @@
       <file leaf-file-name="json-controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/json-controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="596" max-vertical-offset="1819">
-              <caret line="45" column="65" selection-start-line="45" selection-start-column="65" selection-end-line="45" selection-end-column="65" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="1819">
+              <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -127,14 +94,14 @@
         <option value="$PROJECT_DIR$/www/js/db-controller.js" />
         <option value="$PROJECT_DIR$/www/js/application_controller.js" />
         <option value="$PROJECT_DIR$/www/js/init.js" />
-        <option value="$PROJECT_DIR$/www/js/json-controller.js" />
         <option value="$PROJECT_DIR$/www/css/main.css" />
         <option value="$PROJECT_DIR$/www/index.html" />
-        <option value="$PROJECT_DIR$/www/js/application-controller.js" />
         <option value="$PROJECT_DIR$/www/js/form-controller.js" />
-        <option value="$PROJECT_DIR$/www/js/form-generator.js" />
         <option value="$PROJECT_DIR$/www/js/browse-controller.js" />
         <option value="$PROJECT_DIR$/www/js/navigation-controller.js" />
+        <option value="$PROJECT_DIR$/www/js/json-controller.js" />
+        <option value="$PROJECT_DIR$/www/js/form-generator.js" />
+        <option value="$PROJECT_DIR$/www/js/application-controller.js" />
       </list>
     </option>
   </component>
@@ -496,7 +463,13 @@
       <option name="project" value="LOCAL" />
       <updated>1421871430275</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="fixed bug where date select remained after going back from a form">
+      <created>1421872841914</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1421872841914</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -560,7 +533,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="now populates db onload" />
     <MESSAGE value="doc" />
     <MESSAGE value="now only using dbcontroller to build form information" />
     <MESSAGE value="back to original functionality using only dbcontroller" />
@@ -585,7 +557,8 @@
     <MESSAGE value="refactoring (still broke as hell)" />
     <MESSAGE value="refactoring still" />
     <MESSAGE value="moved table-wrapper dom elements to content div" />
-    <option name="LAST_COMMIT_MESSAGE" value="moved table-wrapper dom elements to content div" />
+    <MESSAGE value="fixed bug where date select remained after going back from a form" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug where date select remained after going back from a form" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -939,24 +912,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/json-controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="596" max-vertical-offset="1819">
-          <caret line="45" column="65" selection-start-line="45" selection-start-column="65" selection-end-line="45" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="1819">
+          <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/css/main.css">
+    <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="3468">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.7690476" vertical-offset="68" max-vertical-offset="1156">
+          <caret line="42" column="7" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/application-controller.js">
+    <entry file="file://$PROJECT_DIR$/www/js/navigation-controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
-          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+        <state vertical-scroll-proportion="-0.2748268" vertical-offset="408" max-vertical-offset="2703">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/form-controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37297922" vertical-offset="0" max-vertical-offset="2040">
+          <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -965,16 +948,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/form-generator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3112" max-vertical-offset="4641">
-          <caret line="237" column="6" selection-start-line="237" selection-start-column="6" selection-end-line="237" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3792" max-vertical-offset="4658">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
+    <entry file="file://$PROJECT_DIR$/www/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.846153" vertical-offset="68" max-vertical-offset="1156">
-          <caret line="42" column="7" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="3468">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -989,20 +972,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/form-controller.js">
+    <entry file="file://$PROJECT_DIR$/www/js/application-controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="2040">
-          <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/navigation-controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1374134" vertical-offset="0" max-vertical-offset="2703">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2944573" vertical-offset="0" max-vertical-offset="866">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

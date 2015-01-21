@@ -13,8 +13,6 @@ var ApplicationController = function () {
         form_controller = new FormController(db_controller, json_controller, form_generator, current_date),
         browse_controller = new BrowseController(db_controller, form_generator);
 
-    //NEXT WEEK WE NEED TO FIX THIS GARBAGE SRLSY
-    //TODO FIX THIS CRAP, AKA THE WHOLE THING
     var init = function () {
         navigation_controller.setFormController(form_controller);
         navigation_controller.setBrowseController(browse_controller);
