@@ -7,6 +7,7 @@
 var BrowseController = function (db_controller, form_generator) {
 
     var content = $('#content'),
+        button_wrapper = $('#button-wrapper'),
         form_controller,
         navigation_controller;
 
@@ -31,7 +32,7 @@ var BrowseController = function (db_controller, form_generator) {
      * @param {Array} readings
      */
     this.listReadings = function(readings) {
-        form_generator.clearMainMenu();
+        button_wrapper.toggle();
         form_generator.drawViewHeaders();
         readings.forEach(function(reading) {
             var reading_id = reading.station_name.replace(' ', '') + reading.date;

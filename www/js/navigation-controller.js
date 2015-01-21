@@ -9,6 +9,7 @@ var NavigationController = function (db_controller, json_controller) {
     var form_controller,
         browse_controller,
         content = $('#content'),
+        nav_wrapper = $('#nav-wrapper'),
         setup_button = $('#setup-button'),
         new_reading_button = $('#new-reading-button'),
         view_reading_button = $('#view-reading-button'),
@@ -52,6 +53,7 @@ var NavigationController = function (db_controller, json_controller) {
 
     this.toggleButtons = function () {
         button_wrapper.toggle();
+        nav_wrapper.html("");
         content.html("");
     };
 
