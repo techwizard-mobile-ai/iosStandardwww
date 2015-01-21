@@ -6,7 +6,7 @@
 
 var BrowseController = function (db_controller, form_generator) {
 
-    var that = this,
+    var content = $('#content'),
         form_controller,
         navigation_controller;
 
@@ -35,7 +35,7 @@ var BrowseController = function (db_controller, form_generator) {
         form_generator.drawViewHeaders();
         readings.forEach(function(reading) {
             var reading_id = reading.station_name.replace(' ', '') + reading.date;
-            $('.table-wrapper').append('<div class="row" id="' + reading_id + '"></div>');
+            content.append('<div class="row" id="' + reading_id + '"></div>');
             $('#' + reading_id).append('<div class="column">' + reading.station_name + '</div>');
             $('#' + reading_id).append('<div class="column">' + reading.date + '</div>');
             $('#' + reading_id).append('<div class="column" id="edit' + reading_id + '">Edit</div>');

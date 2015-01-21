@@ -60,24 +60,22 @@ var FormGenerator = function () {
     };
 
     this.addSubmitButton = function(callback) {
-        $('#table-wrapper').append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
+        content.append('<input type="button" class="button-dark-right" id="submit" name="submit" value="SUBMIT" />');
         $('#submit').click(callback);
     };
 
     this.addSendButton = function(callback) {
-        $('#table-wrapper').append('<input type="button" class="button-dark-right" id="send" name="send" value="SEND" />');
+        content.append('<input type="button" class="button-dark-right" id="send" name="send" value="SEND" />');
         $('#send').click(callback);
     };
 
     this.addBackButton = function(callback) {
-        $('#table-wrapper').append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
+        content.append('<input type="button" class="button-dark" id="back" name="back" value="BACK" />');
         $('#back').click(callback);
     };
 
     this.drawViewHeaders = function() {
-        //$('#main-menu').append('<div class="nav-wrapper" id="nav-wrapper"></div>');
-        //$('#main-menu').append('<div class="table-wrapper"></div>');
-        $('.table-wrapper').append('<div class="row-top-header"></div>');
+        content.append('<div class="row-top-header"></div>');
         $('.row-top-header').append('<div class="column-header">Station Name: </div>');
         $('.row-top-header').append('<div class="column-header">Date:</div>');
         $('.row-top-header').append('<div class="column-header">Actions:</div>');
@@ -114,7 +112,7 @@ var FormGenerator = function () {
             id = "regulator" + regulator_name + "header";
             jquery_id = "#" + id;
 
-        $('.table-wrapper').append("<div class='row-top-header' id='" + id + "'></div>");
+        content.append("<div class='row-top-header' id='" + id + "'></div>");
         $(jquery_id).append("<div class='column-header-small'>" + regulator_name + "</div>");
         $(jquery_id).append("<div class='column-header'>Count</div>");
         $(jquery_id).append("<div class='column-header'>Raise</div>");
@@ -128,7 +126,7 @@ var FormGenerator = function () {
     var drawRegulatorAForms = function (regulator_id) {
         var jquery_id = "#a" + regulator_id;
 
-        $('.table-wrapper').append("<div class='row' id='a" + regulator_id + "'></div>");
+        content.append("<div class='row' id='a" + regulator_id + "'></div>");
         $(jquery_id).append("<div class='column-small'>A</div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_count' id='r" + regulator_id + "a_count' value='' /></div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "a_raise' id='r" + regulator_id + "a_raise' value='' /></div>");
@@ -142,7 +140,7 @@ var FormGenerator = function () {
     var drawRegulatorBForms = function (regulator_id) {
         var jquery_id = "#b" + regulator_id;
 
-        $('.table-wrapper').append("<div class='row' id='b" + regulator_id + "'></div>");
+        content.append("<div class='row' id='b" + regulator_id + "'></div>");
         $(jquery_id).append("<div class='column-small'>B</div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_count' id='r" + regulator_id + "b_count' value='' /></div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "b_raise' id='r" + regulator_id + "b_raise' value='' /></div>");
@@ -156,7 +154,7 @@ var FormGenerator = function () {
     var drawRegulatorCForms = function (regulator_id) {
         var jquery_id = "#c" + regulator_id;
 
-        $('.table-wrapper').append("<div class='row' id='c" + regulator_id + "'></div>");
+        content.append("<div class='row' id='c" + regulator_id + "'></div>");
         $(jquery_id).append("<div class='column-small'>C</div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_count' id='r" + regulator_id + "c_count' value='' /></div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='r" + regulator_id + "c_raise' id='r" + regulator_id + "c_raise' value='' /></div>");
@@ -172,7 +170,7 @@ var FormGenerator = function () {
             id = "header" + breaker_name,
             jquery_id = "#" + id;
 
-        $('.table-wrapper').append("<div class='row-header' id='" + id + "'></div>");
+        content.append("<div class='row-header' id='" + id + "'></div>");
         $(jquery_id).append("<div class='column-header-small'>" + breaker_name + "</div>");
         $(jquery_id).append("<div class='column-header'>Count</div>");
         $(jquery_id).append("<div class='column-header'>A</div>");
@@ -186,7 +184,7 @@ var FormGenerator = function () {
     var drawBreakerCountForms = function (breaker_id) {
         var jquery_id = "#breaker" + breaker_id;
 
-        $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "'></div>");
+        content.append("<div class='row' id='breaker" + breaker_id + "'></div>");
         $(jquery_id).append("<div class='column-small'></div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "count' id='b" + breaker_id + "count' value='' /></div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "a_flag' id='b" + breaker_id + "a_flag' value='' /></div>");
@@ -200,7 +198,7 @@ var FormGenerator = function () {
     var drawBreakerMultForms = function (breaker_id) {
         var jquery_id = "#breaker" + breaker_id + "mult";
 
-        $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "mult'></div>");
+        content.append("<div class='row' id='breaker" + breaker_id + "mult'></div>");
         $(jquery_id).append("<div class='column-small'></div>");
         $(jquery_id).append("<div class='column-bold'>Mult</div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "a_mult' id='b" + breaker_id + "a_mult' value='' /></div>");
@@ -214,7 +212,7 @@ var FormGenerator = function () {
     var drawBreakerAmpForms = function (breaker_id) {
         var jquery_id = "#breaker" + breaker_id + "amp";
 
-        $('.table-wrapper').append("<div class='row' id='breaker" + breaker_id + "amp'></div>");
+        content.append("<div class='row' id='breaker" + breaker_id + "amp'></div>");
         $(jquery_id).append("<div class='column-small'></div>");
         $(jquery_id).append("<div class='column-bold'>Amps</div>");
         $(jquery_id).append("<div class='column'><input type='text' class='text-box' name='b" + breaker_id + "a_amps' id='b" + breaker_id + "a_amps' value='' /></div>");

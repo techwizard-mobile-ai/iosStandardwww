@@ -13,6 +13,7 @@ var FormController = function (db_controller, json_controller, form_generator, c
     
     var that = this,
         content = $('#content'),
+        station_form = $('#station_form'),
         navigation_controller;
 
     /**
@@ -36,7 +37,7 @@ var FormController = function (db_controller, json_controller, form_generator, c
         db_controller.getEntry('breaker_list', event.data.id, drawBreakerForms);
 
         setTimeout(function() {
-            form_generator.addBackButton(navigation_controller.goToMainMenu);
+            form_generator.addBackButton(navigation_controller.toggleButtons);
             form_generator.addSubmitButton(submitForm);
             form_generator.addSendButton(sendForm);
         }, 500);
@@ -69,8 +70,8 @@ var FormController = function (db_controller, json_controller, form_generator, c
     };
     
 	var submitForm = function () {
-        var hidden = $('#station-form').find(':hidden'),
-            station_read = $('#station-form').serializeObject();
+        var hidden = station_form.find(':hidden'),
+            station_read = station_form.serializeObject();
         
         hidden.show();
 
@@ -85,6 +86,7 @@ var FormController = function (db_controller, json_controller, form_generator, c
     var sendForm = function () {
         if (that.checkConnection() === true) {
             json_controller.submitReading();
+            alert('Reading sent to central server');
             navigation_controller.toggleButtons();
         } else {
             alert("Connection Unavailable: Please Try Again");
