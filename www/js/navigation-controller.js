@@ -51,6 +51,10 @@ var NavigationController = function (db_controller, json_controller) {
         view_reading_button.bind('click', viewReadingButtonOnClick);
     };
 
+    /**
+     * Toggles the visibility of button wrapper and resets content and nav wrapper
+     * @return none
+     */
     this.toggleButtons = function () {
         button_wrapper.toggle();
         nav_wrapper.html("");
@@ -75,10 +79,6 @@ var NavigationController = function (db_controller, json_controller) {
         db_controller.getEntries('station_readings', browse_controller.listReadings);
     };
 
-    /**
-     * Builds the database when starting up the application
-     * @return none
-     */
     var setupDB = function () {
         if (that.checkConnection() === true) {
             json_controller.getStationList(addStationComponentsToDB);
@@ -127,10 +127,6 @@ var NavigationController = function (db_controller, json_controller) {
         });
     };
 
-    /**
-     * Queries the JSONController instance for a list of available substations
-     * and generates the html to display them for the user
-     */
     var showStationList = function () {
         db_controller.getEntries('substation_list', generateStationButtons);
         button_wrapper.toggle();
