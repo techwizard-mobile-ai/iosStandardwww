@@ -27,6 +27,7 @@ var ApplicationController = function () {
      */
     this.run = function () {
         init();
+        $('#status').append('RUN FUNCTION CALLED <br>');
         navigation_controller.enableButtons();
     };
 

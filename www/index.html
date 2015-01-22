@@ -23,18 +23,11 @@
             color: black
         }
     </style>
-    <script src="intelxdk.js"></script>
-    <script type="text/javascript">
-        /* This code is used to run as soon as Intel activates */
-        var onDeviceReady = function() {
-            //hide splash screen
-            intel.xdk.device.hideSplashScreen();
-            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
-        };
-    </script>
-    <script src="js/fastclick.js"></script>
     <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/fastclick.js"></script>
+    
+    <script src="intelxdk.js"></script>
+    <script src="cordova-3.5.0.js"></script>
     <script src="js/form-generator.js"></script>
     <script src="js/db-controller.js"></script>
     <script src="js/json-controller.js"></script>
@@ -42,10 +35,20 @@
     <script src="js/form-controller.js"></script>
     <script src="js/navigation-controller.js"></script>
     <script src="js/application-controller.js"></script>
+    <script type="text/javascript">
+        /* This code is used to run as soon as Intel activates */
+        var onDeviceReady = function() {
+            //hide splash screen
+            intel.xdk.device.hideSplashScreen();
+            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);            
+        };
+    </script>
+    
 </head>
 
 <body>
     <!-- content goes here-->
+    <div id="status"></div>
     <div class="main-wrapper">
         <div class="nav-wrapper" id="nav-wrapper"></div>
         <div class="table-wrapper" id="table-wrapper">
@@ -57,8 +60,9 @@
             </div>
         </div>
     </div>
-
+    
     <script src="js/init.js"></script>
+    
 </body>
 
 </html>
