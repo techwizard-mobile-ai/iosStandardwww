@@ -45,10 +45,9 @@ var NavigationController = function (db_controller, json_controller) {
      * @return none
      */
     this.enableButtons = function () {
-        console.log('enabling buttons...');
-        setup_button.bind('click', setupButtonOnClick);
-        new_reading_button.bind('click', newReadingButtonOnClick);
-        view_reading_button.bind('click', viewReadingButtonOnClick);
+        setup_button.on('click', setupButtonOnClick);
+        new_reading_button.on('click', newReadingButtonOnClick);
+        view_reading_button.on('click', viewReadingButtonOnClick);
     };
 
     /**

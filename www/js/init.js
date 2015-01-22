@@ -13,6 +13,13 @@ $(document).ready(function () {
     
 });
 
+//fastclick initialize
+if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}
+
 //Check if IndexedDB is available
 document.addEventListener("DOMContentLoaded", function () {
     if ("indexedDB" in window) {

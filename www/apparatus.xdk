@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "8100b6c0-0a2a-468b-b5b7-0a9232e2736f",
-      "lastModifiedDate": 1418848511346,
+      "lastModifiedDate": 1421949283709,
       "creationDate": 1418848511325
     },
     "sourceDirectory": "",
@@ -32,16 +32,16 @@
     ],
     "cordovaPlugins": [
       {
-        "id": "org.apache.cordova.device",
-        "version": "0.2.9",
+        "id": "org.apache.cordova.splashscreen",
+        "version": "0.3.0",
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
       },
       {
-        "id": "org.apache.cordova.splashscreen",
-        "version": "0.3.0",
-        "selectedState": "Auto",
+        "id": "org.apache.cordova.device",
+        "version": "0.2.9",
+        "selectedState": "Included",
         "data": {},
         "paramvals": {}
       }
@@ -148,6 +148,9 @@
         "cordovaCLIVersion_": "3.5",
         "appVersion_": "0.0.0.1"
       }
-    }
+    },
+    "gameAssetDirectory": "asset",
+    "gameMetadata": {},
+    "projectTags": []
   }
 }
